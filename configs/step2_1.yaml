@@ -1,0 +1,26 @@
+# Step 2-1. Negative / Dense Prompt Generation
+
+seed_list: [0,1,2]
+world_size: 4
+batch_size: 16
+num_workers: 4
+
+data_path: ./examples/step1/base_prompt.json 
+s_idx: 
+e_idx: 
+
+save_path: ./examples/step2/prompt
+save_name:
+
+ckpt_path:
+model:
+  model_path: ./checkpoints/Janus-Pro-7B
+  cache_dir: ./checkpoints/hf_cache
+  flash_attn: True
+
+generation_config: 
+  do_sample: True
+  num_beams: 1
+  temperature: 1.2
+  top_p: 0.9
+  max_new_tokens: 512

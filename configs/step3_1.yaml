@@ -1,0 +1,27 @@
+# Step 3-1. Compositional VQA
+
+seed: 42
+world_size: 1
+batch_size: 4
+num_workers: 4
+
+data_path: ./examples/step2/prompt/long_prompt.json
+s_idx: 
+e_idx: 
+
+image_path: ./examples/step2/images
+save_path: ./examples/step3
+save_name: 
+
+ckpt_path:
+model:
+  model_path: ./checkpoints/Janus-Pro-7B
+  cache_dir: ./checkpoints/hf_cache
+  flash_attn: True
+
+generation_config: 
+  do_sample: True
+  num_beams: 1
+  temperature: 1.2
+  top_p: 0.5
+  max_new_tokens: 256

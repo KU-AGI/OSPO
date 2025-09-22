@@ -1,0 +1,24 @@
+# Step 2-2. Image Generation
+
+seed_list: [0,1,2]
+world_size: 4
+batch_size: 8
+num_workers: 4
+
+data_path: ./examples/step2/prompt/long_prompt.json
+s_idx:
+e_idx: 
+
+save_path: ./examples/step2/images
+save_name:
+
+ckpt_path:
+model:
+  model_path: ./checkpoints/Janus-Pro-7B
+  cache_dir: ./checkpoints/hf_cache
+  flash_attn: True
+
+generation_config: 
+  parallel_size: 1
+  temperature: 1.0
+  cfg_weight: 5.0

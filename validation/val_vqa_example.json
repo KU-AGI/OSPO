@@ -1,0 +1,189 @@
+[
+    {
+        "item_id": "000",
+        "category": "color",
+        "prompt": "a yellow pencil and a green eraser",
+        "question": [
+            "Is there a yellow pencil?",
+            "Is there a green eraser?"
+        ]
+    },
+    {
+        "item_id": "001",
+        "category": "color",
+        "prompt": "a green carrot and a orange broccoli",
+        "question": [
+            "Is there a green carrot?",
+            "Is there an orange broccoli?"
+        ]
+    },
+    {
+        "item_id": "002",
+        "category": "color",
+        "prompt": "a green apple and a red book",
+        "question": [
+            "Is there a green apple?",
+            "Is there a red book?"
+        ]
+    },
+    {
+        "item_id": "003",
+        "category": "color",
+        "prompt": "a brown chair and a red clock",
+        "question": [
+            "Is there a brown chair?",
+            "Is there a red clock?"
+        ]
+    },
+    {
+        "item_id": "004",
+        "category": "color",
+        "prompt": "a red apple and a green book",
+        "question": [
+            "Is there a red apple?",
+            "Is there a green book?"
+        ]
+    },
+    {
+        "item_id": "005",
+        "category": "color",
+        "prompt": "a blue cat and a brown chair",
+        "question": [
+            "Is there a blue cat?",
+            "Is there a brown chair?"
+        ]
+    },
+    {
+        "item_id": "006",
+        "category": "color",
+        "prompt": "a red car and a brown giraffe",
+        "question": [
+            "Is there a red car?",
+            "Is there a brown giraffe?"
+        ]
+    },
+    {
+        "item_id": "007",
+        "category": "color",
+        "prompt": "a red candle and a white holder",
+        "question": [
+            "Is there a red candle?",
+            "Is there a white holder?"
+        ]
+    },
+    {
+        "item_id": "008",
+        "category": "color",
+        "prompt": "a black phone and a white charger",
+        "question": [
+            "Is there a black phone?",
+            "Is there a white charger?"
+        ]
+    },
+    {
+        "item_id": "009",
+        "category": "color",
+        "prompt": "a blue bowl and a green vase",
+        "question": [
+            "Is there a blue bowl?",
+            "Is there a green vase?"
+        ]
+    },
+    {
+        "item_id": "010",
+        "category": "color",
+        "prompt": "a black dress and a pink purse",
+        "question": [
+            "Is there a black dress?",
+            "Is there a pink purse?"
+        ]
+    },
+    {
+        "item_id": "011",
+        "category": "color",
+        "prompt": "A wood framed mirror hangs over a silver, square sink unit with white fittings.",
+        "question": [
+            "Is there a wood framed mirror?",
+            "Is there a silver, square sink unit with white fittings?"
+        ]
+    },
+    {
+        "item_id": "012",
+        "category": "color",
+        "prompt": "a green tomato and a red pepper",
+        "question": [
+            "Is there a green tomato?",
+            "Is there a red pepper?"
+        ]
+    },
+    {
+        "item_id": "013",
+        "category": "color",
+        "prompt": "a brown car and a red cat",
+        "question": [
+            "Is there a brown car?",
+            "Is there a red cat?"
+        ]
+    },
+    {
+        "item_id": "014",
+        "category": "color",
+        "prompt": "A white tiled bathroom with beige fixtures and a mirror.",
+        "question": [
+            "Is there a white tiled bathroom with beige fixtures and a mirror?"
+        ]
+    },
+    {
+        "item_id": "015",
+        "category": "color",
+        "prompt": "a black pen and a white notebook",
+        "question": [
+            "Is there a black pen?",
+            "Is there a white notebook?"
+        ]
+    },
+    {
+        "item_id": "016",
+        "category": "color",
+        "prompt": "a green bench and a yellow train",
+        "question": [
+            "Is there a green bench?",
+            "Is there a yellow train?"
+        ]
+    },
+    {
+        "item_id": "017",
+        "category": "color",
+        "prompt": "a green banana and a yellow orange",
+        "question": [
+            "Is there a green banana?",
+            "Is there a yellow orange?"
+        ]
+    },
+    {
+        "item_id": "018",
+        "category": "color",
+        "prompt": "a green bench and a brown dog",
+        "question": [
+            "Is there a green bench?",
+            "Is there a brown dog?"
+        ]
+    },
+    {
+        "item_id": "019",
+        "category": "color",
+        "prompt": "A blue toilet with a white seat on a display platform.",
+        "question": [
+            "Is there a blue toilet with a white seat on a display platform?"
+        ]
+    },
+    {
+        "item_id": "020",
+        "category": "color",
+        "prompt": "a red bird and a brown elephant",
+        "question": [
+            "Is there a red bird?",
+            "Is there a brown elephant?"
+        ]
+    }
+]

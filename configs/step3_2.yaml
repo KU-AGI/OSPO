@@ -1,0 +1,40 @@
+# Step 3-2. Filtering and Selection
+
+seed: 42
+world_size: 1
+batch_size: 4
+num_workers: 4
+
+# KEEP NULL
+data_path: 
+s_idx: 
+e_idx: 
+
+base_filtering_path: ./examples/step3/vqa_result_mode_base.json
+negative_scoring_path: 
+  merge_standard: ./examples/step3/train_data_mode_base.json
+  merge_nqs: ./examples/step3/vqa_prompt_mode_negative.json
+negative_filtering_path: ./examples/step3/vqa_result_mode_negative.json
+
+image_path: ./examples/step2/images
+save_path: ./examples/step3
+save_name: 
+
+ckpt_path:
+model:
+  model_path: ./checkpoints/Janus-Pro-7B
+  cache_dir: ./checkpoints/hf_cache
+  flash_attn: True
+
+tokenizer:
+  max_length: 2048
+  max_prompt_length: 1024
+  label_pad_token_id: -100 
+  padding_value: 0
+
+generation_config: 
+  do_sample: True
+  num_beams: 1
+  temperature: 1.2
+  top_p: 0.5
+  max_new_tokens: 256

@@ -1,0 +1,25 @@
+# Step 1. Initial Prompt Generation
+
+seed: 42
+world_size: 1
+batch_size: 1
+num_workers: 4
+
+save_path: ./examples/step1
+save_name:
+
+ckpt_path: 
+model:
+  model_path: ./checkpoints/Janus-Pro-7B
+  cache_dir: ./checkpoints/hf_cache
+  flash_attn: True
+
+max_len: 30       # total length
+repeat: 8
+interval: 100     # few-shot example replacement interval
+category:         # options: color1, color2, texture1, texture2, shape1, shape2, 2D_spatial, 3D_spatial, numeracy1, numeracy2, non-spatial, complex
+
+generation_config:
+  do_sample: True
+  temperature: 1.0
+  max_new_tokens: 512

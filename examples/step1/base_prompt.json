@@ -1,0 +1,42 @@
+[
+    {
+        "item_id": "0000000",
+        "t2i_category": "attribute",
+        "sub_category": "attribute1_color",
+        "prompt": "a green fishbowl.",
+        "concepts_and_relations": "green fishbowl",
+        "relation": "(fishbowl, green)"
+    },
+    {
+        "item_id": "0000001",
+        "t2i_category": "attribute",
+        "sub_category": "attribute1_color",
+        "prompt": "a navy cat",
+        "concepts_and_relations": "navy cat",
+        "relation": "(cat, navy)"
+    },
+    {
+        "item_id": "0000002",
+        "t2i_category": "attribute",
+        "sub_category": "attribute1_color",
+        "prompt": "a green dinosaur.",
+        "concepts_and_relations": "green dinosaur",
+        "relation": "(dinosaur, green)"
+    },
+    {
+        "item_id": "0000003",
+        "t2i_category": "attribute",
+        "sub_category": "attribute1_color",
+        "prompt": "a navy sailboat.",
+        "concepts_and_relations": "navy sailboat",
+        "relation": "(sailboat, navy)"
+    },
+    {
+        "item_id": "0000004",
+        "t2i_category": "attribute",
+        "sub_category": "attribute1_color",
+        "prompt": "a green garden.",
+        "concepts_and_relations": "green garden",
+        "relation": "(garden, green)"
+    }
+]

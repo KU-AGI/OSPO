@@ -1,0 +1,6 @@
+IMG_SIZE = 384
+PATCH_SIZE = 16
+PARALLEL_SIZE = 1
+IMAGE_TOKEN_NUM_PER_IMAGE = 576
+VOCAB_SIZE = 16384
+CATEGORY_LIST = ["attribute", "layout", "non-spatial", "complex"]

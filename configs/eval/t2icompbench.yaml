@@ -1,0 +1,38 @@
+# base.exp_name / model.type / model.ckpt_path 3개만 작성
+
+base:
+  save_path: /nas2/checkpoints/janus_dpo_eval
+  exp_name: 0629_nips_pairwise_vqa_pair_data_v2_with_mdpo_1_05_05/ckpt_100
+  task_name: t2icompbench
+
+  world_size: 1
+  precision: bf16 
+
+model:
+  type: pl # * official / pl 
+  model_path: /nas2/checkpoints/Janus-Pro-7B # deepseek-ai/Janus-Pro-1B
+  cache_dir: /nas2/checkpoints/hf_cache_yj
+  ckpt_path: /nas2/checkpoints/janus_dpo/0628_nips_pairwise_vqa_pair_data_v1/version_2/step=000100.ckpt
+  flash_attn: True
+  
+task:
+  # 고정
+  num_workers: 4
+  seed: [42] # [5,6,7,8,9]
+  parallel_size: 1 
+  temperature: 1
+  cfg_weight: 5
+  data_path: /nas/backup/data/visual_llama_eval/T2I-CompBench_dataset
+  
+  # 비고정
+  batch_size: 8 # maybe, optimal
+  split: val # train/val/미지정
+  category: ["non-spatial", "complex", "color", "3d_spatial", "spatial", "texture", "shape", "numeracy"] # ["shape", "spatial", "color", "texture", "3d_spatial", "numeracy", "complex", "non-spatial"]
+  s_idx:
+  e_idx:
+
+  eval:
+    # 카테고리의 상위
+    img_dir:
+    np_num: 8 # 고정 
+    complex_only: False # 고정
