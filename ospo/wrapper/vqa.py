@@ -145,7 +145,7 @@ class JanusProQuestionGenWrapper(LightningModule):
 
 
 class JanusProScoreWrapper(LightningModule):
-    def __init__(self, config, model, tokenizer, processor, mode: str = "base"):
+    def __init__(self, config, model, tokenizer, processor, constraint: int = None, mode: str = "base"):
         super().__init__()
         self.config=config
         self.model=model
@@ -154,6 +154,7 @@ class JanusProScoreWrapper(LightningModule):
     
         self.mode = mode
         assert self.mode in ["base", "negative"], f"Non-allowed mode: {self.mode}"
+        self.constraint = constraint
 
         self.output_list = []
         self.yes_ids = [self.tokenizer("yes", add_special_tokens=False).input_ids[-1],
@@ -175,6 +176,12 @@ class JanusProScoreWrapper(LightningModule):
             for sample in batch:
                 base_paths = sorted(glob(os.path.join(self.config.image_path, 'base', sample['t2i_category'], sample['item_id'], '*.png')))
                 negative_paths = sorted(glob(os.path.join(self.config.image_path, 'negative', sample['t2i_category'], sample['item_id'], '*.png')))
+                
+                # Top-{constraint} 
+                if self.constraint is not None:
+                    base_paths = base_paths[:self.constraint]
+                    negative_paths = negative_paths[:self.constraint]
+                    
                 base_paths_batched.append(base_paths)
                 negative_paths_batched.append(negative_paths)
 

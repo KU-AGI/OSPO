@@ -204,10 +204,30 @@ def get_prompt(vl_chat_processor, text):
     return prompt
 
 
+
+def get_dataloader(config, args):
+    dataset = T2ICompBench(data_dir=config.task.data_path,
+                      category_list=config.task.category if args.category is None else args.category,
+                      split=config.task.split,
+                      s_idx=args.s_idx,
+                      e_idx=args.e_idx)
+    dataloader = DataLoader(dataset,
+                            collate_fn = lambda batch: batch, 
+                            batch_size=config.task.batch_size,
+                            num_workers=config.task.num_workers,
+                            pin_memory=True,
+                            drop_last=False) # ddp
+    return dataloader
+
+
 def main(args):
 
     config = build_config(cfg_path=args.cfg_path)
     device = "cuda" if torch.cuda.is_available() else "cpu"
+
+    # set s_idx, e_idx
+    args.s_idx = config.task.s_idx
+    args.e_idx = config.task.e_idx
     
     seed_everything(config.task.seed[0], workers=True)
 

@@ -1,0 +1,37 @@
+# Step 3-1. Compositional VQA
+
+seed: 42
+world_size: 6
+# batch_size: 32 # attribute, layout
+# batch_size: 4 # non-spatial
+batch_size: 8 # complex
+num_workers: 4
+
+# vqa question prompt
+data_path: /nas2/data/Janus_dataset/next_v2/iter2/prompt/step3_vqa/vqa_question_12000_end.json
+s_idx: 3000
+e_idx: 
+
+img_constraint: 3
+image_path: /nas2/data/Janus_dataset/next_v2/iter2/images
+save_path: /nas2/data/Janus_dataset/next_v2/iter2/prompt/step3_vqa
+# save_name: vqa_result_0_8000
+# save_name: vqa_result_8000_12000
+# save_name: vqa_result_12000_15000
+save_name: vqa_result_15000_end
+
+
+# iter1 ckpt
+ckpt_path: /nas2/data/Janus_dataset/next/ckpt/1103_next_v2_use_soft_mask_argmax_chosen_v1_simpo_1_beta_5_sft_2_copo_0/version_0/step=000600.ckpt 
+model:
+  model_path: /nas2/checkpoints/Janus-Pro-7B # deepseek-ai/Janus-Pro-1B
+  cache_dir: /nas2/checkpoints/hf_cache_yj
+  attn_mode: flash_attention_2
+  # flash_attn: True
+
+generation_config: 
+  do_sample: True
+  num_beams: 1
+  temperature: 1.2
+  top_p: 0.5
+  max_new_tokens: 256

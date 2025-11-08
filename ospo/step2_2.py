@@ -4,6 +4,7 @@ import os
 import time
 import argparse
 import torch
+import datetime
 from peft import get_peft_model
 
 import pyrootutils
@@ -53,22 +54,24 @@ def main(config):
         config.data_path = os.path.join(os.path.dirname(config.save_path), 'step2', 'long_prompt.json')
     dataloader = get_dataloader(config)
     trainer = get_trainer(device, config.world_size)
+
+    start_time = datetime.datetime.now()
     trainer.test(model, dataloaders=dataloader)
     print("(Step 3) Image generation completed.")
 
+    end_time = datetime.datetime.now()
+    elapsed_time = end_time - start_time
+    elapsed_min = elapsed_time.total_seconds() / 60
+    print('------------------------------------------')
+    print(f"Elapsed Time: {elapsed_min:.2f} minutes")
+    print('------------------------------------------')
+
+ 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--cfg_path", type=str, default="configs/step2_2.yaml")
     args, unknown = parser.parse_known_args()  
     config = build_config(cfg_path=args.cfg_path)
-    
-    start = time.time()
 
     main(config)
-
-    end = time.time()
-    elapsed = end - start
-    print(f"Start Time: {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(start))}")
-    print(f"End Time:   {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(end))}")
-    print(f"Elapsed Time: {elapsed:.2f} seconds")

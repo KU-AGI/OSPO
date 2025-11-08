@@ -34,23 +34,27 @@ class TrainDataModule(pl.LightningDataModule):
                                         tokenizer=self.tokenizer,
                                         num_samples=self.config.dataset.train.num_samples,
                                         copo_mode=self.copo_mode,
+                                        use_mask=self.config.use_mask,
+                                        mask_dir=self.config.mask_dir,
+                                        off_policy=self.config.off_policy
                                         )
-        val_data_path_dict = self.config.dataset.val.data_path
-        for k, v in val_data_path_dict.items():
-            if v is None:
-                continue
-            task_id = int(k.split("_")[1])
-            if self.val_datasets is None:
-                self.val_datasets = []
+        if self.config.dataset.get('val', None) is not None:
+            val_data_path_dict = self.config.dataset.val.data_path
+            for k, v in val_data_path_dict.items():
+                if v is None:
+                    continue
+                task_id = int(k.split("_")[1])
+                if self.val_datasets is None:
+                    self.val_datasets = []
 
-            self.val_datasets.append(
-                ValidationDataset(data_path=v,
-                                chat_processor=self.chat_processor,
-                                image_processor=self.image_processor,
-                                tokenizer=self.tokenizer,
-                                task_id=task_id,
-                                copo_mode=self.copo_mode)
-            )
+                self.val_datasets.append(
+                    ValidationDataset(data_path=v,
+                                    chat_processor=self.chat_processor,
+                                    image_processor=self.image_processor,
+                                    tokenizer=self.tokenizer,
+                                    task_id=task_id,
+                                    copo_mode=self.copo_mode)
+                )
 
 
     def train_dataloader(self):
@@ -90,12 +94,14 @@ class GenerationDataModule(pl.LightningDataModule):
             if config.max_len is None:
                 if config.category == "object":
                     max_len = 120
-                elif config.category == "spatial":
-                    max_len = 40
+                elif config.category == "2D_spatial" or config.category == "3D_spatial":  # "spatial":
+                    max_len = 3000 # 40
                 elif config.category == "non-spatial" or config.category == "complex":
                     max_len = 4000
+                elif config.category == "numeracy1" or config.category == "numeracy2":
+                    max_len = 3000
                 else:
-                    max_len = 70
+                    max_len = 2000 # 70
             else:
                 max_len = config.max_len
             self.dataset = list(range(max_len)) # dummy data

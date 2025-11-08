@@ -5,17 +5,19 @@ world_size: 1
 batch_size: 1
 num_workers: 4
 
-save_path: ./examples/step1
+save_path: /nas2/data/Janus_dataset/next_v2/iter2/prompt/step1
 save_name:
 
-ckpt_path: 
+# iter1 ckpt
+ckpt_path: /nas2/data/Janus_dataset/next/ckpt/1103_next_v2_use_soft_mask_argmax_chosen_v1_simpo_1_beta_5_sft_2_copo_0/version_0/step=000600.ckpt 
 model:
-  model_path: ./checkpoints/Janus-Pro-7B
-  cache_dir: ./checkpoints/hf_cache
-  flash_attn: True
+  model_path: /nas2/checkpoints/Janus-Pro-7B # deepseek-ai/Janus-Pro-1B
+  cache_dir: /nas2/checkpoints/hf_cache_yj
+  attn_mode: flash_attention_2
+  # flash_attn: True
 
-max_len: 30       # total length
-repeat: 8
+max_len:          # total length
+repeat: 8         # default
 interval: 100     # few-shot example replacement interval
 category:         # options: color1, color2, texture1, texture2, shape1, shape2, 2D_spatial, 3D_spatial, numeracy1, numeracy2, non-spatial, complex
 

@@ -1,22 +1,31 @@
 # Step 4. Training
 
 base:
-  save_path: ./checkpoints/logs
-  exp_name: 
+  save_path: /nas2/data/Janus_dataset/next/ckpt/ablation
+  exp_name: 1107_argmax_chosen_pair_size_5
   world_size: 4
   resume: 
 
-
 model:
-  model_path: ./checkpoints/Janus-Pro-7B
-  cache_dir: ./checkpoints/hf_cache
-  flash_attn: True
+  model_path: /nas2/checkpoints/Janus-Pro-7B
+  cache_dir: /nas2/checkpoints/hf_cache_yj
+  attn_mode: flash_attention_2 # eager
 
+# 참고
+# LLAMA_ATTENTION_CLASSES = {
+#     "eager": LlamaAttention,
+#     "flash_attention_2": LlamaFlashAttention2,
+#     "sdpa": LlamaSdpaAttention,
+# }
+
+use_mask: True
+mask_dir: /nas2/data/Janus_dataset/next_v2/ablation/pair_size/train_size_5/object_mask
+off_policy: False
 
 use_peft: True 
 lora:
-  lora_rank: 32
-  lora_alpha: 64
+  lora_rank: 64
+  lora_alpha: 128
   lora_dropout: 0.05
   target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "down_proj", "up_proj"]
   modules_to_save: # Keeps selected layers trainable without applying LoRA.
@@ -24,47 +33,35 @@ lora:
 
 dataset:
   train:
-    batch_size: 8 # [WARNING] When train in copo_mode=True, use less batch size than when the copo_mode=False 
+    batch_size: 16 # 8 # [WARNING] When train in copo_mode=True, use less batch size than when the copo_mode=False 
     num_workers: 4
-    data_path: ./examples/train.json
+    data_path: /nas2/data/Janus_dataset/next_v2/ablation/pair_size/train_size_5/train_mode_argmax_chosen_filtered_12280.json
     num_samples:              
   val:
-    batch_size: 4 # A100; max 8 because of DPGBench (long prompt)
-    num_workers: 4
-    # 0.vqa | 1.general | 2.hn-image-id | 3.hn-image-ood | 4.hn-text-id | 5.hn-text-ood
-    data_path: 
-      task_0: validation/val_vqa.json
-      task_1: ./examples/val.json
-      task_2: validation/val_hn_id.json
-      task_3: validation/val_hn_ood.json
-      task_4: validation/val_hn_text_id.json
-      task_5: validation/val_hn_text_ood.json
-    temperature: 1.0
-    cfg_weight: 5.0
-
 
 optimizer:
-  init_lr: 1e-5 
+  init_lr: 1e-5
   betas: [0.9, 0.95]
   weight_decay: 0.00 
   eps: 1e-8 
-  scheduler_type: constant # cosine
-  min_lr: 1e-6 
+  scheduler_type: cosine # constant # cosine
+  min_lr: 1e-7
 
 
 experiment:
   seed: 42
   precision: bf16 # 32 / bf16
-  warmup_ratio: 0.0
+  warmup_ratio: 0.05 # 0.15
   gradient_clip_val: 1.0
-  enable_checkpointing: True
-  gradient_checkpointing: True 
-  gradient_accumulation_steps: 4
-  max_training_steps: 500
-  save_steps: 
+  enable_checkpointing: True           # checkpoint saving 관련
+  gradient_checkpointing: True         # model training 관련
+  gradient_accumulation_steps: 2 # 4       # (GC on)
+  max_training_steps: 1000             # 8 epoch, 기존에는 80 step = 1 epoch (16k 기준)
+  save_steps: 100
   log_steps: 5
-  val_steps: 50 
-  log_by_category: False
+  val_steps: 50
+  log_by_category: True
+
 
   freeze:
     vision_model: True
@@ -83,18 +80,27 @@ tokenizer:
   label_pad_token_id: -100  
 
 algo: 
-  beta_1: 3
-  beta_2: 5 # copo
+  beta_1: 5 # 2 # 5
+  beta_2: 5 # 5 # 2 # 5 # copo
   gamma_beta_ratio_1: 0.5 
-  gamma_beta_ratio_2: 0.5
+  gamma_beta_ratio_2: 0.05
 
   label_smoothing: 0.0 
   loss_type: sigmoid
 
   # loss weight 
-  simpo_weight: 0.8
-  sft_weight: 1.5 
-  copo_weight: 0.5 # copo_weight > 0.0, automatically set mdpo_mode=True 
+  schedule_loss_weight: False # schedule_loss_weight 내에 min, max 값 하드코딩
+
+  simpo_weight: 1.0 # 0.8 # 1.0
+  copo_weight: 0.0 # 1.0 # 0.8  # 1.0 # copo_weight > 0.0, automatically set mdpo_mode=True 
+  sft_weight: 2.0 # 1.0
+
+  pixel_weight: 0.0 # 1.2 # 1.0
+  pixel_tau: 0.0 # 1.0 # 1.0 ~ 0.0 (cannot be 0.0)
+  pixel_type: # mse # l1
+
+  mask_alpha: 1.0 # 1.0
+  mask_gamma: 1.0
 
   # reward clipping weight
   simpo_clipping_weight: 0.0

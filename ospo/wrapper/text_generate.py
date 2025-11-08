@@ -26,7 +26,7 @@ class JanusProElementGenWrapper(LightningModule):
 
         if self.max_len is None:
             if config.category == "2D_spatial" or config.category == "3D_spatial" or config.category == "numeracy1" or config.category == "numeracy2":
-                self.max_len = 1000
+                self.max_len = 2000 # 1000 for spatial
             elif config.category == "non-spatial" or config.category == "complex":
                 self.max_len = 4000
             else:
@@ -70,6 +70,7 @@ class JanusProElementGenWrapper(LightningModule):
 
     @torch.no_grad()
     def test_step(self, batch, batch_idx):
+        print("Current Length: ", len(self.element_set))
         if len(self.element_set) >= self.max_len:
             return 
 
@@ -234,6 +235,7 @@ class JanusProNegativeGenWrapper(LightningModule):
 
                 input_embeds, batched_prepares = self.prepare_input_embeds(pair_list)
                 outputs = self.generate(input_embeds, batched_prepares)
+
                 all_outputs_by_index[i] = outputs
 
             # 3. regroup to sample-wise format
@@ -300,9 +302,10 @@ class JanusProNegativeGenWrapper(LightningModule):
             rank=self.trainer.global_rank,
         )
         # print("Negative prompt generation done.")
-        print(f"Negative prompt saved at {os.path.join(self.config.save_path, 'negative_prompt.json')}")
-
-
+        if self.config.save_name is None:
+            print(f"Negative prompt saved at {os.path.join(self.config.save_path, 'negative_prompt.json')}")
+        else:
+            print(f"Negative prompt saved at {self.config.save_name}.json")
 
 class JanusProDenseGenWrapper(LightningModule):
     def __init__(self, config, model, tokenizer, processor):

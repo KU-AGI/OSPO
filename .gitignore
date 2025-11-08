@@ -208,3 +208,5 @@ __marimo__/
 
 
 /lightning_logs
+.png
+.ckpt

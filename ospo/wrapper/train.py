@@ -1103,6 +1103,29 @@ class JanusProTrainWrapper(pl.LightningModule):
             return (per_token_logps * loss_mask).sum(-1)
         
 
+    def schedule_loss_weight(self):
+        # Normalize to [0, 1]
+        progress = self.global_step / self.config.experiment.max_training_steps
+
+        # Use cosine or linear scheduling
+        def linear_decay(start, end):
+            return start + (end - start) * progress
+
+        def cosine_decay(start, end):
+            import math
+            return end + 0.5 * (start - end) * (1 + math.cos(math.pi * progress))
+
+        # Example: cosine schedule
+        simpo_weight = cosine_decay(1.0, 0.1)  # large → small
+        copo_weight  = cosine_decay(1.0, 0.1)  # large → small
+        sft_weight   = cosine_decay(0.5, 1.0)  # small → large
+
+        self.log_dict({'loss_weight/simpo': simpo_weight,
+                'loss_weight/copo': copo_weight,
+                'loss_weight/sft': sft_weight}, on_step=True, prog_bar=True, logger=True, sync_dist=True)
+
+        return simpo_weight, sft_weight, copo_weight
+
     def get_batch_loss_metrics(
         self,
         batch: Dict[str, Union[List, torch.LongTensor]],
@@ -1157,7 +1180,10 @@ class JanusProTrainWrapper(pl.LightningModule):
 
         loss_outputs = self.simpo_loss(**loss_kwargs)
         
-        if self.sft_weight > 0.0:
+
+        simpo_weight, sft_weight, copo_weight = self.schedule_loss_weight()
+        # if self.sft_weight > 0.0:
+        if sft_weight > 0.0:
             chosen_labels = policy_chosen_labels
             policy_chosen_logits = policy_chosen_logits[..., :-1, :].contiguous()
             chosen_labels = chosen_labels[..., 1:].clone().contiguous()
@@ -1165,12 +1191,15 @@ class JanusProTrainWrapper(pl.LightningModule):
             loss_func = torch.nn.CrossEntropyLoss(ignore_index=self.label_pad_token_id)
             sft_loss = loss_func(policy_chosen_logits.view(-1, policy_chosen_logits.shape[-1]), chosen_labels.view(-1))
 
-            loss = (self.simpo_weight * loss_outputs['simpo_loss'] + self.copo_weight * loss_outputs['copo_loss'] + self.sft_weight * sft_loss).mean()
+            # loss = (self.simpo_weight * loss_outputs['simpo_loss'] + self.copo_weight * loss_outputs['copo_loss'] + self.sft_weight * sft_loss).mean()
+            loss = (simpo_weight * loss_outputs['simpo_loss'] + copo_weight * loss_outputs['copo_loss'] + sft_weight * sft_loss).mean()
+            
             if do_logging:
                 self.log(f"{prefix}/sft_loss", sft_loss.detach().cpu(), on_step=True, prog_bar=True, logger=True, sync_dist=True)
                 # self.log(f"{prefix}/simpo_loss", simpo_loss, on_step=True, prog_bar=True, logger=True, sync_dist=True)            
         else:
-            loss = (self.simpo_weight * loss_outputs['simpo_loss'] + self.copo_weight * loss_outputs['copo_loss']).mean()
+            # loss = (self.simpo_weight * loss_outputs['simpo_loss'] + self.copo_weight * loss_outputs['copo_loss']).mean()
+            loss = (simpo_weight * loss_outputs['simpo_loss'] + copo_weight * loss_outputs['copo_loss']).mean()
 
         chosen_rewards = loss_outputs['chosen_rewards']
         rejected_rewards = loss_outputs['rejected_rewards']

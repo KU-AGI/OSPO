@@ -1,9 +1,11 @@
 # Step 1. Initial Prompt Generation
 
 import os
+import datetime
 import torch
 import argparse
 from peft import get_peft_model
+from tqdm import tqdm
 
 import pyrootutils
 pyrootutils.setup_root(__file__, indicator=".project-root", pythonpath=True, cwd=True)
@@ -15,6 +17,22 @@ from ospo.utils.common import build_config, set_seed, read_json, save_json
 from ospo.constant import CATEGORY_LIST
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
+_NUMBER_WORDS = ["one", "two", "three", "four"]
+
+_NO_NUMBER_WORDS = [
+    "five","six","seven","eight","nine","ten", "eleven","twelve","thirteen","fourteen",
+    "fifteen","sixteen","seventeen","eighteen","nineteen","twenty","thirty","forty",
+    "fifty","sixty","seventy","eighty","ninety","hundred","thousand","million","billion"
+]
+
+_TOTAL_NUMBER_WORDS = _NUMBER_WORDS + _NO_NUMBER_WORDS
+
+
+def extract_number_words(text):
+    tokens = re.findall(r"[a-zA-Z]+", text.lower())
+    return [t for t in tokens if t in _TOTAL_NUMBER_WORDS]
+
 
 def create_item_id(element_dir):
     merged_data = []    
@@ -30,8 +48,20 @@ def create_item_id(element_dir):
         "non-spatial": 2,
         "complex": 3
     }
+    max_len_dict = {'color1': 667, 
+                    'color2': 667, 
+                    'shape1': 667, 
+                    'shape2': 667, 
+                    'texture1': 667, 
+                    'texture2': 667, 
+                    '2D_spatial': 1000, 
+                    '3D_spatial': 1000, 
+                    'numeracy1': 1000, 
+                    'numeracy2': 1000, 
+                    'non-spatial': 4000, 
+                    'complex': 4000}
 
-    for category in CATEGORY_LIST:
+    for category in tqdm(CATEGORY_LIST):
         # index initialize
         data_idx = 0 # 4000
         sub_category_data = []
@@ -40,14 +70,30 @@ def create_item_id(element_dir):
         item_list = item_mapping_dict[category]
 
         for fname in item_list:
+            max_len = max_len_dict[fname]
+
             try: 
-                data = read_json(os.path.join(element_dir, f"{fname}_element.json"))
-                for sample in data:
+                data = read_json(os.path.join(element_dir, f"{fname}_prompt.json"))
+                for i, sample in enumerate(data):
+                    if i > max_len:
+                        break
+
+                    # only for numeracy
+                    if category in ["numeracy1", "numeracy2"]:
+                        number_words = extract_number_words(sample["prompt"])
+                        if len(number_words) == 0:
+                            continue
+                        flag_bad = any(n not in _NUMBER_WORDS for n in number_words)
+                        if flag_bad:
+                            continue
+
                     sample['item_id'] = f"{prefix}{data_idx:06d}"        
                     data_idx += 1
-                sub_category_data.extend(data)
-            except:
-                raise ValueError(f"Your element_dir does not have f'{fname}_element.json' file.")
+                    # sub_category_data.extend(data)
+                    sub_category_data.append(sample)
+            except Exception as e:
+                print(e)
+                raise ValueError(f"Your element_dir does not have f'{fname}_prompt.json' file.")
 
         print(f"Ending index for category {category}:", data_idx)
         merged_data.extend(sub_category_data)
@@ -57,6 +103,7 @@ def create_item_id(element_dir):
     # reordering
     reordered_data = []
     for d in merged_data:
+        # print(d)
         dict_ud = {"item_id": d["item_id"], 
                     "t2i_category": d["t2i_category"], 
                     "sub_category": d["sub_category"]}
@@ -68,7 +115,7 @@ def create_item_id(element_dir):
 
     # Save to JSON file
     save_json(save_root=element_dir,
-              save_name='base_prompt',
+              save_name=f'base_prompt_{len(reordered_data)}',
               save_file=reordered_data)
 
     print("Done.")
@@ -114,9 +161,21 @@ def main(config):
                                     processor=vl_chat_processor)
 
     trainer = get_trainer(device, config.world_size)
+
+    # Start evaluation
+    start_time = datetime.datetime.now()
     trainer.test(model, dataloaders=dataloader)
 
     create_item_id(config.save_path)
+    end_time = datetime.datetime.now()
+
+    elapsed_time = end_time - start_time
+    elapsed_min = elapsed_time.total_seconds() / 60
+
+    print('------------------------------------------')
+    print(f"Elapsed Time: {elapsed_min:.2f} minutes")
+    print('------------------------------------------')
+
 
 
 if __name__ == "__main__":
@@ -133,3 +192,5 @@ if __name__ == "__main__":
 
     main(config)
 
+    # # make item_id only
+    # create_item_id("/nas2/data/Janus_dataset/next_v2/iter2/prompt/step1")

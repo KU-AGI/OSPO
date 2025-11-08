@@ -1,0 +1,32 @@
+# CUDA_VISIBLE_DEVICES=0 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 12000 --e_idx 12000
+model:
+  model_path: /nas2/checkpoints/Janus-Pro-7B
+  cache_dir: /nas2/checkpoints/hf_cache_yj
+  attn_mode: eager
+
+use_peft: True 
+lora:
+  lora_rank: 64
+  lora_alpha: 128
+  lora_dropout: 0.05
+  target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "down_proj", "up_proj"]
+  modules_to_save: # Keeps selected layers trainable without applying LoRA.
+experiment:
+  gradient_checkpointing: False
+  padding_value: 0
+  label_pad_token_id: -100
+
+# main parameter
+seed: 42
+save_dir: /nas2/data/Janus_dataset/next_v2/ablation/pickapic2/object_mask
+data_path: /nas2/data/Janus_dataset/next_v2/ablation/pickapic2/train_object_16838.json
+
+# in argparse
+# s_idx: 
+# e_idx: 현재 <end>
+
+save_attn: True
+skip_layer_idx: [0,1,2,3,4, 25,26,27,28,29]
+aggregate: mean
+scaler: 0.8 # 1.0
+

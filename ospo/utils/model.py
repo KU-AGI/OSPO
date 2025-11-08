@@ -28,23 +28,39 @@ def get_model(mode='generate', model_path=None, cache_dir=None, dtype=torch.floa
     image_processor = vl_chat_processor.image_processor 
     text_tokenizer = vl_chat_processor.tokenizer
 
-    use_flash_attn = (
-        config is not None and 
-        hasattr(config, "model") and 
-        getattr(config.model, "flash_attn", False)
-    )
+    # use_flash_attn = (
+    #     config is not None and 
+    #     hasattr(config, "model") and 
+    #     getattr(config.model, "flash_attn", False)
+    # )
 
-    if use_flash_attn:
-        if config.model.flash_attn:
+    if hasattr(config, "model") and getattr(config.model, "attn_mode", "flash_attention_2"):
+        assert config.model.attn_mode in ["flash_attention_2", "eager", "sdpa"], f"Invalid attention module: {config.model.attn_mode }"
+        print(f"Use attention module: {config.model.attn_mode}")
+
+        model_config = AutoConfig.from_pretrained(model_path)
+    
+    # if use_flash_attn:
+        # if config.model.flash_attn:
+        if config.model.attn_mode == "flash_attention_2":
             print("Use Flash Attention 2")
-            if mode == "train":
-                warnings.warn(
-                    "Flash Attention 2 is not recommended in traning mode."
-                )
+            # if mode == "train":
+            #     warnings.warn(
+            #         "Flash Attention 2 is not recommended in traning mode."
+            #     )
             # enable flash attention 2
-            model_config = AutoConfig.from_pretrained(model_path)
             model_config.language_config.use_flash_attention_2 = True
             model_config.language_config._attn_implementation = "flash_attention_2"
+
+            vl_gpt: MultiModalityCausalLM = AutoModelForCausalLM.from_pretrained(
+                model_path, 
+                trust_remote_code=True, 
+                torch_dtype=torch.bfloat16, 
+                config=model_config
+            )
+
+        else:
+            model_config.language_config._attn_implementation = config.model.attn_mode
 
             vl_gpt: MultiModalityCausalLM = AutoModelForCausalLM.from_pretrained(
                 model_path, 

@@ -15,6 +15,7 @@ from ospo.constant import *
 from ospo.utils.common import build_config
 from ospo.utils.model import get_model
 from ospo.utils.generate import *
+from eval.eval_dataset import DPGEval
 
 
 class JanusTestWrapper(LightningModule):
@@ -181,6 +182,20 @@ class JanusTestWrapper(LightningModule):
                 tokens[i, pad_len+1:-1] = self.processor.pad_id
         input_embeds = self.model.language_model.get_input_embeddings()(tokens)  
         return input_embeds, attention_mask
+
+
+def get_dataloader(config, args):
+    dataset = DPGEval(file_path=config.task.data_path,
+                      s_idx=args.s_idx,
+                      e_idx=args.e_idx,
+                      )
+    dataloader = DataLoader(dataset,
+                            collate_fn = lambda batch: batch, 
+                            batch_size=config.task.batch_size,
+                            num_workers=config.task.num_workers,
+                            pin_memory=True,
+                            drop_last=False) # ddp
+    return dataloader
 
 
 def main(args):

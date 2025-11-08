@@ -1,0 +1,49 @@
+# iter1 ckpt
+model:
+  model_path: /nas2/data/Janus_dataset/next/ckpt_iter/iter1_1103_step_600/hf_export
+  cache_dir: /nas2/checkpoints/hf_cache_yj
+  attn_mode: eager
+  # attn_mode: flash_attention_2
+  # flash_attn: False
+
+
+use_peft: True 
+lora:
+  lora_rank: 64
+  lora_alpha: 128
+  lora_dropout: 0.05
+  target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "down_proj", "up_proj"]
+  modules_to_save: # Keeps selected layers trainable without applying LoRA.
+experiment:
+  gradient_checkpointing: False
+  padding_value: 0
+  label_pad_token_id: -100
+
+
+# main parameter
+seed: 42
+save_dir: /nas2/data/Janus_dataset/next_v2/iter2/train/object_mask/argmax_chosen_object_10320
+data_path: /nas2/data/Janus_dataset/next_v2/iter2/train/train_mode_argmax_chosen_object_10320.json
+# s_idx: 0 
+# e_idx: 2000
+
+# s_idx: 2000
+# e_idx: 4000
+
+# s_idx: 4000
+# e_idx: 6000
+
+# s_idx: 6000
+# e_idx: 8000
+
+# s_idx: 8000
+# e_idx: 9500
+
+s_idx: 9500
+e_idx: 
+
+save_attn: True
+skip_layer_idx: [0,1,2,3,4, 25,26,27,28,29]
+aggregate: mean
+scaler: 0.8 # 1.0
+

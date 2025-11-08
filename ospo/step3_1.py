@@ -2,6 +2,7 @@
 
 import os
 import torch
+import datetime
 import argparse
 from pytorch_lightning import seed_everything
 from peft import get_peft_model
@@ -23,7 +24,7 @@ def get_dataloader(config):
     return dataloader 
 
 
-def get_wrapper(config, model, tokenizer, vl_chat_processor, wrapper_cls, mode="base"):
+def get_wrapper(config, model, tokenizer, vl_chat_processor, wrapper_cls, constraint, mode="base"):
     if config.ckpt_path is not None:
         print("# Load model with checkpoint.")
         lora_config = get_lora_config(config.ckpt_path)
@@ -34,6 +35,7 @@ def get_wrapper(config, model, tokenizer, vl_chat_processor, wrapper_cls, mode="
             model=model,
             tokenizer=tokenizer,
             processor=vl_chat_processor,
+            constraint=constraint,
             mode=mode,
             strict=False
         )
@@ -46,6 +48,7 @@ def get_wrapper(config, model, tokenizer, vl_chat_processor, wrapper_cls, mode="
             model=model,
             tokenizer=tokenizer,
             processor=vl_chat_processor,
+            constraint=constraint,
             mode=mode
         )
     return model
@@ -59,16 +62,17 @@ def main(config):
     vl_chat_processor, tokenizer, model = get_model(mode='generate', config=config)
 
 
-    # 1. Question generation
-    # if not os.path.exists(os.path.join(config.save_path, 'vqa_prompt.json')):
-    if config.data_path is None:
-        raise ValueError("config.data_path is not given.")
-    dataloader_qs = get_dataloader(config)
-    model_qs = get_wrapper(config, model, tokenizer, vl_chat_processor, 
-                                wrapper_cls=JanusProQuestionGenWrapper)
+    # # 1. Question generation
+    # # if not os.path.exists(os.path.join(config.save_path, 'vqa_prompt.json')):
+    # if config.data_path is None:
+    #     raise ValueError("config.data_path is not given.")
+    # dataloader_qs = get_dataloader(config)
+    # model_qs = get_wrapper(config, model, tokenizer, vl_chat_processor, 
+    #                             constraint=config.img_constraint,
+    #                             wrapper_cls=JanusProQuestionGenWrapper)
     
-    trainer.test(model_qs, dataloaders=dataloader_qs)
-    print("(Step 3) Decompositional Question generation completed.")
+    # trainer.test(model_qs, dataloaders=dataloader_qs)
+    # print("(Step 3) Decompositional Question generation completed.")
 
 
     # 2. Scoring based on Self-VQA result 
@@ -77,20 +81,29 @@ def main(config):
         config.data_path = os.path.join(config.save_path, 'vqa_prompt.json')
     dataloader_as = get_dataloader(config)
     model_as = get_wrapper(config, model, tokenizer, vl_chat_processor, 
+                                constraint=config.img_constraint,
                                 wrapper_cls=JanusProScoreWrapper)
     
+    start_time = datetime.datetime.now()
     trainer.test(model_as, dataloaders=dataloader_as)
+    end_time = datetime.datetime.now()
     print("(Step 3) Scoring and Train dataset generation completed.")
 
+    """ NEVER USED """
+    # # 3. Question for rejected (prompt) generation
+    # dataloader_rqs = get_dataloader(config)
+    # model_rqs = get_wrapper(config, model, tokenizer, vl_chat_processor, 
+    #                             wrapper_cls=JanusProQuestionGenWrapper, mode="negative")
+    # trainer.test(model_rqs, dataloaders=dataloader_rqs)
+    # print("(Step 3) Rejected prompt; Decompositional Question generation completed.")
 
-    # 3. Question for rejected (prompt) generation
-    dataloader_rqs = get_dataloader(config)
-    model_rqs = get_wrapper(config, model, tokenizer, vl_chat_processor, 
-                                wrapper_cls=JanusProQuestionGenWrapper, mode="negative")
-    trainer.test(model_rqs, dataloaders=dataloader_rqs)
-    print("(Step 3) Rejected prompt; Decompositional Question generation completed.")
+    elapsed_time = end_time - start_time
+    elapsed_min = elapsed_time.total_seconds() / 60
+    print('------------------------------------------')
+    print(f"Elapsed Time: {elapsed_min:.2f} minutes")
+    print('------------------------------------------')
 
-    
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--cfg_path", type=str, default="configs/step3_1.yaml")

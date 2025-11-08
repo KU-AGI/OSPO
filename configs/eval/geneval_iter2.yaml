@@ -1,0 +1,33 @@
+# base.exp_name / model.type / model.ckpt_path 3개만 작성
+
+base:
+  save_path: /nas2/data/Janus_dataset/next/eval_iter2
+  exp_name: 1106_use_mask_argmax_chosen_v1_simpo_1_beta_5_sft_4_lr_1e6/ckpt_1000
+  task_name: geneval
+
+  world_size: 4
+  precision: bf16 
+
+
+model:
+  type: pl # * official / pl 
+  model_path: /nas2/data/Janus_dataset/next/ckpt_iter/iter1_1103_step_600/hf_export
+  cache_dir: /nas2/checkpoints/hf_cache_yj
+  ckpt_path: /nas2/data/Janus_dataset/next/ckpt/iter2/1106_use_mask_argmax_chosen_v1_simpo_1_beta_5_sft_4_lr_1e6/version_1/step=001000.ckpt
+  attn_mode: flash_attention_2
+
+
+task:
+  batch_size: 8 # 4
+  # 고정
+  num_workers: 4
+  seed: [42]
+  parallel_size: 1 
+  temperature: 1
+  cfg_weight: 5
+
+  data_path: /home/rla020/research/bench/geneval/prompts/evaluation_metadata.jsonl
+  sample_idx: 
+  # args 로 대체 (전체 1000)
+  # s_idx:
+  # e_idx:

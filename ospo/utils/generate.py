@@ -24,7 +24,7 @@ def get_trainer(device, world_size, precision="bf16"):
 
 
 def get_dataloader(config, args):
-    dataset_cls = DATASET_MAPPING_DICT(config.base.task_name, None)
+    dataset_cls = DATASET_MAPPING_DICT.get(config.base.task_name, None)
     if dataset_cls is None:
         raise ValueError(f"config.base.task_name must be one of ['t2icompbench', 'dpgbench', 'geneval']. But, you gave {config.base.task_name}")
     

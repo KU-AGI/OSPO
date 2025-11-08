@@ -1,19 +1,21 @@
 # base.exp_name / model.type / model.ckpt_path 3개만 작성
 
 base:
-  save_path: /nas2/checkpoints/janus_dpo_eval
-  exp_name: 0629_nips_pairwise_vqa_pair_data_v2_with_mdpo_1_05_05/ckpt_100
+  save_path: /nas2/data/Janus_dataset/next/eval/ablation
+  exp_name: 1107_argmax_chosen_wo_dense/ckpt_600
   task_name: t2icompbench
 
-  world_size: 1
+  world_size: 4
   precision: bf16 
+
 
 model:
   type: pl # * official / pl 
   model_path: /nas2/checkpoints/Janus-Pro-7B # deepseek-ai/Janus-Pro-1B
   cache_dir: /nas2/checkpoints/hf_cache_yj
-  ckpt_path: /nas2/checkpoints/janus_dpo/0628_nips_pairwise_vqa_pair_data_v1/version_2/step=000100.ckpt
-  flash_attn: True
+  ckpt_path: /nas2/data/Janus_dataset/next/ckpt/ablation/1107_argmax_chosen_wo_dense/version_0/step=000600.ckpt
+  attn_mode: flash_attention_2
+  # flash_attn: True
   
 task:
   # 고정

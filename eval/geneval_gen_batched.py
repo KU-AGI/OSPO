@@ -9,7 +9,9 @@ import PIL.Image
 import torch
 
 from peft import LoraConfig, get_peft_model
-from pytorch_lightning import LightningModule, seed_everything
+from pytorch_lightning import LightningModule, seed_everything, Trainer
+from pytorch_lightning.callbacks import ModelSummary
+from torch.utils.data import DataLoader
 
 import pyrootutils
 pyrootutils.setup_root(__file__, indicator=".project-root", pythonpath=True, cwd=True)
@@ -168,6 +170,31 @@ class JanusTestWrapper(LightningModule):
 
 
 
+def get_dataloader(config, args):
+    dataset = GenEval(data_path=config.task.data_path,
+                      s_idx=args.s_idx,
+                      e_idx=args.e_idx)
+    dataloader = DataLoader(dataset,
+                            collate_fn = lambda batch: batch, 
+                            batch_size=config.task.batch_size,
+                            num_workers=config.task.num_workers,
+                            pin_memory=True,
+                            drop_last=False) # ddp
+    return dataloader
+
+
+def get_trainer(config, device):
+    trainer = Trainer(
+        accelerator=device,
+        devices=config.base.world_size,
+        strategy="ddp",
+        max_epochs=1,      # config.experiment.epoch,
+        precision='bf16',  # config.base.precision,
+        callbacks=[ModelSummary(max_depth=2)],
+    )
+    return trainer
+
+
 def main(args):
     
     config = build_config(cfg_path=args.cfg_path)
@@ -228,7 +255,8 @@ def main(args):
         model.model.language_model = model.model.language_model.merge_and_unload() 
 
     # Define Trainer
-    trainer = get_trainer(device, config.base.world_size, config.base.precision)
+    # trainer = get_trainer(device, config.base.world_size, config.base.precision)
+    trainer = get_trainer(config, device)
     eval_dataloader = get_dataloader(config, args)
 
     # Start evaluation

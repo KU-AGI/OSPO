@@ -8,10 +8,10 @@ from janus.models.processing_vlm import VLChatProcessorOutput, BatchedVLChatProc
 def get_conversation(prompt: str):
     conversation = [
         {
-            "role": "User",
+            "role": "<|User|>",
             "content": prompt, # "A close-up high-contrast photo of Sydney Opera House sitting next to Eiffel tower, under a blue night sky of roiling energy, exploding yellow stars, and radiating swirls of blue.",
         },
-        {"role": "Assistant", "content": ""},
+        {"role": "<|Assistant|>", "content": ""},
     ]
 
     return conversation

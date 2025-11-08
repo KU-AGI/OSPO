@@ -1,0 +1,33 @@
+# Step 2-1. Negative / Dense Prompt Generation
+
+seed_list: [0,1,2]
+world_size: 4
+# batch_size: 24 # attribute, layout
+# batch_size: 12   # non-spatial
+batch_size: 10   # complex
+num_workers: 4
+
+# = negative prompt
+data_path: /nas2/data/Janus_dataset/next_v2/iter2/prompt/step2/negative_prompt_12000_end.json
+s_idx: 
+e_idx: 
+
+save_path: /nas2/data/Janus_dataset/next_v2/iter2/prompt/step2
+# save_name: dense_prompt_0_8000
+save_name: dense_prompt_12000_end
+# save_name: dense_prompt_8000_12000
+
+# iter1 ckpt
+ckpt_path: /nas2/data/Janus_dataset/next/ckpt/1103_next_v2_use_soft_mask_argmax_chosen_v1_simpo_1_beta_5_sft_2_copo_0/version_0/step=000600.ckpt 
+model:
+  model_path: /nas2/checkpoints/Janus-Pro-7B # deepseek-ai/Janus-Pro-1B
+  cache_dir: /nas2/checkpoints/hf_cache_yj
+  attn_mode: flash_attention_2
+  # flash_attn: True
+
+generation_config: 
+  do_sample: True
+  num_beams: 1
+  temperature: 1.0 # 1.2
+  top_p: 0.9
+  max_new_tokens: 512

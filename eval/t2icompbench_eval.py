@@ -1,6 +1,8 @@
-BLIPVQA_PROJECT_PATH = "{YOUR_PATH}/T2I-CompBench/BLIPvqa_eval"
-UNIDET_PROJECT_PATH = "{YOUR_PATH}/T2I-CompBench/UniDet_eval"
-COMPLEX_DATASET_PATH = "{YOUR_PATH}/T2I-CompBench/examples/dataset/"
+YOUR_PATH = "/nas2/mllm_metrics/metric"
+
+BLIPVQA_PROJECT_PATH = f"{YOUR_PATH}/T2I-CompBench/BLIPvqa_eval"
+UNIDET_PROJECT_PATH = f"{YOUR_PATH}/T2I-CompBench/UniDet_eval"
+COMPLEX_DATASET_PATH = f"{YOUR_PATH}/T2I-CompBench/examples/dataset/"
 
 import os
 import sys

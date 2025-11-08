@@ -1,11 +1,11 @@
 # base.exp_name / model.type / model.ckpt_path 3개만 작성
 
 base:
-  save_path: /nas2/checkpoints/janus_dpo_eval
-  exp_name: 0629_nips_pairwise_vqa_pair_data_v1_with_mdpo_1_05_05/ckpt_100
+  save_path: /nas2/data/Janus_dataset/next/eval/ablation
+  exp_name: 1108_off_policy_focusdiff_16k_naive_simpo/ckpt_600
   task_name: geneval
 
-  world_size: 4
+  world_size: 6
   precision: bf16 
 
 
@@ -13,8 +13,9 @@ model:
   type: pl # * official / pl 
   model_path: /nas2/checkpoints/Janus-Pro-7B # deepseek-ai/Janus-Pro-1B
   cache_dir: /nas2/checkpoints/hf_cache_yj
-  ckpt_path: /nas2/checkpoints/janus_dpo/0629_nips_pairwise_vqa_pair_data_v1_with_mdpo_1_05_05/version_0/step=000100.ckpt
-  flash_attn: True
+  ckpt_path: /nas2/data/Janus_dataset/next/ckpt/ablation/1108_off_policy_focusdiff_16k_naive_simpo/version_0/step=000600.ckpt
+  # flash_attn: True
+  attn_mode: flash_attention_2
 
 task:
   batch_size: 8 # 4
@@ -26,6 +27,7 @@ task:
   cfg_weight: 5
 
   data_path: /home/rla020/research/bench/geneval/prompts/evaluation_metadata.jsonl
+  sample_idx: 
   # args 로 대체 (전체 1000)
   # s_idx:
   # e_idx:

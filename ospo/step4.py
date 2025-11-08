@@ -22,9 +22,16 @@ def get_dataloader(config, chat_processor, image_processor, tokenizer):
     datamodule = TrainDataModule(config, chat_processor, image_processor, tokenizer) 
     datamodule.setup()
     train_dataloader = datamodule.train_dataloader()
-    val_dataloader = datamodule.val_dataloader()
+    if config.dataset.get('val', None) is not None:
+        val_dataloader = datamodule.val_dataloader()
+    else:
+        val_dataloader = None
     return train_dataloader, val_dataloader
     
+
+def set_exp_name(config):
+    # 현재 날짜 (M+D/ 1022)
+    pass
 
 def main(config):
     torch.cuda.empty_cache()
@@ -34,6 +41,8 @@ def main(config):
     device = "cuda" if torch.cuda.is_available() else "cpu"
     pl.seed_everything(config.experiment.seed, workers=True) 
     dtype = torch.bfloat16 if config.experiment.precision == 'bf16' else torch.float32
+
+
    
     model, chat_processor, image_processor, tokenizer = get_model(mode='train', dtype=dtype, config=config)
     train_dataloader, val_dataloader = get_dataloader(config, chat_processor, image_processor, tokenizer) 
