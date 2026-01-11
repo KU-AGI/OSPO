@@ -1,0 +1,32 @@
+# base.exp_name / model.type / model.ckpt_path 3개만 작성
+
+base:
+  save_path: /nas2/data/Janus_dataset/next/eval/janus_pro_1b
+  exp_name: official # 1111_train/ckpt_300
+  task_name: geneval
+
+  world_size: 2
+  precision: bf16 
+
+
+model:
+  type: official # * official / pl 
+  model_path: /nas2/checkpoints/Janus-Pro-1B
+  cache_dir: /nas2/checkpoints/hf_cache_yj 
+  attn_mode: flash_attention_2 
+  ckpt_path: # /nas2/data/Janus_dataset/next/ckpt/janus_pro_1b/1111_train/version_1/step=000300.ckpt
+  
+task:
+  batch_size: 16 # 4
+  # 고정
+  num_workers: 4
+  seed: [42]
+  parallel_size: 1 
+  temperature: 1
+  cfg_weight: 5
+
+  data_path: /home/rla020/research/bench/geneval/prompts/evaluation_metadata.jsonl
+  sample_idx: 
+  # args 로 대체 (전체 1000)
+  # s_idx:
+  # e_idx:

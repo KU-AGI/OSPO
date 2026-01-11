@@ -1,8 +1,8 @@
 # base.exp_name / model.type / model.ckpt_path 3개만 작성
 
 base:
-  save_path: /nas2/data/Janus_dataset/next/eval_iter2
-  exp_name: 1106_use_mask_argmax_chosen_v1_simpo_1_beta_5_sft_4_lr_1e6/ckpt_1000
+  save_path: /nas2/data/Janus_dataset/next/eval_iter2_final
+  exp_name: 1117_train_beta_5_lr_1e6_max_step_1000/ckpt_1000
   task_name: geneval
 
   world_size: 4
@@ -11,9 +11,9 @@ base:
 
 model:
   type: pl # * official / pl 
-  model_path: /nas2/data/Janus_dataset/next/ckpt_iter/iter1_1103_step_600/hf_export
+  model_path: /nas2/data/Janus_dataset/next_v2/appendix/ospo_iter1_nas/hf_ckpt 
   cache_dir: /nas2/checkpoints/hf_cache_yj
-  ckpt_path: /nas2/data/Janus_dataset/next/ckpt/iter2/1106_use_mask_argmax_chosen_v1_simpo_1_beta_5_sft_4_lr_1e6/version_1/step=001000.ckpt
+  ckpt_path: /nas2/data/Janus_dataset/next/ckpt/iter2_final/1117_train_beta_5_lr_1e6_max_step_1000/version_0/step=001000.ckpt
   attn_mode: flash_attention_2
 
 

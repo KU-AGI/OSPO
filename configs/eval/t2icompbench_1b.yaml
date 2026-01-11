@@ -1,20 +1,20 @@
 # base.exp_name / model.type / model.ckpt_path 3개만 작성
 
 base:
-  save_path: /nas2/mllm_reasoning/experiments/eval/sft
-  exp_name: 1204_v9_sft
-  task_name: t2icompbench/final_outputs
+  save_path: /nas2/data/Janus_dataset/next/eval/janus_pro_1b
+  exp_name: official # 1111_train/ckpt_500
+  task_name: t2icompbench
 
   world_size: 4
   precision: bf16 
 
+
 model:
   type: pl # * official / pl 
-  model_path: /nas2/checkpoints/Janus-Pro-7B # deepseek-ai/Janus-Pro-1B
-  cache_dir: /nas2/checkpoints/hf_cache_yj
-  ckpt_path: /nas2/data/Janus_dataset/next/ckpt/appendix/1120_dpo_v1_beta_05/version_0/step=000500.ckpt
+  model_path: /nas2/checkpoints/Janus-Pro-1B
+  cache_dir: /nas2/checkpoints/hf_cache_yj 
+  ckpt_path: /nas2/data/Janus_dataset/next/ckpt/janus_pro_1b/1111_train/version_1/step=000500.ckpt
   attn_mode: flash_attention_2
-  # flash_attn: True
 
 task:
   # 고정

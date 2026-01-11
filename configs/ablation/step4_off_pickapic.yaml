@@ -1,10 +1,9 @@
 # Step 4. Training
 
 base:
-  save_path: /nas2/data/Janus_dataset/next/ckpt/appendix
-  # exp_name: 1113_wo_dense_filter_false_select_false
-  exp_name: 1119_expert_vqa
-  world_size: 4
+  save_path: /nas2/data/Janus_dataset/next/ckpt/ablation
+  exp_name: 1109_off_policy_pickapic2_16k_naive_simpo
+  world_size: 2
   resume: 
 
 model:
@@ -19,9 +18,10 @@ model:
 #     "sdpa": LlamaSdpaAttention,
 # }
 
-use_mask: True
-mask_dir: /nas2/data/Janus_dataset/next_v2/appendix/vqa_expert/object_mask
-off_policy: False
+use_mask: False
+# mask_dir: /nas2/data/Janus_dataset/next_v2/ablation/pickapic2/object_mask
+mask_dir: # /nas2/data/Janus_dataset/next_v2/ablation/pickapic2/object_mask/data/pickapic_v2/images
+off_policy: True
 
 use_peft: True 
 lora:
@@ -36,9 +36,10 @@ dataset:
   train:
     batch_size: 16 # 8 # [WARNING] When train in copo_mode=True, use less batch size than when the copo_mode=False 
     num_workers: 4
-    data_path: /nas2/data/Janus_dataset/next_v2/appendix/vqa_expert/train_filtered_17382.json
+    data_path: /nas2/data/Janus_dataset/next_v2/ablation/pickapic2/train_object_16838.json
     num_samples:              
   val:
+
 
 optimizer:
   init_lr: 1e-5
@@ -56,12 +57,12 @@ experiment:
   gradient_clip_val: 1.0
   enable_checkpointing: True           # checkpoint saving 관련
   gradient_checkpointing: True         # model training 관련
-  gradient_accumulation_steps: 2 # 4       # (GC on)
+  gradient_accumulation_steps: 4       # (GC on)
   max_training_steps: 1000             # 8 epoch, 기존에는 80 step = 1 epoch (16k 기준)
   save_steps: 100
   log_steps: 5
   val_steps: 50
-  log_by_category: False
+  log_by_category: True
 
 
   freeze:
@@ -81,10 +82,10 @@ tokenizer:
   label_pad_token_id: -100  
 
 algo: 
-  beta_1: 5 # 2 # 5
-  beta_2: 5 # 5 # 2 # 5 # copo
+  beta_1: 5 # simpo
+  beta_2: 5 # copo
   gamma_beta_ratio_1: 0.5 
-  gamma_beta_ratio_2: 0.05
+  gamma_beta_ratio_2: 0.5
 
   label_smoothing: 0.0 
   loss_type: sigmoid

@@ -1,0 +1,35 @@
+# Step 3-1. Compositional VQA
+
+seed: 42
+world_size: 8
+# batch_size: 32 # attribute, layout
+# batch_size: 8 # non-spatial
+batch_size: 8 # complex
+num_workers: 4
+
+# vqa question prompt
+prompt_type: ans
+data_path: /nas2/data/Janus_dataset/next_v2/appendix/iter2/data/prompt/step3/vqa_question.json
+s_idx: 16000
+e_idx: # 16000
+
+img_constraint: 
+image_path: /nas2/data/Janus_dataset/next_v2/appendix/iter2/data/images
+save_path: /nas2/data/Janus_dataset/next_v2/appendix/iter2/data/prompt/step3
+# save_name: vqa_result_14k_16k
+save_name: vqa_result_16k_end
+
+# iter1 ckpt
+ckpt_path:
+model:
+  model_path: /nas2/data/Janus_dataset/next_v2/appendix/ospo_iter1_nas/hf_ckpt # 7B base
+  cache_dir: /nas2/checkpoints/hf_cache_yj
+  attn_mode: flash_attention_2
+
+
+generation_config: 
+  do_sample: True
+  num_beams: 1
+  temperature: 1.2
+  top_p: 0.5
+  max_new_tokens: 256

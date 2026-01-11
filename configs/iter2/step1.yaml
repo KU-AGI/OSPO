@@ -1,0 +1,26 @@
+# Step 1. Initial Prompt Generation
+
+seed: 0 # 42
+world_size: 1
+batch_size: 1
+num_workers: 4
+
+save_path: /nas2/data/Janus_dataset/next_v2/appendix/iter2/data/prompt
+save_name:
+
+# iter1 ckpt
+ckpt_path:
+model:
+  model_path: /nas2/data/Janus_dataset/next_v2/appendix/ospo_iter1_nas/hf_ckpt # 7B base
+  cache_dir: /nas2/checkpoints/hf_cache_yj
+  attn_mode: flash_attention_2
+
+max_len:          # total length
+repeat: 8         # default
+interval: 100     # few-shot example replacement interval
+category:         # options: color1, color2, texture1, texture2, shape1, shape2, 2D_spatial, 3D_spatial, numeracy1, numeracy2, non-spatial, complex
+
+generation_config:
+  do_sample: True
+  temperature: 1.0
+  max_new_tokens: 512

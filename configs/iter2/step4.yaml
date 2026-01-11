@@ -1,16 +1,15 @@
 # Step 4. Training
 
 base:
-  save_path: /nas2/data/Janus_dataset/next/ckpt/iter2
-  exp_name: 1108_use_mask_argmax_chosen_v1_simpo_05_beta_3_sft_1_lr_1e6_max_step_500
+  save_path: /nas2/data/Janus_dataset/next/ckpt/iter2_final
+  exp_name: 1117_train_beta_5_lr_1e5_max_step_1000_sft_weight_3
   world_size: 4
-  resume: 
+  resume:
 
 model:
-  # model_path: /nas2/checkpoints/Janus-Pro-7B
-  model_path: /nas2/data/Janus_dataset/next/ckpt_iter/iter1_1103_step_600/hf_export
+  model_path: /nas2/data/Janus_dataset/next_v2/appendix/ospo_iter1_nas/hf_ckpt # 7B base
   cache_dir: /nas2/checkpoints/hf_cache_yj
-  attn_mode: flash_attention_2 
+  attn_mode: flash_attention_2
 
 # 참고
 # LLAMA_ATTENTION_CLASSES = {
@@ -20,7 +19,7 @@ model:
 # }
 
 use_mask: True
-mask_dir: /nas2/data/Janus_dataset/next_v2/iter2/train/object_mask/argmax_chosen_object_10320 
+mask_dir: /nas2/data/Janus_dataset/next_v2/appendix/iter2/data/train/object_mask
 off_policy: False
 
 use_peft: True 
@@ -36,9 +35,10 @@ dataset:
   train:
     batch_size: 16 # 8 # [WARNING] When train in copo_mode=True, use less batch size than when the copo_mode=False 
     num_workers: 4
-    data_path: /nas2/data/Janus_dataset/next_v2/iter2/train/train_mode_argmax_chosen_filtered_10320.json
+    data_path: /nas2/data/Janus_dataset/next_v2/appendix/iter2/data/train/train_filtered_11606.json
     num_samples:              
   val:
+
 
 optimizer:
   init_lr: 1e-6 # 1e-5
@@ -57,8 +57,8 @@ experiment:
   enable_checkpointing: True           # checkpoint saving 관련
   gradient_checkpointing: True         # model training 관련
   gradient_accumulation_steps: 2
-  max_training_steps: 500
-  save_steps: 50
+  max_training_steps: 1000 
+  save_steps: 100
   log_steps: 5
   val_steps: 50 
   log_by_category: True
@@ -80,8 +80,8 @@ tokenizer:
   label_pad_token_id: -100  
 
 algo: 
-  beta_1: 3 # 5
-  beta_2: 3 # 5 # copo
+  beta_1: 5
+  beta_2: 5 # copo
   gamma_beta_ratio_1: 0.5 
   gamma_beta_ratio_2: 0.5
 
@@ -91,9 +91,9 @@ algo:
   # loss weight 
   schedule_loss_weight: False # schedule_loss_weight 내에 min, max 값 하드코딩
 
-  simpo_weight: 0.5  # 1.0 
+  simpo_weight: 1.0  # 1.0 
   copo_weight: 0.0   # copo_weight > 0.0, automatically set mdpo_mode=True 
-  sft_weight: 1.0    # 1.0
+  sft_weight: 3.0    # 1.0
 
   pixel_weight: 0.0 # 1.2 # 1.0
   pixel_tau: 0.0 # 1.0 # 1.0 ~ 0.0 (cannot be 0.0)

@@ -1,9 +1,8 @@
 # Step 4. Training
 
 base:
-  save_path: /nas2/data/Janus_dataset/next/ckpt/appendix
-  # exp_name: 1113_wo_dense_filter_false_select_false
-  exp_name: 1119_expert_vqa
+  save_path: /nas2/data/Janus_dataset/next/ckpt/ablation/silmm
+  exp_name: 1112_silmm_train
   world_size: 4
   resume: 
 
@@ -19,8 +18,8 @@ model:
 #     "sdpa": LlamaSdpaAttention,
 # }
 
-use_mask: True
-mask_dir: /nas2/data/Janus_dataset/next_v2/appendix/vqa_expert/object_mask
+use_mask: False
+mask_dir: # /nas2/data/Janus_dataset/next_v2/ablation/pair_size/train_size_5/object_mask
 off_policy: False
 
 use_peft: True 
@@ -36,7 +35,7 @@ dataset:
   train:
     batch_size: 16 # 8 # [WARNING] When train in copo_mode=True, use less batch size than when the copo_mode=False 
     num_workers: 4
-    data_path: /nas2/data/Janus_dataset/next_v2/appendix/vqa_expert/train_filtered_17382.json
+    data_path: /nas2/data/Janus_dataset/main_exp/aaai/janus/prompt/negative_short/train_dataset/silmm/silmm_data_15988.json
     num_samples:              
   val:
 
@@ -61,7 +60,7 @@ experiment:
   save_steps: 100
   log_steps: 5
   val_steps: 50
-  log_by_category: False
+  log_by_category: True
 
 
   freeze:
@@ -84,7 +83,7 @@ algo:
   beta_1: 5 # 2 # 5
   beta_2: 5 # 5 # 2 # 5 # copo
   gamma_beta_ratio_1: 0.5 
-  gamma_beta_ratio_2: 0.05
+  gamma_beta_ratio_2: 0.5
 
   label_smoothing: 0.0 
   loss_type: sigmoid

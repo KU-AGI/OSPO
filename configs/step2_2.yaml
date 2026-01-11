@@ -1,7 +1,7 @@
 # Step 2-2. Image Generation
 
-seed_list: [0,1,2]
-world_size: 2     # 4
+seed_list: [3,4,5] # [0,1,2]
+world_size: 6     # 4
 # batch_size: 16  # attribute, layout
 # batch_size: 12  # non-spatial
 batch_size: 16    # complex
@@ -9,15 +9,17 @@ num_workers: 4
 
 # data_path: /nas2/data/Janus_dataset/next_v2/iter2/prompt/step2/dense_prompt_0_8000.json
 # data_path: /nas2/data/Janus_dataset/next_v2/iter2/prompt/step2/dense_prompt_8000_12000.json
-data_path: /nas2/data/Janus_dataset/next_v2/iter2/prompt/step2/dense_prompt_12000_end.json
+# data_path: /nas2/data/Janus_dataset/next_v2/numeracy_add/init_dataset_5770.json
+data_path: /nas2/data/Janus_dataset/next_v2/numeracy_add/init_dataset_6036.json
 s_idx:
 e_idx: 
 
-save_path: /nas2/data/Janus_dataset/next_v2/iter2/images
+# save_path: /nas2/data/Janus_dataset/main_exp/aaai/janus/numeracy_add_5k
+save_path: /nas2/data/Janus_dataset/main_exp/aaai/janus/numeracy_add_6k
 save_name:
 
 # iter1 ckpt
-ckpt_path: /nas2/data/Janus_dataset/next/ckpt/1103_next_v2_use_soft_mask_argmax_chosen_v1_simpo_1_beta_5_sft_2_copo_0/version_0/step=000600.ckpt 
+ckpt_path: 
 model:
   model_path: /nas2/checkpoints/Janus-Pro-7B 
   cache_dir: /nas2/checkpoints/hf_cache_yj 
