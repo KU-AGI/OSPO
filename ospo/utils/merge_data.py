@@ -55,7 +55,7 @@ def compose_init_data(dense_path, img_path):
 
 
 # # 1. merge negative prompt
-# base_dir = "/nas2/data/Janus_dataset/next_v2/iter2/prompt/step2"
+# base_dir = "/nas2/data/Janus_dataset/next_v2/appendix/iter2/data/prompt/step2"
 # start_key = "negative_prompt"
 # _ = merge(base_dir, start_key, save_fname=f"{start_key}_merged")
 
@@ -64,19 +64,24 @@ def compose_init_data(dense_path, img_path):
 # _ = merge(base_dir, start_key, save_fname=f"{start_key}_merged")
 
 # # # 3. merge vqa question
-# base_dir = "/nas2/data/Janus_dataset/next_v2/iter2/prompt/step3_vqa"
+# base_dir = "/nas2/data/Janus_dataset/next_v2/appendix/iter2/data/prompt/step3"
 # start_key = "vqa_question"
 # _ = merge(base_dir, start_key, save_fname=f"{start_key}_merged")
 
-# # 4. merge vqa result
+# # # 4. merge vqa result
 # start_key = "vqa_result"
-# _ = merge(base_dir, start_key, save_fname=f"{start_key}_merged")
+# _ = merge(base_dir, start_key, save_fname=f"{start_key}_merged") # 함수에 저장까지 포함
 
 
-# 5. init data (for constructing training data)
-dense_path = "/nas2/data/Janus_dataset/next_v2/iter2/prompt/dense_prompt_merged_16006.json"
-img_path = "/nas2/data/Janus_dataset/next_v2/iter2/images"
+# 5-1. init data (for constructing training data)
+dense_path = "/nas2/data/Janus_dataset/next_v2/appendix/iter2/data/prompt/step2/dense_prompt_merged_20005.json"
+img_path = "/nas2/data/Janus_dataset/next_v2/appendix/iter2/data/images"
 
 init_data = compose_init_data(dense_path, img_path)
 save_json(save_root=os.path.dirname(dense_path), save_name=f"init_dataset_{len(init_data)}", save_file=init_data)
+
+
+# 5-2.
+# start_key = "init_dataset"
+# _ = merge(base_dir, start_key, save_fname=f"{start_key}_merged") 
 

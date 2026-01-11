@@ -25,12 +25,14 @@ class JanusProElementGenWrapper(LightningModule):
         self.interval = config.interval
 
         if self.max_len is None:
-            if config.category == "2D_spatial" or config.category == "3D_spatial" or config.category == "numeracy1" or config.category == "numeracy2":
-                self.max_len = 2000 # 1000 for spatial
+            if config.category == "2D_spatial" or config.category == "3D_spatial":
+                self.max_len = SPATIAL_MAX_LEN # 1000 # 1000 for spatial
+            elif config.category == "numeracy1" or config.category == "numeracy2":
+                self.max_len = NUMERACY_MAX_LEN # 4000
             elif config.category == "non-spatial" or config.category == "complex":
-                self.max_len = 4000
+                self.max_len = NON_SPATIAL_COMPLEX_MAX_LEN # 4000
             else:
-                self.max_len = 667
+                self.max_len = ATTRIBUTE_MAX_LEN # 667
 
         print("# category: ", self.category)
         print('# max_len: ', self.max_len)

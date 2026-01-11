@@ -33,8 +33,34 @@ def save_json(save_root, save_name, save_file):
     with open(save_path, 'w') as f:
         json.dump(save_file, f, indent=4)
 
+# def save_json_ddp(save_root, save_name, world_size, save_file, rank):
+#     # self.output_list, self.trainer.world_size
+#     os.makedirs(save_root, exist_ok=True)
+
+#     if world_size > 1:
+#         gathered_output_list = [None for _ in range(world_size)]
+#         dist.all_gather_object(gathered_output_list, save_file)
+
+#         if rank == 0:
+#             seen = set()
+#             output_list = []
+#             for gathered_output in gathered_output_list:
+#                 for sample in gathered_output:
+#                     item_id = sample['item_id']
+#                     if item_id in seen:
+#                         continue
+#                     seen.add(item_id)
+#                     output_list.append(sample)
+#             try:
+#                 sorted_output = sorted(output_list, key=lambda x: int(x["item_id"]))
+#             except ValueError:
+#                 print("Skipping sorting due to non-integer item_id.")
+#                 sorted_output = output_list  # preserve original order
+#             save_json(save_root, save_name, sorted_output)
+#     else:
+#         save_json(save_root, save_name, save_file)
+
 def save_json_ddp(save_root, save_name, world_size, save_file, rank):
-    # self.output_list, self.trainer.world_size
     os.makedirs(save_root, exist_ok=True)
 
     if world_size > 1:
@@ -44,20 +70,35 @@ def save_json_ddp(save_root, save_name, world_size, save_file, rank):
         if rank == 0:
             seen = set()
             output_list = []
+
             for gathered_output in gathered_output_list:
-                for sample in gathered_output:
-                    item_id = sample['item_id']
+
+                # --- handle dict or list uniformly ---
+                if isinstance(gathered_output, dict):
+                    iterable = gathered_output.values()
+                else:
+                    iterable = gathered_output
+
+                for sample in iterable:
+                    item_id = sample["item_id"]
                     if item_id in seen:
                         continue
                     seen.add(item_id)
                     output_list.append(sample)
+
+            # sorting
             try:
                 sorted_output = sorted(output_list, key=lambda x: int(x["item_id"]))
             except ValueError:
                 print("Skipping sorting due to non-integer item_id.")
-                sorted_output = output_list  # preserve original order
+                sorted_output = output_list
+
             save_json(save_root, save_name, sorted_output)
+
     else:
+        # same handling for single GPU case
+        if isinstance(save_file, dict):
+            save_file = list(save_file.values())
         save_json(save_root, save_name, save_file)
 
 def set_seed(seed):

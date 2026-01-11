@@ -1,5 +1,5 @@
 # conda activate janus3
-# CUDA_VISIBLE_DEVICES=6 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py
+# CUDA_VISIBLE_DEVICES=1 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 5000 --e_idx 6000
 
 import os
 import ast
@@ -308,22 +308,24 @@ def main(config, train_data, save_attn: bool = False):
                     else:
                         union_attn_map = torch.maximum(union_attn_map, attn_map)
 
-                    if save_attn: 
-                        # 개별 target word 에 대해 시각화
-                        sub_save_dir = os.path.join(save_dir, "sub_mask")
-                        sub_save_name = f"{save_name}_{target_word}"
 
-                        visualize_save_attn(
-                            attn_map=attn_map,             # torch tensor [H, W]
-                            binary_mask=binary_mask,       # numpy array [H, W]
-                            save_dir=sub_save_dir,             
-                            base_name=sub_save_name, 
-                            orig_image=Image.open(img_path) # overlay
-                        )
+                    # 서브 마스크 저장
+                    # if save_attn: 
+                    #     # 개별 target word 에 대해 시각화
+                    #     sub_save_dir = os.path.join(save_dir, "sub_mask")
+                    #     sub_save_name = f"{save_name}_{target_word}"
 
-                        subsub_save_dir = os.path.join(save_dir, "sub_attn")
-                        os.makedirs(subsub_save_dir, exist_ok=True)
-                        save_attn_npy(attn_map, save_path=os.path.join(subsub_save_dir, f"{sub_save_name}_attn.npy"))
+                    #     visualize_save_attn(
+                    #         attn_map=attn_map,             # torch tensor [H, W]
+                    #         binary_mask=binary_mask,       # numpy array [H, W]
+                    #         save_dir=sub_save_dir,             
+                    #         base_name=sub_save_name, 
+                    #         orig_image=Image.open(img_path) # overlay
+                    #     )
+
+                    #     subsub_save_dir = os.path.join(save_dir, "sub_attn")
+                    #     os.makedirs(subsub_save_dir, exist_ok=True)
+                    #     save_attn_npy(attn_map, save_path=os.path.join(subsub_save_dir, f"{sub_save_name}_attn.npy"))
                         
 
 

@@ -4,6 +4,7 @@ import pytorch_lightning as pl
 
 import pyrootutils
 pyrootutils.setup_root(__file__, indicator=".project-root", pythonpath=True, cwd=True)
+from ospo.constant import *
 from ospo.utils.common import read_json
 from ospo.dataclass import PreferenceDataset, ValidationDataset, BaseDataset, NegativeDataset 
 
@@ -89,17 +90,15 @@ class GenerationDataModule(pl.LightningDataModule):
             raise ValueError("Step must be one of [1, 2, 3, 4].")
         self.config = config
     
-        # Element/Base prompt generation
+        # Element/Base prompt generation (inital prompt)
         if step == 1.0:
             if config.max_len is None:
-                if config.category == "object":
-                    max_len = 120
-                elif config.category == "2D_spatial" or config.category == "3D_spatial":  # "spatial":
-                    max_len = 3000 # 40
+                if config.category == "2D_spatial" or config.category == "3D_spatial":  # "spatial":
+                    max_len = 4000 # 40
                 elif config.category == "non-spatial" or config.category == "complex":
                     max_len = 4000
                 elif config.category == "numeracy1" or config.category == "numeracy2":
-                    max_len = 3000
+                    max_len = 4000
                 else:
                     max_len = 2000 # 70
             else:

@@ -1,4 +1,15 @@
-# CUDA_VISIBLE_DEVICES=0 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 12000 --e_idx 12000
+# CUDA_VISIBLE_DEVICES=0 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 0 --e_idx 2500
+# CUDA_VISIBLE_DEVICES=1 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 2500 --e_idx 5000
+
+# CUDA_VISIBLE_DEVICES=2 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 5000 --e_idx 7500
+# CUDA_VISIBLE_DEVICES=3 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 7500 --e_idx 10000 
+# CUDA_VISIBLE_DEVICES=4 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 10000 --e_idx 12000 //
+
+# CUDA_VISIBLE_DEVICES=5 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 12000 --e_idx 14000
+# CUDA_VISIBLE_DEVICES=6 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 14000 --e_idx 15000 
+# CUDA_VISIBLE_DEVICES=7 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 15000 --e_idx 16500
+# CUDA_VISIBLE_DEVICES=8 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 16500 
+
 model:
   model_path: /nas2/checkpoints/Janus-Pro-7B
   cache_dir: /nas2/checkpoints/hf_cache_yj
@@ -18,8 +29,8 @@ experiment:
 
 # main parameter
 seed: 42
-save_dir: /nas2/data/Janus_dataset/next_v2/ablation/pickapic2/object_mask
-data_path: /nas2/data/Janus_dataset/next_v2/ablation/pickapic2/train_object_16838.json
+save_dir: /nas2/data/Janus_dataset/next_v2/appendix/vqa_expert/object_mask
+data_path: /nas2/data/Janus_dataset/next_v2/appendix/vqa_expert/train_mode_argmax_chosen_object_17383.json
 
 # in argparse
 # s_idx: 

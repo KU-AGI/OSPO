@@ -65,8 +65,9 @@ class HFPushToHubWrapper(LightningModule):
         print("Local Done.")
 
         # 3) Optionally push to the Hugging Face Hub
-        self._push_to_hub(export_dir)
-        print("HF Done.")
+        # self._push_to_hub(export_dir)
+        # print("HF Done.")
+        print("Skip HF.")
 
         # rank = getattr(self.trainer, "global_rank", 0)
         rank = getattr(self.trainer, "global_rank")
@@ -85,7 +86,8 @@ class HFPushToHubWrapper(LightningModule):
         Returns the absolute path to the export directory.
         """
         # Choose a concrete leaf directory name
-        leaf = "hf_export"
+        # leaf = "hf_export"
+        leaf = "hf_ckpt"
         export_dir = Path(self.save_path).expanduser().resolve() / leaf
         if export_dir.exists():
             # Start fresh so repeated runs don’t mix files
@@ -386,8 +388,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--base_path", type=str, default="/nas2/checkpoints/Janus-Pro-7B")
     parser.add_argument("--cache_dir", type=str, default="/nas2/checkpoints/hf_cache_yj")
-    parser.add_argument("--ckpt_path", type=str, default="/nas2/data/Janus_dataset/next/ckpt/1103_next_v2_use_soft_mask_argmax_chosen_v1_simpo_1_beta_5_sft_2_copo_0/version_0/step=000600.ckpt")
-    parser.add_argument("--save_path", type=str, default="/nas2/data/Janus_dataset/next/ckpt_iter/iter1_1103_step_600")
+    parser.add_argument("--ckpt_path", type=str, default="/nas2/checkpoints/janus_dpo_aaai/1110_expand_numeracy/version_0/step=000800.ckpt")
+    parser.add_argument("--save_path", type=str, default="/nas2/data/Janus_dataset/next_v2/appendix/ospo_iter1_nas")
     parser.add_argument("--precision", type=str, default="bf16")
     args, unknown = parser.parse_known_args()
 

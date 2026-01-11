@@ -913,6 +913,7 @@ def uniDet_numeracy_eval_wrapper(config, gen_dir, eval_dir):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--cfg_path", type=str, default="configs/eval/t2icompbench.yaml")    
+    parser.add_argument("--iter", type=int, default=0)    
     # parser.add_argument("--cfg_path", type=str, default="configs/eval/t2icompbench_1b.yaml")    
     args,unknown = parser.parse_known_args()
 
@@ -920,10 +921,12 @@ if __name__ == "__main__":
     config = build_config(cfg_path=args.cfg_path) 
     if config.base.exp_name is None:
         config.base.exp_name = ''
-    eval_dir = os.path.join(config.base.save_path, config.base.exp_name, config.base.task_name, "eval")
+    # eval_dir = os.path.join(config.base.save_path, config.base.exp_name, config.base.task_name, "eval")
+    eval_dir = os.path.join(config.base.save_path, config.base.exp_name, config.base.task_name, f"correction_{args.iter}_eval")
 
     if config.task.eval.img_dir is None:
-        gen_dir = os.path.join(config.base.save_path, config.base.exp_name, config.base.task_name, "gen")
+        # gen_dir = os.path.join(config.base.save_path, config.base.exp_name, config.base.task_name, "gen")
+        gen_dir = os.path.join(config.base.save_path, config.base.exp_name, config.base.task_name, f"correction_{args.iter}")
     else:
         gen_dir = config.task.eval.img_dir
 

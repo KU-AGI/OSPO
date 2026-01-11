@@ -61,41 +61,37 @@ def main(config):
     trainer = get_trainer(device, config.world_size)
     vl_chat_processor, tokenizer, model = get_model(mode='generate', config=config)
 
+    if config.prompt_type == "qs":
+        # 1. Question generation
+        # if not os.path.exists(os.path.join(config.save_path, 'vqa_prompt.json')):
+        if config.data_path is None:
+            raise ValueError("config.data_path is not given.")
+        dataloader_qs = get_dataloader(config)
+        model_qs = get_wrapper(config, model, tokenizer, vl_chat_processor, 
+                                    constraint=config.img_constraint,
+                                    wrapper_cls=JanusProQuestionGenWrapper)
+        
+        start_time = datetime.datetime.now()
+        trainer.test(model_qs, dataloaders=dataloader_qs)
+        end_time = datetime.datetime.now()
+        print("(Step 3) Decompositional Question generation completed.")
 
-    # # 1. Question generation
-    # # if not os.path.exists(os.path.join(config.save_path, 'vqa_prompt.json')):
-    # if config.data_path is None:
-    #     raise ValueError("config.data_path is not given.")
-    # dataloader_qs = get_dataloader(config)
-    # model_qs = get_wrapper(config, model, tokenizer, vl_chat_processor, 
-    #                             constraint=config.img_constraint,
-    #                             wrapper_cls=JanusProQuestionGenWrapper)
-    
-    # trainer.test(model_qs, dataloaders=dataloader_qs)
-    # print("(Step 3) Decompositional Question generation completed.")
 
+    elif config.prompt_type == "ans":
+        # 2. Scoring based on Self-VQA result 
+        # reset
+        if config.data_path is None:
+            config.data_path = os.path.join(config.save_path, 'vqa_prompt.json')
+        dataloader_as = get_dataloader(config)
+        model_as = get_wrapper(config, model, tokenizer, vl_chat_processor, 
+                                    constraint=config.img_constraint,
+                                    wrapper_cls=JanusProScoreWrapper)
+        
+        start_time = datetime.datetime.now()
+        trainer.test(model_as, dataloaders=dataloader_as)
+        end_time = datetime.datetime.now()
+        print("(Step 3) Scoring and Train dataset generation completed.")
 
-    # 2. Scoring based on Self-VQA result 
-    # reset
-    if config.data_path is None:
-        config.data_path = os.path.join(config.save_path, 'vqa_prompt.json')
-    dataloader_as = get_dataloader(config)
-    model_as = get_wrapper(config, model, tokenizer, vl_chat_processor, 
-                                constraint=config.img_constraint,
-                                wrapper_cls=JanusProScoreWrapper)
-    
-    start_time = datetime.datetime.now()
-    trainer.test(model_as, dataloaders=dataloader_as)
-    end_time = datetime.datetime.now()
-    print("(Step 3) Scoring and Train dataset generation completed.")
-
-    """ NEVER USED """
-    # # 3. Question for rejected (prompt) generation
-    # dataloader_rqs = get_dataloader(config)
-    # model_rqs = get_wrapper(config, model, tokenizer, vl_chat_processor, 
-    #                             wrapper_cls=JanusProQuestionGenWrapper, mode="negative")
-    # trainer.test(model_rqs, dataloaders=dataloader_rqs)
-    # print("(Step 3) Rejected prompt; Decompositional Question generation completed.")
 
     elapsed_time = end_time - start_time
     elapsed_min = elapsed_time.total_seconds() / 60

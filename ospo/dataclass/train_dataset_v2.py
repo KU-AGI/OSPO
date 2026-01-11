@@ -5,6 +5,7 @@
 import os
 import torch
 import random
+import numpy as np
 from PIL import Image
 from typing import Dict
 from torch.utils.data import Dataset
@@ -312,7 +313,8 @@ class PreferenceDataset(Dataset):
             for key in ['base', 'negative']:
                 mask_path = os.path.join(self.mask_dir, key, example["t2i_category"], example["item_id"], f"{basename}_mask.pt")
                 if not os.path.exists(mask_path):                
-                    continue
+                    # continue
+                    raise ValueError(f"mask path: {mask_path} dose not exist!")
                 else: # mask path is existed.
                     if key == 'base':
                         chosen_mask = torch.load(mask_path) # .to('cuda')
@@ -321,13 +323,38 @@ class PreferenceDataset(Dataset):
 
         else:
             # FocusDiff 기준
-            base_mask_path = os.path.join(self.mask_dir, "data", "images", example["item_id"])
-            chosen_mask_path = os.path.join(base_mask_path, "image1_mask.pt")
-            rejected_mask_path = os.path.join(base_mask_path, "image2_mask.pt")
+            # base_mask_path = os.path.join(self.mask_dir, "data", "images", example["item_id"])
+            # chosen_mask_path = os.path.join(base_mask_path, "image1_mask.pt")
+            # rejected_mask_path = os.path.join(base_mask_path, "image2_mask.pt")
             
-            # mask is always exist (pre-filtering)
-            chosen_mask = torch.load(chosen_mask_path)
-            rejected_mask = torch.load(rejected_mask_path)
+            # # mask is always exist (pre-filtering)
+            # chosen_mask = torch.load(chosen_mask_path)
+            # rejected_mask = torch.load(rejected_mask_path)
+
+            # Target Region 실험 기준
+            item_id = example["item_id"]
+            chosen_mask_path = os.path.join(self.mask_dir, item_id, "token_mask_2d.npy")
+            rejected_mask_path = os.path.join(self.mask_dir, item_id, "token_mask_2d.npy")
+
+            for which, p in (("chosen", chosen_mask_path), ("rejected", rejected_mask_path)):
+                if not os.path.exists(p):
+                    raise FileNotFoundError(f"Missing {which} mask: {p}")
+                arr = np.load(p, allow_pickle=False)
+                if not isinstance(arr, np.ndarray):
+                    raise TypeError(f"Mask at {p} is not a numpy array")
+
+                t = torch.from_numpy(arr).float().squeeze()
+                if t.numel() == 576 and t.dim() == 1:
+                    t = t.view(24, 24)
+                elif t.shape == (24, 24):
+                    pass
+                else:
+                    raise ValueError(f"Unexpected mask shape at {p}: {tuple(t.shape)}")
+
+                if which == "chosen":
+                    chosen_mask = t
+                else:
+                    rejected_mask = t
 
         return chosen_mask, rejected_mask
 

@@ -53,7 +53,7 @@ def parquet_to_json_with_image_files(parquet_path, out_json_path=None, images_di
     else:
         records_buffer = []
 
-    for _, row in df.iterrows():
+    for _, row in tqdm(df.iterrows(), desc="Subprocessing ..."):
         rec = row.to_dict()
 
         for col in image_cols:
@@ -94,26 +94,38 @@ def parquet_to_json_with_image_files(parquet_path, out_json_path=None, images_di
 # --- Example usage ---
 if __name__ == "__main__":
 
-    pq_dir = "/nas2/data/pickapic_v2"
-    img_path="/nas2/data/pickapic_v2/images"
+
+    # PICKAPIC2
+    # pq_dir = "/nas2/data/pickapic_v2"
+    # img_path="/nas2/data/pickapic_v2/images"
+    # os.makedirs(img_path, exist_ok=True)
+        
+    # pq_path_list = [f for f in os.listdir(pq_dir) if f.startswith("train") and f.endswith(".parquet")]
+    # # pq_path="/nas2/data/pickapic_v2/train-00000-of-00645-b66ac786bf6fb553.parquet"
+
+
+    # ANY-EDIT
+    pq_dir = "/nas2/data/AnyEdit" # /train-00000-of-00383.parquet"
+    img_path="/nas2/data/AnyEdit/images"
     os.makedirs(img_path, exist_ok=True)
         
     pq_path_list = [f for f in os.listdir(pq_dir) if f.startswith("train") and f.endswith(".parquet")]
     # pq_path="/nas2/data/pickapic_v2/train-00000-of-00645-b66ac786bf6fb553.parquet"
 
-    count = 0
 
+    count = 0
     for idx, pq_path in tqdm(enumerate(pq_path_list)):
 
         load_path = os.path.join(pq_dir, pq_path)
-        json_path=f"/nas2/data/pickapic_v2/data/train_{idx:05d}.json"
-        # os.makedirs(os.path.dirname(json_path), exist_ok=True)
+        # json_path=f"/nas2/data/pickapic_v2/data/train_{idx:05d}.json"
+        json_path=f"{pq_dir}/train_{idx:05d}.json"
 
         pq_len = parquet_to_json_with_image_files(
             parquet_path=load_path,
             out_json_path=json_path,         # defaults to data/input_file.jsonl
             images_dir=img_path,             # defaults to data/input_file_images/
-            image_cols=["jpg_0", "jpg_1"],   # auto-detect bytes columns
+            # image_cols=["jpg_0", "jpg_1"],   # auto-detect bytes columns
+            image_cols=["image_file", "edited_file"],   # auto-detect bytes columns
             overwrite=False,
             use_jsonl=False,            # one JSON object per line
         )

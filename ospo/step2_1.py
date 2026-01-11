@@ -56,51 +56,56 @@ def main(config):
     vl_chat_processor, tokenizer, model = get_model(mode='generate', config=config)
 
 
-    # # 1. negative prompt generation
-    # if config.data_path is None:
-    #     config.data_path = os.path.join(os.path.dirname(config.save_path), 'step1', 'base_prompt.json') # default fname
-    # if not os.path.exists(config.data_path):
-    #     raise ValueError("The data path is not existed or None.")
-    # dataloader_negative = get_dataloader(config)
-    
-    # model_negative = get_wrapper(config, model, tokenizer, vl_chat_processor, 
-    #                             wrapper_cls=JanusProNegativeGenWrapper)
-    
+    if config.prompt_type == "negative":
+        # 1. negative prompt generation
+        if config.data_path is None:
+            config.data_path = os.path.join(os.path.dirname(config.save_path), 'step1', 'base_prompt.json') # default fname
+        if not os.path.exists(config.data_path):
+            raise ValueError("The data path is not existed or None.")
+        dataloader_negative = get_dataloader(config)
+        
+        model_negative = get_wrapper(config, model, tokenizer, vl_chat_processor, 
+                                    wrapper_cls=JanusProNegativeGenWrapper)
+        
 
-    # # Start evaluation
-    # start_time = datetime.datetime.now()
-    # trainer.test(model_negative, dataloaders=dataloader_negative)
-    # end_time = datetime.datetime.now()
-    # print("(Step 2) Negative prompt generation completed.")
+        # Start evaluation
+        start_time = datetime.datetime.now()
+        trainer.test(model_negative, dataloaders=dataloader_negative)
+        end_time = datetime.datetime.now()
+        print("(Step 2) Negative prompt generation completed.")
 
-    # elapsed_time = end_time - start_time
-    # elapsed_min = elapsed_time.total_seconds() / 60
+        elapsed_time = end_time - start_time
+        elapsed_min = elapsed_time.total_seconds() / 60
 
-    # print('------------------------------------------')
-    # print(f"Elapsed Time: {elapsed_min:.2f} minutes")
-    # print('------------------------------------------')
+        print('------------------------------------------')
+        print(f"Elapsed Time: {elapsed_min:.2f} minutes")
+        print('------------------------------------------')
 
 
+    elif config.prompt_type == "dense":
+        # 2. densification
+        if config.data_path is None:
+            config.data_path = os.path.join(config.save_path, 'negative_prompt.json') # default fname
+        dataloader_dense = get_dataloader(config)
+        
+        model_dense = get_wrapper(config, model, tokenizer, vl_chat_processor,
+                                    wrapper_cls=JanusProDenseGenWrapper)
 
-    # 2. densification
-    if config.data_path is None:
-        config.data_path = os.path.join(config.save_path, 'negative_prompt.json') # default fname
-    dataloader_dense = get_dataloader(config)
-    
-    model_dense = get_wrapper(config, model, tokenizer, vl_chat_processor,
-                                wrapper_cls=JanusProDenseGenWrapper)
+        # Start evaluation
+        start_time = datetime.datetime.now()
+        trainer.test(model_dense, dataloaders=dataloader_dense)
+        end_time = datetime.datetime.now()
+        print("(Step 2) Dense prompt generation completed.")
 
-    # Start evaluation
-    start_time = datetime.datetime.now()
-    trainer.test(model_dense, dataloaders=dataloader_dense)
-    end_time = datetime.datetime.now()
-    print("(Step 2) Dense prompt generation completed.")
+        elapsed_time = end_time - start_time
+        elapsed_min = elapsed_time.total_seconds() / 60
+        print('------------------------------------------')
+        print(f"Elapsed Time: {elapsed_min:.2f} minutes")
+        print('------------------------------------------')
 
-    elapsed_time = end_time - start_time
-    elapsed_min = elapsed_time.total_seconds() / 60
-    print('------------------------------------------')
-    print(f"Elapsed Time: {elapsed_min:.2f} minutes")
-    print('------------------------------------------')
+
+    else:
+        raise ValueError(f"Unexpected prompt type: {config.prompt_type}")
 
 
 if __name__ == "__main__":

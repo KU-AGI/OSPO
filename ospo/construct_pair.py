@@ -174,10 +174,30 @@ if __name__ == "__main__":
     # save_path = "/nas2/data/Janus_dataset/next_v2/iter2/train"
     
 
-    # WITHOUT DENSE
-    init_path = "/nas2/data/Janus_dataset/next_v2/ablation/wo_dense/init_dataset_16001.json"
-    vqa_path = "/nas2/data/Janus_dataset/next_v2/ablation/wo_dense/vqa_result_16001.json"
-    save_path = "/nas2/data/Janus_dataset/next_v2/ablation/wo_dense/train"
+    # # WITHOUT DENSE
+    # init_path = "/nas2/data/Janus_dataset/next_v2/ablation/wo_dense/init_dataset_16001.json"
+    # vqa_path = "/nas2/data/Janus_dataset/next_v2/ablation/wo_dense/vqa_result_16001.json"
+    # save_path = "/nas2/data/Janus_dataset/next_v2/ablation/wo_dense/train"
+
+
+    # # NUMERACY_5K_6K
+    # init_path = "/nas2/data/Janus_dataset/next_v2/ablation/wo_dense/init_dataset_16001.json"
+    # vqa_path = "/nas2/data/Janus_dataset/next_v2/ablation/wo_dense/vqa_result_16001.json"
+    # save_path = "/nas2/data/Janus_dataset/next_v2/ablation/wo_dense/train"
+
+
+    # NUMERACY_5K_6K (시드 통합)
+    # init_path = "/home/yjoh/project/OSPO/ablation/pair_size/init_pair_size_6_numeracy_add_only_seed_merged.json"
+    # vqa_path = "/nas2/data/Janus_dataset/next_v2/numeracy_add/vqa_result_numeracy_add_only_seed_merged_11806.json"
+    # save_path = "/nas2/data/Janus_dataset/next_v2/numeracy_add/seed_merge"
+
+
+    # Filtering Threshold
+    init_path = "/nas2/data/Janus_dataset/next_v2/appendix/iter2/data/prompt/init_dataset_20005.json"
+    vqa_path = "/nas2/data/Janus_dataset/next_v2/appendix/iter2/data/prompt/step3/vqa_result_merged_20005.json"
+    save_path = "/nas2/data/Janus_dataset/next_v2/appendix/iter2/data/train"
+
+
 
     init_data = read_json(init_path)
     init_dict = {d["item_id"]: d for d in init_data}
@@ -207,5 +227,6 @@ if __name__ == "__main__":
     save_json(
         save_root=save_path,
         save_file=train_data,
+        # save_name=f"train_mode_{MODE}_{len(train_data)}_pair_size_6"
         save_name=f"train_mode_{MODE}_{len(train_data)}"
     )

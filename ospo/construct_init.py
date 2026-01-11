@@ -1,5 +1,5 @@
 # /home/yjoh/project/ospo/cvpr/dataset/init_dataset_v2.py
-# 1. init_dataset 에서 layout 카테고리 수정
+# init_dataset 에서 layout 카테고리 수정
 
 import os, json
 import re

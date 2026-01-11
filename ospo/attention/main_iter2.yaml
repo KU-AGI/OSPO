@@ -1,11 +1,9 @@
 # iter1 ckpt
 model:
-  model_path: /nas2/data/Janus_dataset/next/ckpt_iter/iter1_1103_step_600/hf_export
+  model_path: /nas2/data/Janus_dataset/next_v2/appendix/ospo_iter1_nas/hf_ckpt # 7B base
   cache_dir: /nas2/checkpoints/hf_cache_yj
   attn_mode: eager
   # attn_mode: flash_attention_2
-  # flash_attn: False
-
 
 use_peft: True 
 lora:
@@ -22,23 +20,10 @@ experiment:
 
 # main parameter
 seed: 42
-save_dir: /nas2/data/Janus_dataset/next_v2/iter2/train/object_mask/argmax_chosen_object_10320
-data_path: /nas2/data/Janus_dataset/next_v2/iter2/train/train_mode_argmax_chosen_object_10320.json
+save_dir: /nas2/data/Janus_dataset/next_v2/appendix/iter2/data/train/object_mask
+data_path: /nas2/data/Janus_dataset/next_v2/appendix/iter2/data/train/train_mode_argmax_chosen_object_11606.json
 # s_idx: 0 
 # e_idx: 2000
-
-# s_idx: 2000
-# e_idx: 4000
-
-# s_idx: 4000
-# e_idx: 6000
-
-# s_idx: 6000
-# e_idx: 8000
-
-# s_idx: 8000
-# e_idx: 9500
-
 s_idx: 9500
 e_idx: 
 

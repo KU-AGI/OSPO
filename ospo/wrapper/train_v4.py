@@ -822,7 +822,6 @@ class JanusProTrainWrapper(pl.LightningModule):
             padded_swap_chosen_attention_mask = self.pad_to_max_len_in_batch(swap_chosen_attention_mask_list, pad_value=0)
 
 
-
         # SimPO Loss (only) mode
         else:
             if self.config.use_mask:
@@ -945,7 +944,7 @@ class JanusProTrainWrapper(pl.LightningModule):
                 if not k.endswith("_token_mask"):
                     concatenated_batch[concatenated_key] = pad_to_length(batch[k], max_length, pad_value=pad_value)
                 else:
-                    pass
+                    # pass
                     # mask_length = 576 # 24 * 24
                     # concatenated_batch[concatenated_key] = pad_to_length(batch[k], mask_length, pad_value=0) # no padding needed
                     concatenated_batch[concatenated_key] = batch[k]

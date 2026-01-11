@@ -48,6 +48,7 @@ def create_item_id(element_dir):
         "non-spatial": 2,
         "complex": 3
     }
+    # Related to Real base_prompt Data
     max_len_dict = {'color1': 667, 
                     'color2': 667, 
                     'shape1': 667, 
@@ -56,8 +57,8 @@ def create_item_id(element_dir):
                     'texture2': 667, 
                     '2D_spatial': 1000, 
                     '3D_spatial': 1000, 
-                    'numeracy1': 1000, 
-                    'numeracy2': 1000, 
+                    'numeracy1': 4000, # 1000 
+                    'numeracy2': 2000, # 1000
                     'non-spatial': 4000, 
                     'complex': 4000}
 
@@ -180,17 +181,19 @@ def main(config):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("--create_path", type=str, default=None)
     parser.add_argument("--cfg_path", type=str, default='configs/step1.yaml')
     parser.add_argument("--category", type=str, default=None, help="option: color1, color2, texture1, texture2, shape1, shape2, 2D_spatial, 3D_spatial, numeracy1, numeracy2, non-spatial, complex")
     args, unknown = parser.parse_known_args()  
-    
-    config = build_config(cfg_path=args.cfg_path)
-    if args.category is not None:
-        config.category = args.category
-    print("# Category:", config.category)
+
+    if args.create_path is None:
+        config = build_config(cfg_path=args.cfg_path)
+        if args.category is not None:
+            config.category = args.category
+        print("# Category:", config.category)
+        main(config)
 
 
-    main(config)
-
-    # # make item_id only
+    # make item_id only
     # create_item_id("/nas2/data/Janus_dataset/next_v2/iter2/prompt/step1")
+    create_item_id(args.create_path)

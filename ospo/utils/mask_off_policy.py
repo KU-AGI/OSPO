@@ -9,34 +9,37 @@ import pyrootutils
 pyrootutils.setup_root(__file__, indicator=".project-root", pythonpath=True, cwd=True)
 from ospo.utils.common import read_json, save_json
 
-TRAIN_DATA_PATH = "/nas2/data/Janus_dataset/next_v2/appendix/vqa_expert/train_mode_argmax_chosen_object_17383.json"
-TRAIN_MASK_DIR = "/nas2/data/Janus_dataset/next_v2/appendix/vqa_expert/object_mask"
+TRAIN_DATA_PATH = "/nas2/data/Janus_dataset/next_v2/ablation/pickapic2/train_object_16838.json"
+TRAIN_MASK_DIR = "/nas2/data/Janus_dataset/next_v2/ablation/pickapic2/object_mask/data/pickapic_v2/images" # all-in-one (NEVER OPEN)
 dataset = read_json(TRAIN_DATA_PATH)
 
 save_root = os.path.dirname(TRAIN_DATA_PATH)
 # save_name = "train_mode_argmax_chosen_filtered_{}"
 save_name = "train_filtered_{}"
 
-# TODO: off_policy
-def _check_masks_tuple(args, off_policy: bool = False):
+
+# /nas2/data/Janus_dataset/next_v2/ablation/pickapic2/object_mask/data/pickapic_v2/images/1c6649563f83ae8179a237b6b2429bc1f99bc3a2.jpg_attn_heatmap.png
+
+def _check_masks_tuple(args, focusdiff: bool = False):
     """
     args: (example, mask_dir)
     Return the example if both masks exist, else None.
     """
     ex, mask_dir = args
 
-    if not off_policy:
-        basename = Path(ex["chosen"]).stem  # safer/faster than split(".png")[0]
+    if not focusdiff: # pickapic2
+        c_basename = os.path.basename(ex["chosen"]) # Path(ex["chosen"]) # .stem  # safer/faster than split(".png")[0]
+        r_basename = os.path.basename(ex["rejected"])
 
-        # NOTE: using distinct subdirs "base" and "negative" per your code
-        c_mask_path = Path(mask_dir) / "base"     / ex["t2i_category"] / ex["item_id"] / f"{basename}_mask.pt"
-        r_mask_path = Path(mask_dir) / "negative" / ex["t2i_category"] / ex["item_id"] / f"{basename}_mask.pt"
-    
+        c_mask_path = f"{mask_dir}/{c_basename}_mask.pt" # Path(mask_dir) / f"{c_basename}_mask.pt" # 1c6649563f83ae8179a237b6b2429bc1f99bc3a2.jpg_mask.pt
+        r_mask_path = f"{mask_dir}/{r_basename}_mask.pt" # Path(mask_dir) / f"{r_basename}_mask.pt"
+        
     else:
         c_mask_path = Path(mask_dir) / "data" / "images" / ex["item_id"] / "image1_mask.pt"
         r_mask_path = Path(mask_dir) / "data" / "images" / ex["item_id"] / "image2_mask.pt"
 
-    if c_mask_path.exists() and r_mask_path.exists():
+    # if c_mask_path.exists() and r_mask_path.exists():
+    if os.path.exists(c_mask_path) and os.path.exists(r_mask_path):
         return ex
     
     return None

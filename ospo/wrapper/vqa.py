@@ -13,7 +13,7 @@ from ospo.templates import get_vqa_prompt
 
 
 class JanusProQuestionGenWrapper(LightningModule):
-    def __init__(self, config, model, tokenizer, processor, mode: str = "base"):
+    def __init__(self, config, model, tokenizer, processor, constraint: int = None, mode: str = "base"):
         super().__init__()
         self.config=config
         self.model=model
