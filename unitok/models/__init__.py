@@ -2,7 +2,7 @@ import torch.nn as nn
 from .vqvae import VQVAE
 from .discrim import DinoDiscV2
 from .unitok import UniTok
-from utils.config import Args
+from unitok.utils.config import Args
 
 
 def build_vae(args: Args):

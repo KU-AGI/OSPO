@@ -27,8 +27,8 @@ from transformers.generation.utils import GenerateOutput
 from transformers.modeling_outputs import CausalLMOutputWithPast
 from transformers import AutoConfig, AutoModelForCausalLM, LlamaConfig, LlamaModel, LlamaForCausalLM
 
-from model.arhead import AR_head
-from model.liquid import MiniGeminiMetaModel, MiniGeminiMetaForCausalLM
+from unitok.eval.liquid.model.arhead import AR_head
+from unitok.eval.liquid.model.liquid import MiniGeminiMetaModel, MiniGeminiMetaForCausalLM
 
 
 logger = logging.get_logger(__name__)

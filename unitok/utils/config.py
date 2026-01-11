@@ -7,8 +7,8 @@ from tap import Tap
 from typing import Optional, Union
 from collections import OrderedDict
 
-from utils import dist
-
+from unitok.utils import dist
+# from torch import distributed as dist
 
 class Args(Tap):
     model: str = 'vitamin_large' # 'vitamin_base', 'vitamin_large', xxx

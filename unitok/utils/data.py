@@ -27,9 +27,9 @@ from torchvision.transforms import transforms, InterpolationMode
 from webdataset.tariterators import base_plus_ext, url_opener, tar_file_expander, valid_sample
 from torch.utils.data import Dataset, DataLoader, SubsetRandomSampler, IterableDataset, get_worker_info
 
-from utils import dist, config
-from utils.sampler import DistInfiniteBatchSampler
-from open_clip.transform import image_transform
+from unitok.utils import dist, config
+from unitok.utils.sampler import DistInfiniteBatchSampler
+from unitok.open_clip.transform import image_transform
 
 Image.MAX_IMAGE_PIXELS = (1024 * 1024 * 1024 // 4 // 3) * 5
 ImageFile.LOAD_TRUNCATED_IMAGES = False

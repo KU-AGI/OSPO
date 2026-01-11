@@ -25,7 +25,8 @@ except ImportError:
 from timm.models import create_model
 from .utils import freeze_batch_norm_2d
 
-import models
+# import models
+import unitok.models
 
 class TimmModel(nn.Module):
     """ timm model adapter

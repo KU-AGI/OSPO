@@ -1,0 +1,100 @@
+# conda activate unitok_dpo
+
+base:
+  save_path: /nas2/checkpoints/unitok_dpo_aaai
+  # exp_name: 1118_standard_simpo_without_mask_tau_06_LLM_ONLY
+  exp_name: 1118_object_weighted_simpo_with_mask_tau_06_LLM_ONLY_lr_6e6_constant_beta_3
+  world_size: 1
+
+
+model:
+  model_path: /nas2/checkpoints/unitok_mllm
+  tokenizer_path: /nas2/checkpoints/unitok_tokenizer/unitok_tokenizer.pth
+  cache_dir: /nas2/checkpoints/hf_cache_yj
+  attn_mode: sdpa
+
+
+use_peft: True 
+use_ds: False
+
+# 추가
+# use_mask: False
+# mask_dir:
+
+use_mask: True
+mask_dir: /nas2/data/Janus_dataset/next_v2/unitok/dataset/train/tau_06/object_mask
+
+
+lora:
+  lora_rank: 32
+  lora_alpha: 64
+  lora_dropout: 0.05
+  target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "down_proj", "up_proj"]
+  modules_to_save: # Keeps selected layers trainable without applying LoRA.
+
+
+dataset:
+  train:
+    batch_size: 2
+    num_workers: 4
+    data_path: /nas2/data/Janus_dataset/next_v2/unitok/dataset/train/tau_06/train_filtered_5321.json
+    num_samples:   
+  # 미진행           
+  val:
+    batch_size: 2 # A100 기준 max 8 because of DPGBench (long prompt)
+    num_workers: 4
+    # 총 6가지
+    # vqa, general, hn-image-id, hn-image-ood, hn-text-id, hn-text-ood
+    data_path: 
+      task_0: #mllm_train/simpo/validation/val_vqa.json 
+      task_1: #/nas2/data/Janus_dataset/main_exp/aaai/unitok/prompt/train_dataset/random/val_data_1459.json
+      task_2: #mllm_train/simpo/validation/val_hn_id.json
+      task_3: #mllm_train/simpo/validation/val_hn_ood.json
+      task_4: #mllm_train/simpo/validation/val_hn_text_id.json
+      task_5: #mllm_train/simpo/validation/val_hn_text_ood.json
+    temperature: 1
+    cfg_weight: 5
+
+
+optimizer:
+  init_lr: 1e5 # 1e-5
+  betas: [0.9, 0.95]
+  weight_decay: 0.00 
+  eps: 1e-8
+  scheduler_type: constant # constant # cosine
+  min_lr: 1e-7 # 1e7
+
+experiment:
+  seed: 0
+  precision: 32 # 32 / bf16
+
+  warmup_ratio: 0.05
+  gradient_clip_val: 5.0
+  enable_checkpointing: True
+  gradient_checkpointing: False 
+  gradient_accumulation_steps: 1 # 64
+  max_training_steps: 2000
+  save_steps: 100
+  log_steps: 5
+  val_steps: 50
+  log_by_category: False # 신규 추가
+
+algo: # simpo
+  beta_1: 3
+  beta_2: 3
+  
+  gamma_beta_ratio_1: 0.5
+  gamma_beta_ratio_2: 0.5
+  
+  label_smoothing: 0.0
+  loss_type: "sigmoid"
+  
+  simpo_weight: 1.0
+  sft_weight: 2.0
+  copo_weight: 0.0
+
+  mask_alpha: 1.0 
+  mask_gamma: 1.0
+
+  simpo_clipping_weight: 0.0
+  copo_clipping_weight: 0.0

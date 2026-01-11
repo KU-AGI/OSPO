@@ -5,8 +5,8 @@ import torch.nn.functional as F
 from contextlib import nullcontext
 from torch.nn.functional import scaled_dot_product_attention
 
-from models.quant import VectorQuantizerM
-from models.vitamin import ViTaminDecoder, GeGluMlp
+from unitok.models.quant import VectorQuantizerM
+from unitok.models.vitamin import ViTaminDecoder, GeGluMlp
 
 
 class PlainAttention(nn.Module):

@@ -1,0 +1,41 @@
+# CUDA_VISIBLE_DEVICES=5 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 12000 --e_idx 12000
+
+model:
+  model_path: /nas2/checkpoints/unitok_mllm
+  tokenizer_path: /nas2/checkpoints/unitok_tokenizer/unitok_tokenizer.pth
+  cache_dir: /nas2/checkpoints/hf_cache_yj
+  attn_mode: eager # 주의
+
+use_peft: True 
+use_ds: False
+
+lora:
+  lora_rank: 64 # 32
+  lora_alpha: 128 # 64
+  lora_dropout: 0.05
+  target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "down_proj", "up_proj"]
+  modules_to_save: # Keeps selected layers trainable without applying LoRA.
+
+experiment:
+  precision: bf16
+  gradient_checkpointing: False
+  # padding_value: 0
+  # label_pad_token_id: -100
+
+# main parameter
+seed: 42
+# save_dir: /nas2/data/Janus_dataset/next_v2/unitok/dataset/train/tau_06/object_mask
+# data_path: /nas2/data/Janus_dataset/next_v2/unitok/dataset/train/tau_06/train_mode_argmax_chosen_5325_tau_object_5321.json
+
+save_dir: /nas2/data/Janus_dataset/next_v2/unitok/dataset/train/tau_03/object_mask
+data_path: /nas2/data/Janus_dataset/next_v2/unitok/dataset/train/tau_03/train_mode_argmax_chosen_6704_tau_object_6700.json
+
+# in argparse
+# s_idx: 
+# e_idx: 
+
+save_attn: True
+skip_layer_idx: [0,1,2,3,4, 25,26,27,28,29]
+aggregate: mean
+scaler: 0.7 # 0.8 (max: 1.0)
+

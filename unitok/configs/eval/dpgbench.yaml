@@ -1,0 +1,31 @@
+base:
+  save_path: /nas2/checkpoints/unitok_dpo_eval
+  exp_name: 
+  task_name: dpgbench
+
+  world_size: 4
+  precision: bf16 
+
+model:
+  type: official # * official / pl 
+  model_path: /nas2/checkpoints/unitok_mllm
+  tokenizer_path: /nas2/checkpoints/unitok_tokenizer/unitok_tokenizer.pth
+  cache_dir: /nas2/checkpoints/hf_cache_yj
+  ckpt_path: 
+  attn_mode: flash_attention_2
+  
+task: 
+  batch_size: 8 # A100 기준 최대값
+  num_workers: 4
+  seed: [42] # [42]
+
+  data_path: /home/rla020/research/bench/ELLA/dpg_bench/prompts
+  s_idx:
+  e_idx:
+
+generation_config:
+  cfg_scale: 5.0
+  temperature: 0.9
+  top_k: 2048
+  top_p: 0.96
+  sample_logits: True

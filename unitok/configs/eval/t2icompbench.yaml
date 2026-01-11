@@ -1,0 +1,40 @@
+base:
+  save_path: /nas2/checkpoints/unitok_dpo_eval
+  exp_name: 
+  task_name: t2icompbench
+
+  world_size: 4
+  precision: bf16 
+
+model:
+  type: pl # * official / pl 
+  model_path: /nas2/checkpoints/unitok_mllm
+  tokenizer_path: /nas2/checkpoints/unitok_tokenizer/unitok_tokenizer.pth
+  cache_dir: /nas2/checkpoints/hf_cache_yj
+  ckpt_path: 
+  
+task:
+  # 고정
+  num_workers: 4
+  seed: [42] # [42]
+  data_path: /nas/backup/data/visual_llama_eval/T2I-CompBench_dataset
+  
+  # 비고정
+  batch_size: 16 # maybe, optimal
+  split: val # train/val/미지정
+  category: ["shape", "spatial", "color", "texture", "3d_spatial", "numeracy", "complex", "non-spatial"] #, "spatial", "texture", "shape", "numeracy"] # ["shape", "spatial", "color", "texture", "3d_spatial", "numeracy", "complex", "non-spatial"]
+  s_idx:
+  e_idx: 
+
+  eval:
+    # 카테고리의 상위
+    img_dir: 
+    np_num: 8 # 고정 
+    complex_only: False # 고정
+
+generation_config:
+    cfg_scale: 5.0
+    temperature: 0.9
+    top_k: 2048
+    top_p: 0.96
+    sample_logits: True

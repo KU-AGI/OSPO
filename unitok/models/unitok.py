@@ -5,9 +5,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 from contextlib import nullcontext
 
-from models.vitamin import GeGluMlp, ViTaminDecoder
-from models.quant import VectorQuantizerM
-from models.vqvae import AttnProjection
+from unitok.models.vitamin import GeGluMlp, ViTaminDecoder
+from unitok.models.quant import VectorQuantizerM
+from unitok.models.vqvae import AttnProjection
 
 
 class UniTok(nn.Module):

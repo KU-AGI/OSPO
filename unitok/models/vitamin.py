@@ -49,7 +49,7 @@ from timm.models.vision_transformer import VisionTransformer, checkpoint_filter_
 from timm.models.vision_transformer_hybrid import HybridEmbed
 from torch.utils.checkpoint import checkpoint
 
-from utils.config import Args
+from unitok.utils.config import Args
 DropPath.__repr__ = lambda self: f'{type(self).__name__}(...)'
 
 

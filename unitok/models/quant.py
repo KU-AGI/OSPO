@@ -3,7 +3,7 @@ from typing import List, Tuple
 from torch.nn import functional as F
 from torch import distributed as tdist, nn as nn
 
-from utils import dist
+from unitok.utils import dist
 
 
 def get_entropy_loss(latent_embed, codebook_embed, inv_entropy_tau):

@@ -1,0 +1,36 @@
+base:
+  save_path: /nas2/checkpoints/unitok_dpo_eval
+  exp_name: 1118_use_mask_lr_6e6/ckpt_200
+  task_name: geneval
+
+  world_size: 3
+  precision: bf16 
+
+model:
+  type: pl # * official / pl 
+  model_path: /nas2/checkpoints/unitok_mllm
+  tokenizer_path: /nas2/checkpoints/unitok_tokenizer/unitok_tokenizer.pth
+  cache_dir: /nas2/checkpoints/hf_cache_yj
+  ckpt_path: /nas2/checkpoints/unitok_dpo_aaai/1118_use_mask_lr_6e6/version_0/step=000200.ckpt
+  attn_mode: flash_attention_2
+
+task:
+  batch_size: 10 # 8
+  # 고정
+  num_workers: 4
+  seed: [42]
+  parallel_size: 1 
+  temperature: 1
+  cfg_weight: 5
+
+  data_path: /home/rla020/research/bench/geneval/prompts/evaluation_metadata.jsonl
+  # args 로 대체 (전체 1000)
+  # s_idx:
+  # e_idx:
+
+generation_config:
+    cfg_scale: 5.0
+    temperature: 0.9
+    top_k: 2048
+    top_p: 0.96
+    sample_logits: True
