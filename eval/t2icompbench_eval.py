@@ -912,6 +912,7 @@ def uniDet_numeracy_eval_wrapper(config, gen_dir, eval_dir):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    # parser.add_argument("--cfg_path", type=str, default="configs/eval_iter/t2icompbench_iter3.yaml")    
     parser.add_argument("--cfg_path", type=str, default="configs/eval/t2icompbench.yaml")    
     # parser.add_argument("--cfg_path", type=str, default="configs/eval/t2icompbench_1b.yaml")    
     args,unknown = parser.parse_known_args()

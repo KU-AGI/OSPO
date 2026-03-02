@@ -1,14 +1,15 @@
-# CUDA_VISIBLE_DEVICES=0 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 0 --e_idx 2500
-# CUDA_VISIBLE_DEVICES=1 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 2500 --e_idx 5000
+# CUDA_VISIBLE_DEVICES=0 python /home/yjoh/project/OSPO/ospo/attention/main_v2_abl_stage4.py --s_idx 0 --e_idx 2500
+# CUDA_VISIBLE_DEVICES=1 python /home/yjoh/project/OSPO/ospo/attention/main_v2_abl_stage4.py --s_idx 2500 --e_idx 5000
 
-# CUDA_VISIBLE_DEVICES=2 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 5000 --e_idx 7500
-# CUDA_VISIBLE_DEVICES=3 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 7500 --e_idx 10000 
-# CUDA_VISIBLE_DEVICES=4 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 10000 --e_idx 12000 //
+# CUDA_VISIBLE_DEVICES=2 python /home/yjoh/project/OSPO/ospo/attention/main_v2_abl_stage4.py --s_idx 5000 --e_idx 7500
+# CUDA_VISIBLE_DEVICES=3 python /home/yjoh/project/OSPO/ospo/attention/main_v2_abl_stage4.py --s_idx 7500 --e_idx 10000 
+# CUDA_VISIBLE_DEVICES=4 python /home/yjoh/project/OSPO/ospo/attention/main_v2_abl_stage4.py --s_idx 10000 --e_idx 12000 //
 
-# CUDA_VISIBLE_DEVICES=5 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 12000 --e_idx 14000
-# CUDA_VISIBLE_DEVICES=6 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 14000 --e_idx 15000 
-# CUDA_VISIBLE_DEVICES=7 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 15000 --e_idx 16500
-# CUDA_VISIBLE_DEVICES=8 python /home/yjoh/project/OSPO/ospo/attention/main_v2.py --s_idx 16500 
+# CUDA_VISIBLE_DEVICES=5 python /home/yjoh/project/OSPO/ospo/attention/main_v2_abl_stage4.py --s_idx 12000 --e_idx 14000
+# CUDA_VISIBLE_DEVICES=6 python /home/yjoh/project/OSPO/ospo/attention/main_v2_abl_stage4.py --s_idx 14000 --e_idx 15000 
+# CUDA_VISIBLE_DEVICES=7 python /home/yjoh/project/OSPO/ospo/attention/main_v2_abl_stage4.py --s_idx 15000 --e_idx 16500
+# CUDA_VISIBLE_DEVICES=8 python /home/yjoh/project/OSPO/ospo/attention/main_v2_abl_stage4.py --s_idx 1000 --e_idx 1000
+# CUDA_VISIBLE_DEVICES=9 python /home/yjoh/project/OSPO/ospo/attention/main_v2_abl_stage4.py --s_idx 10000 --e_idx 10000 
 
 model:
   model_path: /nas2/checkpoints/Janus-Pro-7B
@@ -29,8 +30,20 @@ experiment:
 
 # main parameter
 seed: 42
-save_dir: /nas2/data/Janus_dataset/next_v2/appendix/vqa_expert/object_mask
-data_path: /nas2/data/Janus_dataset/next_v2/appendix/vqa_expert/train_mode_argmax_chosen_object_17383.json
+# save_dir: /nas2/data/Janus_dataset/next_v2/appendix/vqa_expert/object_mask
+# data_path: /nas2/data/Janus_dataset/next_v2/appendix/vqa_expert/train_mode_argmax_chosen_object_17383.json
+
+# 2026 ver.
+# save_dir: /nas2/data/Janus_dataset/next_v2/object_mask/argmax_chosen_10430
+# data_path: /nas2/data/Janus_dataset/next_v2/train_2026/train_mode_argmax_chosen_object_16968.json
+
+# 2026 pair size 1 ver.
+# save_dir: /nas2/checkpoints/janus_dpo_rebuttal/data/stage2_abl/object_mask
+# data_path: /nas2/checkpoints/janus_dpo_rebuttal/data/stage2_abl/stage2_abl_train_object_17507.json
+
+save_dir: /nas2/checkpoints/janus_dpo_rebuttal/data/stage4_abl/object_mask
+data_path: /nas2/checkpoints/janus_dpo_rebuttal/data/stage4_abl/stage4_abl_train_object_38462.json
+
 
 # in argparse
 # s_idx: 

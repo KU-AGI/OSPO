@@ -1,0 +1,1352 @@
+[
+    {
+        "item_id": "000",
+        "category": "color",
+        "prompt": "a yellow pencil and a green eraser"
+    },
+    {
+        "item_id": "001",
+        "category": "color",
+        "prompt": "a green carrot and a orange broccoli"
+    },
+    {
+        "item_id": "002",
+        "category": "color",
+        "prompt": "a green apple and a red book"
+    },
+    {
+        "item_id": "003",
+        "category": "color",
+        "prompt": "a brown chair and a red clock"
+    },
+    {
+        "item_id": "004",
+        "category": "color",
+        "prompt": "a red apple and a green book"
+    },
+    {
+        "item_id": "005",
+        "category": "color",
+        "prompt": "a blue cat and a brown chair"
+    },
+    {
+        "item_id": "006",
+        "category": "color",
+        "prompt": "a red car and a brown giraffe"
+    },
+    {
+        "item_id": "007",
+        "category": "color",
+        "prompt": "a red candle and a white holder"
+    },
+    {
+        "item_id": "008",
+        "category": "color",
+        "prompt": "a black phone and a white charger"
+    },
+    {
+        "item_id": "009",
+        "category": "color",
+        "prompt": "a blue bowl and a green vase"
+    },
+    {
+        "item_id": "010",
+        "category": "color",
+        "prompt": "a black dress and a pink purse"
+    },
+    {
+        "item_id": "011",
+        "category": "color",
+        "prompt": "A wood framed mirror hangs over a silver, square sink unit with white fittings."
+    },
+    {
+        "item_id": "012",
+        "category": "color",
+        "prompt": "a green tomato and a red pepper"
+    },
+    {
+        "item_id": "013",
+        "category": "color",
+        "prompt": "a brown car and a red cat"
+    },
+    {
+        "item_id": "014",
+        "category": "color",
+        "prompt": "A white tiled bathroom with beige fixtures and a mirror."
+    },
+    {
+        "item_id": "015",
+        "category": "color",
+        "prompt": "a black pen and a white notebook"
+    },
+    {
+        "item_id": "016",
+        "category": "color",
+        "prompt": "a green bench and a yellow train"
+    },
+    {
+        "item_id": "017",
+        "category": "color",
+        "prompt": "a green banana and a yellow orange"
+    },
+    {
+        "item_id": "018",
+        "category": "color",
+        "prompt": "a green bench and a brown dog"
+    },
+    {
+        "item_id": "019",
+        "category": "color",
+        "prompt": "A blue toilet with a white seat on a display platform."
+    },
+    {
+        "item_id": "020",
+        "category": "color",
+        "prompt": "a red bird and a brown elephant"
+    },
+    {
+        "item_id": "021",
+        "category": "color",
+        "prompt": "a gold clock and a yellow train"
+    },
+    {
+        "item_id": "022",
+        "category": "color",
+        "prompt": "A white cat is inside a black toilet."
+    },
+    {
+        "item_id": "023",
+        "category": "color",
+        "prompt": "A bathroom with a brown shower curtain and white toilet"
+    },
+    {
+        "item_id": "024",
+        "category": "color",
+        "prompt": "a yellow duck and a green frog"
+    },
+    {
+        "item_id": "025",
+        "category": "color",
+        "prompt": "a yellow umbrella and a red raincoat"
+    },
+    {
+        "item_id": "026",
+        "category": "color",
+        "prompt": "a yellow book and a red dog"
+    },
+    {
+        "item_id": "027",
+        "category": "color",
+        "prompt": "a green grasshopper and a yellow butterfly"
+    },
+    {
+        "item_id": "028",
+        "category": "color",
+        "prompt": "a blue shirt and a yellow tie"
+    },
+    {
+        "item_id": "029",
+        "category": "color",
+        "prompt": "a white rose and a red lily"
+    },
+    {
+        "item_id": "100",
+        "category": "shape",
+        "prompt": "a diamond ring and a round brooch pin"
+    },
+    {
+        "item_id": "101",
+        "category": "shape",
+        "prompt": "The conical lamp with its pentagonal base and teardrop shade provided warm lighting in the rectangular bedroom."
+    },
+    {
+        "item_id": "102",
+        "category": "shape",
+        "prompt": "a pentagonal stop sign and a pyramidal caution sign"
+    },
+    {
+        "item_id": "103",
+        "category": "shape",
+        "prompt": "The diamond mirror with its oval frame and triangular hooks hung in the round bathroom."
+    },
+    {
+        "item_id": "104",
+        "category": "shape",
+        "prompt": "a round plate and a rectangular placemat"
+    },
+    {
+        "item_id": "105",
+        "category": "shape",
+        "prompt": "a diamond pendant and a round watch"
+    },
+    {
+        "item_id": "106",
+        "category": "shape",
+        "prompt": "a rectangular picture frame and a pentagonal photo mat"
+    },
+    {
+        "item_id": "107",
+        "category": "shape",
+        "prompt": "a circular plate and a triangular placemat"
+    },
+    {
+        "item_id": "108",
+        "category": "shape",
+        "prompt": "a big elephant and a small ladybug"
+    },
+    {
+        "item_id": "109",
+        "category": "shape",
+        "prompt": "a round pizza and a square slice of cake"
+    },
+    {
+        "item_id": "110",
+        "category": "shape",
+        "prompt": "a round ball and a square clock"
+    },
+    {
+        "item_id": "111",
+        "category": "shape",
+        "prompt": "a rectangular envelope and a oval stamp"
+    },
+    {
+        "item_id": "112",
+        "category": "shape",
+        "prompt": "a rectangular frame and a spherical picture"
+    },
+    {
+        "item_id": "113",
+        "category": "shape",
+        "prompt": "a diamond necklace and a round ring"
+    },
+    {
+        "item_id": "114",
+        "category": "shape",
+        "prompt": "The triangular vase with its pentagonal opening and oblong body held flowers in the round foyer."
+    },
+    {
+        "item_id": "115",
+        "category": "shape",
+        "prompt": "a big bear and a small mouse"
+    },
+    {
+        "item_id": "116",
+        "category": "shape",
+        "prompt": "an oval bathtub and a square shower stall"
+    },
+    {
+        "item_id": "117",
+        "category": "shape",
+        "prompt": "an oblong eggplant and a teardrop cherry"
+    },
+    {
+        "item_id": "118",
+        "category": "shape",
+        "prompt": "a cubic block and a cylindrical glue stick"
+    },
+    {
+        "item_id": "119",
+        "category": "shape",
+        "prompt": "a diamond ring and a round bracelet"
+    },
+    {
+        "item_id": "120",
+        "category": "shape",
+        "prompt": "a spherical volleyball and a conical net"
+    },
+    {
+        "item_id": "121",
+        "category": "shape",
+        "prompt": "a diamond cufflink and a spherical watch case"
+    },
+    {
+        "item_id": "122",
+        "category": "shape",
+        "prompt": "an oblong carrot and a teardrop pear"
+    },
+    {
+        "item_id": "123",
+        "category": "shape",
+        "prompt": "a tall vase and a short candle"
+    },
+    {
+        "item_id": "124",
+        "category": "shape",
+        "prompt": "a diamond engagement ring and a round wristwatch"
+    },
+    {
+        "item_id": "125",
+        "category": "shape",
+        "prompt": "a cubic block and a cylindrical tube of lip balm"
+    },
+    {
+        "item_id": "126",
+        "category": "shape",
+        "prompt": "a spherical snowball and a diamond snowflake ornament"
+    },
+    {
+        "item_id": "127",
+        "category": "shape",
+        "prompt": "a tall sequoia tree and a short succulent"
+    },
+    {
+        "item_id": "128",
+        "category": "shape",
+        "prompt": "The pyramidal tent with its triangular entrance and rectangular base sheltered campers in the oval campground."
+    },
+    {
+        "item_id": "129",
+        "category": "shape",
+        "prompt": "The cylindrical lamp with its spherical bulb and triangular base cast a warm glow in the oblong bedroom."
+    },
+    {
+        "item_id": "200",
+        "category": "texture",
+        "prompt": "a rubber ball and a fabric dress"
+    },
+    {
+        "item_id": "201",
+        "category": "texture",
+        "prompt": "a plastic phone case and a fabric blanket"
+    },
+    {
+        "item_id": "202",
+        "category": "texture",
+        "prompt": "a wooden door and a fluffy sweater"
+    },
+    {
+        "item_id": "203",
+        "category": "texture",
+        "prompt": "The wooden stool and glass of milk sit next to the metallic juicer on the plastic kitchen counter."
+    },
+    {
+        "item_id": "204",
+        "category": "texture",
+        "prompt": "a metallic fork and a glass cup"
+    },
+    {
+        "item_id": "205",
+        "category": "texture",
+        "prompt": "a fabric hat and a leather wallet"
+    },
+    {
+        "item_id": "206",
+        "category": "texture",
+        "prompt": "a plastic bottle and leather gloves"
+    },
+    {
+        "item_id": "207",
+        "category": "texture",
+        "prompt": "a wooden spoon and a leather jacket"
+    },
+    {
+        "item_id": "208",
+        "category": "texture",
+        "prompt": "rubber gloves and a fluffy sweater"
+    },
+    {
+        "item_id": "209",
+        "category": "texture",
+        "prompt": "a metallic door knob and a glass cup"
+    },
+    {
+        "item_id": "210",
+        "category": "texture",
+        "prompt": "The metallic frames of the glasses complement the leather jacket and fabric scarf."
+    },
+    {
+        "item_id": "211",
+        "category": "texture",
+        "prompt": "The metallic pot simmers on the wooden stove while the plastic spatula stirs the soup."
+    },
+    {
+        "item_id": "212",
+        "category": "texture",
+        "prompt": "a metallic key and a leather jacket"
+    },
+    {
+        "item_id": "213",
+        "category": "texture",
+        "prompt": "a rubber ball and a plastic bottle"
+    },
+    {
+        "item_id": "214",
+        "category": "texture",
+        "prompt": "The plastic shower curtain and fluffy bath mat rest on the metallic hooks in the bathroom."
+    },
+    {
+        "item_id": "215",
+        "category": "texture",
+        "prompt": "a metallic key and a glass cup"
+    },
+    {
+        "item_id": "216",
+        "category": "texture",
+        "prompt": "The fluffy white clouds drift over the metallic train and wooden station."
+    },
+    {
+        "item_id": "217",
+        "category": "texture",
+        "prompt": "a wooden table and a fabric hat"
+    },
+    {
+        "item_id": "218",
+        "category": "texture",
+        "prompt": "The glass terrarium and wooden stand display the rubber plant beautifully."
+    },
+    {
+        "item_id": "219",
+        "category": "texture",
+        "prompt": "a metallic car and a glass table"
+    },
+    {
+        "item_id": "220",
+        "category": "texture",
+        "prompt": "a metallic keychain and a fabric towel"
+    },
+    {
+        "item_id": "221",
+        "category": "texture",
+        "prompt": "a metallic spoon and a leather shoes"
+    },
+    {
+        "item_id": "222",
+        "category": "texture",
+        "prompt": "The wooden spoon and metallic fork mix the fluffy eggs in the glass bowl."
+    },
+    {
+        "item_id": "223",
+        "category": "texture",
+        "prompt": "a wooden toy and a fabric dress"
+    },
+    {
+        "item_id": "224",
+        "category": "texture",
+        "prompt": "The wooden chair and fluffy cushion provide a comfortable seat for the metallic laptop."
+    },
+    {
+        "item_id": "225",
+        "category": "texture",
+        "prompt": "a wooden table and a fabric rug"
+    },
+    {
+        "item_id": "226",
+        "category": "texture",
+        "prompt": "a rubber ball and a fluffy sweater"
+    },
+    {
+        "item_id": "227",
+        "category": "texture",
+        "prompt": "rubber gloves and a fabric bag"
+    },
+    {
+        "item_id": "228",
+        "category": "texture",
+        "prompt": "a wooden desk and a glass bottle"
+    },
+    {
+        "item_id": "229",
+        "category": "texture",
+        "prompt": "a metallic desk lamp and a fabric pants"
+    },
+    {
+        "item_id": "300",
+        "category": "spatial",
+        "prompt": "a cow on the bottom of a man"
+    },
+    {
+        "item_id": "301",
+        "category": "spatial",
+        "prompt": "a woman on the bottom of a suitcase"
+    },
+    {
+        "item_id": "302",
+        "category": "spatial",
+        "prompt": "a sheep on the left of a suitcase"
+    },
+    {
+        "item_id": "303",
+        "category": "spatial",
+        "prompt": "a chair on the bottom of a cat"
+    },
+    {
+        "item_id": "304",
+        "category": "spatial",
+        "prompt": "a cup on the right of a bird"
+    },
+    {
+        "item_id": "305",
+        "category": "spatial",
+        "prompt": "a phone on the left of a girl"
+    },
+    {
+        "item_id": "306",
+        "category": "spatial",
+        "prompt": "a television on the left of a chicken"
+    },
+    {
+        "item_id": "307",
+        "category": "spatial",
+        "prompt": "a desk on the left of a cat"
+    },
+    {
+        "item_id": "308",
+        "category": "spatial",
+        "prompt": "a bird next to a microwave"
+    },
+    {
+        "item_id": "309",
+        "category": "spatial",
+        "prompt": "a butterfly on the right of a clock"
+    },
+    {
+        "item_id": "310",
+        "category": "spatial",
+        "prompt": "a giraffe next to a painting"
+    },
+    {
+        "item_id": "311",
+        "category": "spatial",
+        "prompt": "a cow near a car"
+    },
+    {
+        "item_id": "312",
+        "category": "spatial",
+        "prompt": "a backpack on the right of a person"
+    },
+    {
+        "item_id": "313",
+        "category": "spatial",
+        "prompt": "a cow next to a train"
+    },
+    {
+        "item_id": "314",
+        "category": "spatial",
+        "prompt": "a sheep on side of a table"
+    },
+    {
+        "item_id": "315",
+        "category": "spatial",
+        "prompt": "a wallet on the bottom of a sheep"
+    },
+    {
+        "item_id": "316",
+        "category": "spatial",
+        "prompt": "a bicycle on the right of a person"
+    },
+    {
+        "item_id": "317",
+        "category": "spatial",
+        "prompt": "a person on the left of a horse"
+    },
+    {
+        "item_id": "318",
+        "category": "spatial",
+        "prompt": "a computer on the bottom of a butterfly"
+    },
+    {
+        "item_id": "319",
+        "category": "spatial",
+        "prompt": "a plate on the left of a bee"
+    },
+    {
+        "item_id": "320",
+        "category": "spatial",
+        "prompt": "a man on side of a cat"
+    },
+    {
+        "item_id": "321",
+        "category": "spatial",
+        "prompt": "a chicken near a desk"
+    },
+    {
+        "item_id": "322",
+        "category": "spatial",
+        "prompt": "a key on the top of a horse"
+    },
+    {
+        "item_id": "323",
+        "category": "spatial",
+        "prompt": "a book on the right of a cow"
+    },
+    {
+        "item_id": "324",
+        "category": "spatial",
+        "prompt": "a cat next to a candle"
+    },
+    {
+        "item_id": "325",
+        "category": "spatial",
+        "prompt": "a pig next to a wallet"
+    },
+    {
+        "item_id": "326",
+        "category": "spatial",
+        "prompt": "a turtle on the right of a train"
+    },
+    {
+        "item_id": "327",
+        "category": "spatial",
+        "prompt": "a bird on the top of a lamp"
+    },
+    {
+        "item_id": "328",
+        "category": "spatial",
+        "prompt": "a mouse next to a clock"
+    },
+    {
+        "item_id": "329",
+        "category": "spatial",
+        "prompt": "a cow near a balloon"
+    },
+    {
+        "item_id": "400",
+        "category": "3d_spatial",
+        "prompt": "a wallet hidden by a balloon"
+    },
+    {
+        "item_id": "401",
+        "category": "3d_spatial",
+        "prompt": "a person hidden by a horse"
+    },
+    {
+        "item_id": "402",
+        "category": "3d_spatial",
+        "prompt": "a turtle behind a frog"
+    },
+    {
+        "item_id": "403",
+        "category": "3d_spatial",
+        "prompt": "a person hidden by a sheep"
+    },
+    {
+        "item_id": "404",
+        "category": "3d_spatial",
+        "prompt": "a microwave hidden by a horse"
+    },
+    {
+        "item_id": "405",
+        "category": "3d_spatial",
+        "prompt": "a woman hidden by a bowl"
+    },
+    {
+        "item_id": "406",
+        "category": "3d_spatial",
+        "prompt": "a microwave hidden by a clock"
+    },
+    {
+        "item_id": "407",
+        "category": "3d_spatial",
+        "prompt": "a table in front of a rabbit"
+    },
+    {
+        "item_id": "408",
+        "category": "3d_spatial",
+        "prompt": "a airplane behind a lamp"
+    },
+    {
+        "item_id": "409",
+        "category": "3d_spatial",
+        "prompt": "a balloon behind a television"
+    },
+    {
+        "item_id": "410",
+        "category": "3d_spatial",
+        "prompt": "a cup in front of a cat"
+    },
+    {
+        "item_id": "411",
+        "category": "3d_spatial",
+        "prompt": "a dog behind a bicycle"
+    },
+    {
+        "item_id": "412",
+        "category": "3d_spatial",
+        "prompt": "a bicycle behind a cup"
+    },
+    {
+        "item_id": "413",
+        "category": "3d_spatial",
+        "prompt": "a cow hidden by a woman"
+    },
+    {
+        "item_id": "414",
+        "category": "3d_spatial",
+        "prompt": "a man hidden by a rabbit"
+    },
+    {
+        "item_id": "415",
+        "category": "3d_spatial",
+        "prompt": "a airplane hidden by a balloon"
+    },
+    {
+        "item_id": "416",
+        "category": "3d_spatial",
+        "prompt": "a book hidden by a chicken"
+    },
+    {
+        "item_id": "417",
+        "category": "3d_spatial",
+        "prompt": "a train hidden by a turtle"
+    },
+    {
+        "item_id": "418",
+        "category": "3d_spatial",
+        "prompt": "a desk hidden by a car"
+    },
+    {
+        "item_id": "419",
+        "category": "3d_spatial",
+        "prompt": "a chicken in front of a backpack"
+    },
+    {
+        "item_id": "420",
+        "category": "3d_spatial",
+        "prompt": "a lamp in front of a bird"
+    },
+    {
+        "item_id": "421",
+        "category": "3d_spatial",
+        "prompt": "a key behind a girl"
+    },
+    {
+        "item_id": "422",
+        "category": "3d_spatial",
+        "prompt": "a couch in front of a train"
+    },
+    {
+        "item_id": "423",
+        "category": "3d_spatial",
+        "prompt": "a bag in front of a refrigerator"
+    },
+    {
+        "item_id": "424",
+        "category": "3d_spatial",
+        "prompt": "a candle behind a boy"
+    },
+    {
+        "item_id": "425",
+        "category": "3d_spatial",
+        "prompt": "a computer behind a desk"
+    },
+    {
+        "item_id": "426",
+        "category": "3d_spatial",
+        "prompt": "a person behind a candle"
+    },
+    {
+        "item_id": "427",
+        "category": "3d_spatial",
+        "prompt": "a man behind a chicken"
+    },
+    {
+        "item_id": "428",
+        "category": "3d_spatial",
+        "prompt": "a mouse behind a bowl"
+    },
+    {
+        "item_id": "429",
+        "category": "3d_spatial",
+        "prompt": "a television hidden by a lamp"
+    },
+    {
+        "item_id": "500",
+        "category": "numeracy",
+        "prompt": "two bees, one sofa, one shrimp, one bicycle and two rabbits"
+    },
+    {
+        "item_id": "501",
+        "category": "numeracy",
+        "prompt": "five apples were crunchy and delicious"
+    },
+    {
+        "item_id": "502",
+        "category": "numeracy",
+        "prompt": "two boats"
+    },
+    {
+        "item_id": "503",
+        "category": "numeracy",
+        "prompt": "three trains, three sheep and two cars"
+    },
+    {
+        "item_id": "504",
+        "category": "numeracy",
+        "prompt": "four flags and one pillow"
+    },
+    {
+        "item_id": "505",
+        "category": "numeracy",
+        "prompt": "one printer, one book and two boys"
+    },
+    {
+        "item_id": "506",
+        "category": "numeracy",
+        "prompt": "four rabbits"
+    },
+    {
+        "item_id": "507",
+        "category": "numeracy",
+        "prompt": "four cats and three televisions"
+    },
+    {
+        "item_id": "508",
+        "category": "numeracy",
+        "prompt": "one horse and two men"
+    },
+    {
+        "item_id": "509",
+        "category": "numeracy",
+        "prompt": "six microphones amplified the voices"
+    },
+    {
+        "item_id": "510",
+        "category": "numeracy",
+        "prompt": "three microphones, one flag, three paintings and one printer"
+    },
+    {
+        "item_id": "511",
+        "category": "numeracy",
+        "prompt": "three pens, three pigs, one ship and three ducks"
+    },
+    {
+        "item_id": "512",
+        "category": "numeracy",
+        "prompt": "four dogs, four vases, a woman, and a goldfish lived in the house"
+    },
+    {
+        "item_id": "513",
+        "category": "numeracy",
+        "prompt": "four bicycles, three boats and one drum"
+    },
+    {
+        "item_id": "514",
+        "category": "numeracy",
+        "prompt": "one clock and three bottles"
+    },
+    {
+        "item_id": "515",
+        "category": "numeracy",
+        "prompt": "one vase and three kites"
+    },
+    {
+        "item_id": "516",
+        "category": "numeracy",
+        "prompt": "one bird perched on the edge of a bowl"
+    },
+    {
+        "item_id": "517",
+        "category": "numeracy",
+        "prompt": "three microwaves, four balloons and three tables"
+    },
+    {
+        "item_id": "518",
+        "category": "numeracy",
+        "prompt": "one candle lit up a cozy cup"
+    },
+    {
+        "item_id": "519",
+        "category": "numeracy",
+        "prompt": "four bags, three women, two plates, four printers and four chickens"
+    },
+    {
+        "item_id": "520",
+        "category": "numeracy",
+        "prompt": "two paddles, two guitars, four bananas, three chairs and four men"
+    },
+    {
+        "item_id": "521",
+        "category": "numeracy",
+        "prompt": "five lamps"
+    },
+    {
+        "item_id": "522",
+        "category": "numeracy",
+        "prompt": "seven boys"
+    },
+    {
+        "item_id": "523",
+        "category": "numeracy",
+        "prompt": "five bottles"
+    },
+    {
+        "item_id": "524",
+        "category": "numeracy",
+        "prompt": "one balloon, four toys, a computer, three kites, and a phone filled the room"
+    },
+    {
+        "item_id": "525",
+        "category": "numeracy",
+        "prompt": "three bottles, two bowls and two balloons"
+    },
+    {
+        "item_id": "526",
+        "category": "numeracy",
+        "prompt": "two shrimp and four horses"
+    },
+    {
+        "item_id": "527",
+        "category": "numeracy",
+        "prompt": "two desks, three cups, two pigs and one backpack"
+    },
+    {
+        "item_id": "528",
+        "category": "numeracy",
+        "prompt": "three pens and one sink"
+    },
+    {
+        "item_id": "529",
+        "category": "numeracy",
+        "prompt": "four televisions, four bears and two chickens"
+    },
+    {
+        "item_id": "600",
+        "category": "non-spatial",
+        "prompt": "A person is rock climbing at a local gym."
+    },
+    {
+        "item_id": "601",
+        "category": "non-spatial",
+        "prompt": "A child is playing with a hula hoop in the yard."
+    },
+    {
+        "item_id": "602",
+        "category": "non-spatial",
+        "prompt": "A person is taking a scenic drive through the mountains."
+    },
+    {
+        "item_id": "603",
+        "category": "non-spatial",
+        "prompt": "A dog is playing with a squeaky toy and making it squeak."
+    },
+    {
+        "item_id": "604",
+        "category": "non-spatial",
+        "prompt": "A person is running through a city and taking in the sights."
+    },
+    {
+        "item_id": "605",
+        "category": "non-spatial",
+        "prompt": "A dog is howling at a distant siren."
+    },
+    {
+        "item_id": "606",
+        "category": "non-spatial",
+        "prompt": "A person is practicing martial arts in the gym."
+    },
+    {
+        "item_id": "607",
+        "category": "non-spatial",
+        "prompt": "A woman is doing pottery in her studio."
+    },
+    {
+        "item_id": "608",
+        "category": "non-spatial",
+        "prompt": "A traveler is backpacking through the mountains, taking in the stunning vistas along the way."
+    },
+    {
+        "item_id": "609",
+        "category": "non-spatial",
+        "prompt": "A police officer is directing traffic in a busy intersection."
+    },
+    {
+        "item_id": "610",
+        "category": "non-spatial",
+        "prompt": "A person is looking at a rainbow and feeling awestruck."
+    },
+    {
+        "item_id": "611",
+        "category": "non-spatial",
+        "prompt": "A man is holding a wrench and repairing a car."
+    },
+    {
+        "item_id": "612",
+        "category": "non-spatial",
+        "prompt": "A person is waving hello to a stranger."
+    },
+    {
+        "item_id": "613",
+        "category": "non-spatial",
+        "prompt": "A man is playing soccer in the park."
+    },
+    {
+        "item_id": "614",
+        "category": "non-spatial",
+        "prompt": "The carpenter is building a wooden bench in the workshop."
+    },
+    {
+        "item_id": "615",
+        "category": "non-spatial",
+        "prompt": "A person is sneezing in a public place."
+    },
+    {
+        "item_id": "616",
+        "category": "non-spatial",
+        "prompt": "A couple is cuddled up on the couch, watching a movie and sharing a bowl of popcorn."
+    },
+    {
+        "item_id": "617",
+        "category": "non-spatial",
+        "prompt": "The hairdresser is cutting and styling a customer's hair."
+    },
+    {
+        "item_id": "618",
+        "category": "non-spatial",
+        "prompt": "The gardener carefully pruned the rose bushes, removing dead or unhealthy branches."
+    },
+    {
+        "item_id": "619",
+        "category": "non-spatial",
+        "prompt": "A man is holding a drill and fixing a piece of furniture."
+    },
+    {
+        "item_id": "620",
+        "category": "non-spatial",
+        "prompt": "A man is holding a calculator and crunching numbers."
+    },
+    {
+        "item_id": "621",
+        "category": "non-spatial",
+        "prompt": "A woman is holding a tray of cookies and offering them to guests."
+    },
+    {
+        "item_id": "622",
+        "category": "non-spatial",
+        "prompt": "A person is holding a laptop and video chatting with a loved one."
+    },
+    {
+        "item_id": "623",
+        "category": "non-spatial",
+        "prompt": "The shopper carefully examined each item on the shelf before making a purchase."
+    },
+    {
+        "item_id": "624",
+        "category": "non-spatial",
+        "prompt": "The baker is kneading dough for bread."
+    },
+    {
+        "item_id": "625",
+        "category": "non-spatial",
+        "prompt": "A group of students gathered around the whiteboard, discussing the math problem."
+    },
+    {
+        "item_id": "626",
+        "category": "non-spatial",
+        "prompt": "A train is chugging along a scenic countryside."
+    },
+    {
+        "item_id": "627",
+        "category": "non-spatial",
+        "prompt": "A child is playing with bubbles and trying to pop them."
+    },
+    {
+        "item_id": "628",
+        "category": "non-spatial",
+        "prompt": "A man is holding a chainsaw and cutting down a tree."
+    },
+    {
+        "item_id": "629",
+        "category": "non-spatial",
+        "prompt": "A parent is teaching their child to swim, helping them gain confidence in the water."
+    },
+    {
+        "item_id": "700",
+        "category": "complex",
+        "prompt": "The soft white feathers of the swan contrasted with the dark blue water."
+    },
+    {
+        "item_id": "701",
+        "category": "complex",
+        "prompt": "The soft teddy bear sat on the hard shelf and the bumpy bed."
+    },
+    {
+        "item_id": "702",
+        "category": "complex",
+        "prompt": "The cold snowflake landed on the warm hand and the icy ground."
+    },
+    {
+        "item_id": "703",
+        "category": "complex",
+        "prompt": "The sleek yacht sailed on the calm sea and the choppy waves."
+    },
+    {
+        "item_id": "704",
+        "category": "complex",
+        "prompt": "The golden ring sparkled on the delicate finger and the calloused hand."
+    },
+    {
+        "item_id": "705",
+        "category": "complex",
+        "prompt": "The prickly green cactus sat on top of the smooth brown pot."
+    },
+    {
+        "item_id": "706",
+        "category": "complex",
+        "prompt": "The rectangular mirror was hung above the marble sink."
+    },
+    {
+        "item_id": "707",
+        "category": "complex",
+        "prompt": "The bumpy green broccoli lay next to the smooth yellow squash."
+    },
+    {
+        "item_id": "708",
+        "category": "complex",
+        "prompt": "The rectangular painting was hung above the beige couch."
+    },
+    {
+        "item_id": "709",
+        "category": "complex",
+        "prompt": "The rough crescent was resting on the edge of the shiny triangle and the bumpy trapezoid."
+    },
+    {
+        "item_id": "710",
+        "category": "complex",
+        "prompt": "The sleek, aerodynamic design of the sports car hugged the curves of the road, a thrilling ride of speed and precision."
+    },
+    {
+        "item_id": "711",
+        "category": "complex",
+        "prompt": "The sleek black laptop sat on top of the clean white desk."
+    },
+    {
+        "item_id": "712",
+        "category": "complex",
+        "prompt": "The smooth marble staircase led to the bright light and the dark room."
+    },
+    {
+        "item_id": "713",
+        "category": "complex",
+        "prompt": "The rough grey gravel driveway led up to the tall white house."
+    },
+    {
+        "item_id": "714",
+        "category": "complex",
+        "prompt": "The colorful butterfly landed on the soft pink flower."
+    },
+    {
+        "item_id": "715",
+        "category": "complex",
+        "prompt": "The green plant was next to the brown vase."
+    },
+    {
+        "item_id": "716",
+        "category": "complex",
+        "prompt": "The fluffy cat was lying on the soft cushion."
+    },
+    {
+        "item_id": "717",
+        "category": "complex",
+        "prompt": "The ripe avocado mashed on the crunchy toast and the soft egg."
+    },
+    {
+        "item_id": "718",
+        "category": "complex",
+        "prompt": "The fragrant bouquet arranged the colorful flowers and the green leaves."
+    },
+    {
+        "item_id": "719",
+        "category": "complex",
+        "prompt": "The hot yellow sun blazed down on the cool blue ocean."
+    },
+    {
+        "item_id": "720",
+        "category": "complex",
+        "prompt": "The smooth marble statue stood tall on the rough pedestal and the bumpy ground."
+    },
+    {
+        "item_id": "721",
+        "category": "complex",
+        "prompt": "The colorful balloons floated near the tall green tree."
+    },
+    {
+        "item_id": "722",
+        "category": "complex",
+        "prompt": "The prickly green thorns contrasted with the smooth pink petals of the rose."
+    },
+    {
+        "item_id": "723",
+        "category": "complex",
+        "prompt": "The intricate, swirling patterns of the mandala drew the viewer into a meditative state, a transcendent symbol of spiritual enlightenment."
+    },
+    {
+        "item_id": "724",
+        "category": "complex",
+        "prompt": "The sturdy chair supported the heavy weight and the delicate vase."
+    },
+    {
+        "item_id": "725",
+        "category": "complex",
+        "prompt": "The bright green grass contrasted with the dull grey sidewalk."
+    },
+    {
+        "item_id": "726",
+        "category": "complex",
+        "prompt": "The sleek black sports car zoomed past the old rusty truck."
+    },
+    {
+        "item_id": "727",
+        "category": "complex",
+        "prompt": "The soft, warm glow of the fireplace provided a cozy haven on a cold winter night, a refuge of comfort and relaxation."
+    },
+    {
+        "item_id": "728",
+        "category": "complex",
+        "prompt": "The crisp, refreshing taste of the ice-cold lemonade quenched the thirst on a hot summer day."
+    },
+    {
+        "item_id": "729",
+        "category": "complex",
+        "prompt": "The round, juicy watermelon sat in the cool, refreshing bowl of ice, waiting to be sliced open and devoured."
+    },
+    {
+        "item_id": "800",
+        "category": "dpgbench",
+        "prompt": "A sizable blue box with a smooth, matte finish sits prominently in the center of the room. Atop its surface rest three small, vibrant yellow boxes, each with a glossy texture and sharp, clean edges. The blue box's substantial size dwarfs the trio of yellow boxes, creating a striking contrast in both color and scale."
+    },
+    {
+        "item_id": "801",
+        "category": "dpgbench",
+        "prompt": "An up-close image showcasing the intricate interior of a walnut, split cleanly down the middle to reveal its textured, brain-like halves. The walnut's shell exhibits a rich brown color with darker lines marking the divisions, while the nut inside contrasts with its lighter, creamy hue. The cross-section rests against a backdrop of a wooden table with visible grain patterns, highlighting the natural origin of the walnut."
+    },
+    {
+        "item_id": "802",
+        "category": "dpgbench",
+        "prompt": "An anthropomorphic beaver, exuding an air of sophistication, stands upright beside a towering pile of books in a library setting. The beaver is adorned with a pair of round, wire-rimmed glasses perched on its nose, a neatly buttoned vest, and a vibrant necktie featuring an array of geometric patterns. The surrounding shelves are filled with an assortment of leather-bound and hardcover books, some with gold lettering on their spines, creating a backdrop of literary abundance."
+    },
+    {
+        "item_id": "803",
+        "category": "dpgbench",
+        "prompt": "a massive tornado with a swirling gray funnel cloud, tearing through the landscape with debris flying around its base. At the top of the vortex, a small wooden house, with its windows shattered and roof partially torn off, is being lifted into the air. The tornado is moving across an open field, and the sky above is a menacing shade of dark gray."
+    },
+    {
+        "item_id": "804",
+        "category": "dpgbench",
+        "prompt": "Two metal baking sheets rest on a kitchen countertop; one holds a spread of raw, vibrant green broccoli and pale white cauliflower florets, while the other displays the same vegetables transformed by heat, their colors now a deeper green and brown, edges crisped from baking. These trays provide a visual contrast between their pre and post-oven states, showcasing the effects of roasting on their textures and hues."
+    },
+    {
+        "item_id": "805",
+        "category": "dpgbench",
+        "prompt": "An impressionistic painting depicts a vibrant blue cow standing serenely in a field of delicate white flowers. Adjacent to the cow, there is a robust tree with a canopy of red leaves and branches laden with yellow fruit. The brushstrokes suggest a gentle breeze moving through the scene, and the cow's shadow is cast softly on the green grass beneath it."
+    },
+    {
+        "item_id": "806",
+        "category": "dpgbench",
+        "prompt": "An intricate tower crafted of white cloth and rope stands with an ethereal presence against the stark tundra backdrop, with windows and ramparts woven into its design. The structure appears to float just above the muted colors of the earth, with clouds swelling around it, adding a voluminous depth to the scene. The photograph boasts an impressive dynamic range, capturing the subtlest nuances from the brightest cloud to the deepest shadow. Reminiscent of a Studio Ghibli fantasy blended with the magical realism of a Michael Parkes painting, the image is strikingly detailed and remarkably photorealistic."
+    },
+    {
+        "item_id": "807",
+        "category": "dpgbench",
+        "prompt": "A figure is poised in an active stance, with their buttocks pushed back and their torso inclined forwards, suggesting a sense of readiness or engagement in an activity. Their arms are extended downwards, positioned close to the body, with elbows bent and hands reaching straight out in front, as if ready to grasp or manipulate something. The person's head is subtly tilted back, indicating a focus towards the ceiling or sky, possibly observing something of interest or intent above them."
+    },
+    {
+        "item_id": "808",
+        "category": "dpgbench",
+        "prompt": "An imaginative abode, reminiscent of the signature style of the renowned architect Zaha Hadid, floats ethereally above ground on a sizable cloud. The structure boasts a sleek, white, curvilinear form enveloped in lush, vibrant green vegetation, with hanging vines gracefully draping its sides. The house's futuristic design contrasts with the organic tapestry of flora, creating a harmonious blend of nature and avant-garde architecture."
+    },
+    {
+        "item_id": "809",
+        "category": "dpgbench",
+        "prompt": "An imaginative aerial panorama of downtown Manhattan, where the iconic Millennium Wheel stands out, juxtaposed against the backdrop of the Statue of Liberty, both bathed in the golden hues of the afternoon sun. The skyline is transformed by the surreal addition of the Great Pyramid, which sits majestically on a sandy island, surrounded by the steel and glass skyscrapers. The Hudson River meanders around the cityscape, reflecting the unusual yet striking architectural ensemble."
+    },
+    {
+        "item_id": "810",
+        "category": "dpgbench",
+        "prompt": "A scenic trail where a group of riders are mounted on their horses, moving in a line. The horses appear well-groomed, and the riders are dressed in casual riding attire. The path they are on is bordered by trees, and the group seems to be enjoying a leisurely ride in the countryside."
+    },
+    {
+        "item_id": "811",
+        "category": "dpgbench",
+        "prompt": "Three sleek, dark wooden boats are resting along the banks of a tranquil, azure blue lake. The smooth surface of the water reflects the clear sky above and the lush greenery surrounding the lake's edge. Positioned close to each other, the boats' oars are tucked neatly inside, hinting at a recent or upcoming journey across the calm waters."
+    },
+    {
+        "item_id": "812",
+        "category": "dpgbench",
+        "prompt": "A detailed painting depicts an ancient, ornate treasure chest with intricate carvings and a heavy, rusted metal clasp, nestled in the shadows of a dark, damp cave. Beside the chest, a broad sword with an embellished hilt stands propped up, its blade catching the faint, eerie glow emanating from within the chest. The rough texture of the cave walls is accentuated by the contrast of the sword's gleam and the chest's subtle sheen."
+    },
+    {
+        "item_id": "813",
+        "category": "dpgbench",
+        "prompt": "A tranquil pond with vibrant clear blue water, where three pristine white waterlilies float gracefully on the surface. Each waterlily has a perfectly formed shape with delicate petals radiating outwards from a yellow center. The smooth surface of the water reflects the sky above, enhancing the serenity of the scene, as gentle ripples emanate outward from the blossoms."
+    },
+    {
+        "item_id": "814",
+        "category": "dpgbench",
+        "prompt": "A scene inside a cozy room, where an individual with discernible facial features calmly sits at a wooden table. They are dressed in a neatly buttoned, plaid shirt, and round-framed glasses rest comfortably on their nose. Their hands are occupied with a sleek, modern smartphone which they are intently gazing at. To the side of the table, there is a matching wooden chair, subtly indicating that the space is set for more than one occupant."
+    },
+    {
+        "item_id": "815",
+        "category": "dpgbench",
+        "prompt": "A graphic image featuring a stark black background that serves as a canvas for a large, vibrant yellow circle positioned centrally. Below and to the right of the circle, there's a small, matte red square, creating a stark contrast in both color and shape. The simplicity of the composition draws attention to the geometric figures and their bold colors."
+    },
+    {
+        "item_id": "816",
+        "category": "dpgbench",
+        "prompt": "A striking black and white image captures the whimsical scene of a panda, adorned with a pointed wizard's hat, perched atop a majestic horse. The panda appears engrossed in an open book it holds with its paws. The horse, with a glossy chestnut coat, stands motionless on an urban street, its hooves nestled among tufts of vibrant green grass peeking through the pavement cracks. In the background, a large expanse of a gray concrete wall serves as a canvas for a mural of vivid flowers in hues of red, yellow, and blue, with the bold letters spelling out \"PEACE\" adding a splash of color and a message of tranquility to the urban setting."
+    },
+    {
+        "item_id": "817",
+        "category": "dpgbench",
+        "prompt": "In the early morning light, a vibrant mango-colored hot-air balloon, with its size dwarfing a majestic brass trumpet, begins its peaceful ascent. The balloon's large, bulbous shape stands out sharply against the pale blues and soft pinks of the dawning sky. Its woven basket, crafted from sturdy pale wood, carries passengers who peer out in awe over the landscape below. The fabric of the balloon is smooth and taut, capturing the warming rays of the sun as it climbs higher into the expansive atmosphere."
+    },
+    {
+        "item_id": "818",
+        "category": "dpgbench",
+        "prompt": "In a brightly-lit laundry room, a pair of ripe yellow bananas rest nonchalantly against the sleek surface of a silver washing machine. The spacious room is adorned with colorful splashes of paint on the walls, creating a lively and playful atmosphere. Sunlight streams through a nearby window, enhancing the vibrancy of the space and casting soft shadows around the cheerful fruits."
+    },
+    {
+        "item_id": "819",
+        "category": "dpgbench",
+        "prompt": "A polished brown leather briefcase with visible stitching details rests on a white tablecloth, displaying a sense of organization amidst the surrounding environment. Beside the briefcase, a vibrant red fedora hat provides a striking contrast against the pristine table covering. The table, placed in a room with light beige walls, gives an impression of a professional setting with a touch of personal style."
+    },
+    {
+        "item_id": "820",
+        "category": "dpgbench",
+        "prompt": "El Castillo, a grand Mayan temple with steep stone steps and intricate carvings, rises majestically from the desert sands. The pyramid, predominantly gray with patches of lichen, dominates the arid landscape under a wide expanse of clear blue sky. Surrounding the temple, sparse desert vegetation and cacti provide a sharp contrast to the ancient structure's imposing presence."
+    },
+    {
+        "item_id": "821",
+        "category": "dpgbench",
+        "prompt": "Two well-worn baseballs, their white leather stained and scuffed from use, rest on a wooden floor on either side of a vibrant yellow basketball. The basketball, with its pebbled texture and black lines, stands out in contrast to the muted tones of the baseballs. The trio of sports equipment is casually arranged, suggesting a recent game or practice session."
+    },
+    {
+        "item_id": "822",
+        "category": "dpgbench",
+        "prompt": "In the fading light of dusk, three circular targets aglow with bright neon lights hang suspended in the tranquil evening air. Below, a well-worn pair of skating shoes, marked with scuffs and bearing the tale of countless rides, sits abandoned on the weathered wooden slats of an old park bench. Around the bench, the soft glow of nearby street lamps casts a subtle light, creating a gentle contrast with the vivid colors of the floating targets."
+    },
+    {
+        "item_id": "823",
+        "category": "dpgbench",
+        "prompt": "A serene lakeside setting where a wooden dock extends into the water. A man is casually seated at the edge, enjoying a hot dog, with a relaxed posture that suggests a leisurely day. The water is calm, and the dock appears to be a popular spot for visitors to take in the view and enjoy a bite to eat."
+    },
+    {
+        "item_id": "824",
+        "category": "dpgbench",
+        "prompt": "An urban street corner featuring freshly painted blue arrows on the asphalt, directing traffic flow. Several bright orange traffic cones are strategically placed to guide vehicles around a construction area. In the background, a traffic light hangs above, glowing green, signaling drivers to proceed with caution."
+    },
+    {
+        "item_id": "825",
+        "category": "dpgbench",
+        "prompt": "A figure is positioned in a spacious room, demonstrating a wide stance squat. Their right hand is gently placed on their left hip, while their left hand rests below the right, accentuating the curve of their waist. The person's head is turned to the right, possibly focusing on an object or point in that direction, creating a strong and balanced posture."
+    },
+    {
+        "item_id": "826",
+        "category": "dpgbench",
+        "prompt": "a tall giraffe standing next to a water hole, its long neck extended towards the lush leaves of an acacia tree. the tree's branches are just within reach of the giraffe's curious gaze. the scene is set in a sunlit savannah with the water hole reflecting the clear blue sky."
+    },
+    {
+        "item_id": "827",
+        "category": "dpgbench",
+        "prompt": "Inside a warm room with a large window showcasing a picturesque winter landscape, three gleaming ruby red necklaces are elegantly laid out on the plush surface of a deep purple velvet jewelry box. The gentle glow from the overhead light accentuates the rich color and intricate design of the necklaces. Just beyond the glass pane, snowflakes can be seen gently falling to coat the ground outside in a blanket of white."
+    },
+    {
+        "item_id": "828",
+        "category": "dpgbench",
+        "prompt": "a man is seated at a rustic wooden table, holding an oversized slice of pizza in his hands. the pizza is loaded with an array of colorful toppings, and strings of melted cheese stretch with each bite he takes. the table also has a few scattered napkins and a half-empty soda glass beside a pizza box with the lid ajar."
+    },
+    {
+        "item_id": "829",
+        "category": "dpgbench",
+        "prompt": "A glossy black dog with a shiny coat is comfortably seated on a rustic wooden chair, its tail gently resting on the seat. Beside the chair, a white cat with distinctive black ears and bright green eyes is standing on its hind legs, with its front paws placed on the edge of the chair, as if engaging in a silent conversation with the dog. The chair sits on a smooth, terracotta-tiled floor, and behind them, a potted plant adds a touch of greenery to the scene."
+    }
+]

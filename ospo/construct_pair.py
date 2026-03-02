@@ -192,10 +192,21 @@ if __name__ == "__main__":
     # save_path = "/nas2/data/Janus_dataset/next_v2/numeracy_add/seed_merge"
 
 
-    # Filtering Threshold
-    init_path = "/nas2/data/Janus_dataset/next_v2/appendix/iter2/data/prompt/init_dataset_20005.json"
-    vqa_path = "/nas2/data/Janus_dataset/next_v2/appendix/iter2/data/prompt/step3/vqa_result_merged_20005.json"
-    save_path = "/nas2/data/Janus_dataset/next_v2/appendix/iter2/data/train"
+    # Filtering Threshold (iter2)
+    # init_path = "/nas2/data/Janus_dataset/next_v2/appendix/iter2/data/prompt/init_dataset_20005.json"
+    # vqa_path = "/nas2/data/Janus_dataset/next_v2/appendix/iter2/data/prompt/step3/vqa_result_merged_20005.json"
+    # save_path = "/nas2/data/Janus_dataset/next_v2/appendix/iter2/data/train"
+
+
+    # 260115
+    # init_path = "/nas2/data/Janus_dataset/next_v2/merged_init_data_27807.json"
+    # vqa_path = "/nas2/data/Janus_dataset/next_v2/merged_vqa_result_27807.json"
+    # save_path = "/nas2/data/Janus_dataset/next_v2/train_2026"
+
+    # 260116
+    init_path = "/home/yjoh/project/OSPO/ablation/pair_size/init_pair_size_1_numeracy_add_only_seed_merged.json"
+    vqa_path = "/home/yjoh/project/OSPO/ablation/pair_size/vqa_result_numeracy_add_only_seed_merged_pair_1.json"
+    save_path = "/nas2/data/Janus_dataset/next_v2/ablation/pair_size/numeracy_add_version"
 
 
 
