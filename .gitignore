@@ -216,3 +216,4 @@ __marimo__/
 
 .png
 .ckpt
+ospo/rebuttal/hit_rate/iter3_qwen_vqa.json
