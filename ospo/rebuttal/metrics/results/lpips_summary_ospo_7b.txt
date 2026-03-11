@@ -1,1 +1,0 @@
-LPIPS score: 0.6959318855077853 || Num generated: 22420

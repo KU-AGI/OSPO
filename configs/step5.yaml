@@ -1,0 +1,92 @@
+# Step 4. Training
+
+base:
+  save_path: ./checkpoints
+  exp_name: # NEED TO FILL
+  world_size: 8
+  resume: 
+
+model:
+  model_path: ./checkpoints/Janus-Pro-7B
+  cache_dir: ./checkpoints/hf_cache
+  attn_mode: flash_attention_2 # eager
+
+# FYI.
+# LLAMA_ATTENTION_CLASSES = {
+#     "eager": LlamaAttention,
+#     "flash_attention_2": LlamaFlashAttention2,
+#     "sdpa": LlamaSdpaAttention,
+# }
+
+use_mask: True    # default 
+mask_dir: ./object_mask
+off_policy: False # default
+
+use_peft: True 
+lora:
+  lora_rank: 64
+  lora_alpha: 128
+  lora_dropout: 0.05
+  target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "down_proj", "up_proj"]
+  modules_to_save: 
+
+dataset:
+  train:
+    batch_size: 16 
+    num_workers: 4
+    data_path: ./data/train.json
+    num_samples:              
+  val:
+
+optimizer:
+  init_lr: 1e-5
+  betas: [0.9, 0.95]
+  weight_decay: 0.00 
+  eps: 1e-8 
+  scheduler_type: cosine # constant
+  min_lr: 1e-7
+
+experiment:
+  seed: 42
+  precision: bf16 # 32 
+  warmup_ratio: 0.05 # 0.15
+  gradient_clip_val: 1.0
+  enable_checkpointing: True           # checkpoint saving
+  gradient_checkpointing: True         # model training
+  gradient_accumulation_steps: 2 # 4    
+  max_training_steps: 1000             
+  save_steps: 100
+  log_steps: 5
+  val_steps: 50
+  log_by_category: False
+
+  freeze:
+    vision_model: True
+    aligner: True
+    gen_vision_model: True
+    gen_aligner: True
+    gen_head: True
+    gen_embed: True
+    language_model: False
+
+tokenizer:
+  max_length: 2048
+  max_prompt_length: 1024
+  truncation_mode: keep_end 
+  truncation_side: left 
+  label_pad_token_id: -100  
+
+algo: 
+  beta: 5 
+  gamma_beta_ratio: 0.5 
+  label_smoothing: 0.0 
+  loss_type: sigmoid
+
+  # loss weight 
+  schedule_loss_weight: False # TODO: hard-coding
+  simpo_weight: 1.0 
+  sft_weight: 2.0 
+
+  # object mask
+  mask_alpha: 1.0 # 1.0
+  mask_gamma: 1.0

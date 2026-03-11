@@ -1,5 +1,7 @@
-# make sure current folder is OSPO
+# Make sure current folder is OSPO
 # bash script/run.sh
+
+# 2026.03.11: dev -ing
 
 CUDA_VISIBLE_DEVICES=0
 
@@ -18,8 +20,8 @@ python ospo/step1.py --category complex
 
 CUDA_VISIBLE_DEVICES=0,1,2,3
 
-python ospo/step2_1.py
-python ospo/step2_2.py 
-python ospo/step3_1.py 
-python ospo/step3_2.py 
+python ospo/step1.py
+python ospo/step2.py 
+python ospo/step3.py 
 python ospo/step4.py 
+python ospo/step5.py 

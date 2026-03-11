@@ -1,18 +1,44 @@
 # README: Dataset class only includes CPU operation.
 # 'rejected_prompt' = 'rejected_prompt'
+# mask loading
 
 import os
 import torch
 import random
+import numpy as np
 from PIL import Image
 from typing import Dict
 from torch.utils.data import Dataset
+from tqdm import tqdm
 
 import pyrootutils
 pyrootutils.setup_root(__file__, indicator=".project-root", pythonpath=True, cwd=True)
 from ospo.utils.common import read_json
 from ospo.utils.processor import get_conversation, get_sft_format
 
+from pathlib import Path
+from tqdm import tqdm
+
+def build_mask_index(mask_dir: str, subdir: str) -> set:
+    """
+    Returns a set of keys like (t2i_category, item_id, basename)
+    for all files named '*_mask.pt' under mask_dir/subdir/**.
+    """
+    base = Path(mask_dir) / subdir
+    keys = set()
+    # Walk once; pathlib.rglob is implemented in C and quite fast
+    for p in tqdm(base.rglob("*_mask.pt"), desc="Building mask index ..."):
+        # Expect path: mask_dir/subdir/<t2i_category>/<item_id>/<basename>_mask.pt
+        try:
+            item_id = p.parent.name
+            t2i_category = p.parent.parent.name
+            basename = p.stem[:-5] if p.stem.endswith("_mask") else p.stem
+            keys.add((t2i_category, item_id, basename))
+        except Exception as e:
+            print(e) 
+            # skip unexpected layouts
+            continue
+    return keys
 
 # total 6
 class ValidationDataset(Dataset):
@@ -132,15 +158,63 @@ class ValidationDataset(Dataset):
 class PreferenceDataset(Dataset):
     def __init__(self, seed, data_path, 
                  chat_processor, image_processor, tokenizer, 
-                 sampling_rate=1.0, num_samples=None, copo_mode=False): 
+                 sampling_rate=1.0, num_samples=None, copo_mode=False, use_mask=False, mask_dir=None, off_policy=False): 
         
         self.chat_processor = chat_processor
         self.image_processor = image_processor
         self.tokenizer = tokenizer
         # self.copo_mode = copo_mode 
+        self.use_mask = use_mask
+        self.mask_dir = mask_dir
+        if self.use_mask and not os.path.exists(self.mask_dir):
+            raise ValueError(f"Non-existing mask dir: {self.mask_dir}")
+        self.off_policy = off_policy
 
         # load data
         self.dataset = read_json(data_path)
+
+        # 사전 처리로 대체
+        # if self.use_mask:
+        #     filtered = []
+
+        #     # # mask_dir 이 부재한 샘플은 사전 배제
+        #     # for example in tqdm(self.dataset, desc="Checking masking is available ..."):
+        #     #     basename = os.path.basename(example["chosen"]).split(".png")[0]
+        #     #     c_mask_path = os.path.join(self.mask_dir, "base", example["t2i_category"], example["item_id"], f"{basename}_mask.pt")
+        #     #     r_mask_path = os.path.join(self.mask_dir, "negative", example["t2i_category"], example["item_id"], f"{basename}_mask.pt")
+        #     #     if not os.path.exists(c_mask_path) or not os.path.exists(r_mask_path):
+        #     #         print(f"Filtered; No mask (item_id: {example['item_id']})")
+        #     #     else:
+        #     #         filtered.append(example)
+
+
+        #     # 1) Build indices once
+        #     base_keys     = build_mask_index(self.mask_dir, "base")
+        #     rejected_keys = build_mask_index(self.mask_dir, "negative")  
+
+        #     # 2) Filter in O(N)
+        #     filtered = []
+        #     missed   = 0
+
+        #     for ex in tqdm(self.dataset, desc="Filtering by prebuilt mask index..."):
+        #         # safer & faster than split('.png')[0]
+        #         basename = Path(ex["chosen"]).stem
+        #         key = (ex["t2i_category"], ex["item_id"], basename)
+
+        #         has_c = key in base_keys
+        #         has_r = key in rejected_keys  # or `has_r = has_c` if you only have one mask per item
+
+        #         if has_c and has_r:
+        #             filtered.append(ex)
+        #         else:
+        #             missed += 1
+
+        #     print(f"Kept: {len(filtered)} | Filtered (no mask): {missed}")
+
+            
+        #     # replace
+        #     self.dataset = filtered
+
 
         # Apply num_samples if specified
         if num_samples is not None:
@@ -178,12 +252,20 @@ class PreferenceDataset(Dataset):
 
     def collate_fn_base(self, batch):
         # text tokens is 'chosen' text tokens
-        item_ids, text_tokens, chosen_image_tensors, rejected_image_tensors = zip(*batch)
-        return list(item_ids), list(text_tokens), list(chosen_image_tensors), list(rejected_image_tensors)
+        if self.use_mask:        
+            item_ids, text_tokens, chosen_image_tensors, rejected_image_tensors, chosen_mask, rejected_mask = zip(*batch)
+            return list(item_ids), list(text_tokens), list(chosen_image_tensors), list(rejected_image_tensors), list(chosen_mask), list(rejected_mask)
+        else:
+            item_ids, text_tokens, chosen_image_tensors, rejected_image_tensors = zip(*batch)
+            return list(item_ids), list(text_tokens), list(chosen_image_tensors), list(rejected_image_tensors)
 
     def collate_fn_copo(self, batch):
-        item_ids, chosen_text_tokens, rejected_text_tokens, chosen_image_tensors, rejected_image_tensors = zip(*batch)
-        return list(item_ids), list(chosen_text_tokens), list(rejected_text_tokens), list(chosen_image_tensors), list(rejected_image_tensors)
+        if self.use_mask:        
+            item_ids, chosen_text_tokens, rejected_text_tokens, chosen_image_tensors, rejected_image_tensors, chosen_mask, rejected_mask = zip(*batch)
+            return list(item_ids), list(chosen_text_tokens), list(rejected_text_tokens), list(chosen_image_tensors), list(rejected_image_tensors), list(chosen_mask), list(rejected_mask)
+        else:
+            item_ids, chosen_text_tokens, rejected_text_tokens, chosen_image_tensors, rejected_image_tensors = zip(*batch)
+            return list(item_ids), list(chosen_text_tokens), list(rejected_text_tokens), list(chosen_image_tensors), list(rejected_image_tensors)
 
     def decode_base(self, example: Dict):
         if "prompt" not in example.keys() or "chosen" not in example.keys() or "rejected" not in example.keys():
@@ -195,6 +277,10 @@ class PreferenceDataset(Dataset):
         text_token = self.get_text_token(example["prompt"]) 
         chosen_image_tensor = self.get_image_tensor(example["chosen"])
         rejected_image_tensor = self.get_image_tensor(example["rejected"])
+
+        if self.use_mask:
+            chosen_mask, rejected_mask = self.load_object_mask(example)
+            return item_id, text_token, chosen_image_tensor, rejected_image_tensor, chosen_mask, rejected_mask
 
         return item_id, text_token, chosen_image_tensor, rejected_image_tensor
 
@@ -212,8 +298,65 @@ class PreferenceDataset(Dataset):
         chosen_image_tensor = self.get_image_tensor(example["chosen"])
         rejected_image_tensor = self.get_image_tensor(example["rejected"])
 
+        if self.use_mask:
+            chosen_mask, rejected_mask = self.load_object_mask(example)
+            return item_id, chosen_text_token, rejected_text_token, chosen_image_tensor, rejected_image_tensor, chosen_mask, rejected_mask
+
         return item_id, chosen_text_token, rejected_text_token, chosen_image_tensor, rejected_image_tensor
 
+    # 개별 샘플 기준
+    def load_object_mask(self, example):
+        chosen_mask, rejected_mask = None, None
+    
+        if not self.off_policy:
+            basename = os.path.basename(example["chosen"]).split(".png")[0]
+            for key in ['base', 'negative']:
+                mask_path = os.path.join(self.mask_dir, key, example["t2i_category"], example["item_id"], f"{basename}_mask.pt")
+                if not os.path.exists(mask_path):                
+                    # continue
+                    raise ValueError(f"mask path: {mask_path} dose not exist!")
+                else: # mask path is existed.
+                    if key == 'base':
+                        chosen_mask = torch.load(mask_path) # .to('cuda')
+                    else:
+                        rejected_mask = torch.load(mask_path)
+
+        else:
+            # FocusDiff 기준
+            # base_mask_path = os.path.join(self.mask_dir, "data", "images", example["item_id"])
+            # chosen_mask_path = os.path.join(base_mask_path, "image1_mask.pt")
+            # rejected_mask_path = os.path.join(base_mask_path, "image2_mask.pt")
+            
+            # # mask is always exist (pre-filtering)
+            # chosen_mask = torch.load(chosen_mask_path)
+            # rejected_mask = torch.load(rejected_mask_path)
+
+            # Target Region 실험 기준
+            item_id = example["item_id"]
+            chosen_mask_path = os.path.join(self.mask_dir, item_id, "token_mask_2d.npy")
+            rejected_mask_path = os.path.join(self.mask_dir, item_id, "token_mask_2d.npy")
+
+            for which, p in (("chosen", chosen_mask_path), ("rejected", rejected_mask_path)):
+                if not os.path.exists(p):
+                    raise FileNotFoundError(f"Missing {which} mask: {p}")
+                arr = np.load(p, allow_pickle=False)
+                if not isinstance(arr, np.ndarray):
+                    raise TypeError(f"Mask at {p} is not a numpy array")
+
+                t = torch.from_numpy(arr).float().squeeze()
+                if t.numel() == 576 and t.dim() == 1:
+                    t = t.view(24, 24)
+                elif t.shape == (24, 24):
+                    pass
+                else:
+                    raise ValueError(f"Unexpected mask shape at {p}: {tuple(t.shape)}")
+
+                if which == "chosen":
+                    chosen_mask = t
+                else:
+                    rejected_mask = t
+
+        return chosen_mask, rejected_mask
 
     def get_image_generation_prompt(self, prompt):
         system_prompt = ""

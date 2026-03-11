@@ -1,0 +1,24 @@
+# Step 3. Image Generation
+
+seed_list: [0,1,2]
+world_size: 4
+batch_size: # set according to category and GPU memory
+num_workers: 4
+
+data_path: ./init_dataset.json
+s_idx:
+e_idx: 
+
+save_path: ./images
+save_name:
+
+ckpt_path: 
+model:
+  model_path: ./checkpoints/Janus-Pro-7B 
+  cache_dir: ./checkpoints/hf_cache
+  attn_mode: flash_attention_2 
+
+generation_config: 
+  parallel_size: 1
+  temperature: 1.0
+  cfg_weight: 5.0

@@ -1,77 +1,114 @@
-# Step 4. Training
-# This code is based on the official SimPO implementation with trl (https://github.com/princeton-nlp/SimPO/blob/main/scripts/simpo_trainer.py)
+# Step 4. Decompositional VQA - Filtering - Selection
 
 import os
-import argparse
 import torch
-import pytorch_lightning as pl
+import datetime
+import argparse
+from pytorch_lightning import seed_everything
+from peft import get_peft_model
 
 import pyrootutils
 pyrootutils.setup_root(__file__, indicator=".project-root", pythonpath=True, cwd=True)
-from ospo.dataclass import TrainDataModule
-from ospo.wrapper import JanusProTrainWrapper
+
+from ospo.utils.model import get_model, get_lora_config
+from ospo.utils.generate import get_trainer
 from ospo.utils.common import build_config
-from ospo.utils.train import get_trainer
-from ospo.utils.model import get_model
+from ospo.dataclass import GenerationDataModule
+from ospo.wrapper import JanusProQuestionGenWrapper, JanusProScoreWrapper, JanusProFilterWrapper
 
-
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
-
-
-def get_dataloader(config, chat_processor, image_processor, tokenizer):
-    datamodule = TrainDataModule(config, chat_processor, image_processor, tokenizer) 
-    datamodule.setup()
-    train_dataloader = datamodule.train_dataloader()
-    if config.dataset.get('val', None) is not None:
-        val_dataloader = datamodule.val_dataloader()
-    else:
-        val_dataloader = None
-    return train_dataloader, val_dataloader
+os.environ["TOKENIZERS_PARALLELISM"] = "false" 
     
+def get_dataloader(config):
+    datamodule = GenerationDataModule(config, step=3.1)
+    dataloader = datamodule.gen_dataloader()
+    return dataloader 
 
-def set_exp_name(config):
-    # 현재 날짜 (M+D/ 1022)
-    pass
+
+def get_wrapper(config, model, tokenizer, vl_chat_processor, wrapper_cls, constraint, mode="base"):
+    if config.ckpt_path is not None:
+        print("# Load model with checkpoint.")
+        lora_config = get_lora_config(config.ckpt_path)
+        model.language_model = get_peft_model(model.language_model, lora_config)
+        model = wrapper_cls.load_from_checkpoint(
+            checkpoint_path=config.ckpt_path, 
+            config=config,
+            model=model,
+            tokenizer=tokenizer,
+            processor=vl_chat_processor,
+            constraint=constraint,
+            mode=mode,
+            strict=False
+        )
+        model.setup("test")
+        model.model.language_model = model.model.language_model.merge_and_unload()
+    else:
+        print("# Load base model.")
+        model = wrapper_cls(
+            config=config,
+            model=model,
+            tokenizer=tokenizer,
+            processor=vl_chat_processor,
+            constraint=constraint,
+            mode=mode
+        )
+    return model
+
 
 def main(config):
-    torch.cuda.empty_cache()
-    if config.base.save_path is not None:
-        os.makedirs(config.base.save_path, exist_ok=True)
+    device = "cuda" if torch.cuda.is_available() else "cpu"    
+    seed_everything(config.seed, workers=True)
+
+    trainer = get_trainer(device, config.world_size)
+    vl_chat_processor, tokenizer, model = get_model(mode='generate', config=config)
+
+    # step 4.1
+    if config.prompt_type == "question":
+        # 1. Question generation
+        # if not os.path.exists(os.path.join(config.save_path, 'vqa_prompt.json')):
+        if config.data_path is None:
+            raise ValueError("config.data_path is not given.")
+        dataloader_qs = get_dataloader(config)
+        model_qs = get_wrapper(config, model, tokenizer, vl_chat_processor, 
+                                    constraint=config.img_constraint,
+                                    wrapper_cls=JanusProQuestionGenWrapper)
+        
+        start_time = datetime.datetime.now()
+        trainer.test(model_qs, dataloaders=dataloader_qs)
+        end_time = datetime.datetime.now()
+        print("(Step 4.1) Decompositional Question generation completed.")
+
+
+    # step 4.2
+    elif config.prompt_type == "answer":
+        # 2. Scoring based on Self-VQA result 
+        # reset
+        if config.data_path is None:
+            config.data_path = os.path.join(config.save_path, 'vqa_prompt.json')
+        dataloader_as = get_dataloader(config)
+        model_as = get_wrapper(config, model, tokenizer, vl_chat_processor, 
+                                    constraint=config.img_constraint,
+                                    wrapper_cls=JanusProScoreWrapper)
+        
+        start_time = datetime.datetime.now()
+        trainer.test(model_as, dataloaders=dataloader_as)
+        end_time = datetime.datetime.now()
+        print("(Step 4.2) Scoring and Train dataset generation completed.")
+
+
+
     
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    pl.seed_everything(config.experiment.seed, workers=True) 
-    dtype = torch.bfloat16 if config.experiment.precision == 'bf16' else torch.float32
 
+    elapsed_time = end_time - start_time
+    elapsed_min = elapsed_time.total_seconds() / 60
+    print('------------------------------------------')
+    print(f"Elapsed Time: {elapsed_min:.2f} minutes")
+    print('------------------------------------------')
 
-   
-    model, chat_processor, image_processor, tokenizer = get_model(mode='train', dtype=dtype, config=config)
-    train_dataloader, val_dataloader = get_dataloader(config, chat_processor, image_processor, tokenizer) 
-
-    wrapper = JanusProTrainWrapper(config, 
-                         model=model, 
-                         chat_processor=chat_processor, 
-                         image_processor=image_processor,
-                         tokenizer=tokenizer) 
-    trainer = get_trainer(config, device)
-
-    # Train the model
-    if config.base.resume is not None and os.path.exists(config.base.resume):
-        print("Training resume.")
-        if val_dataloader is not None:
-            trainer.fit(wrapper, train_dataloader, val_dataloader, ckpt_path=config.base.resume)
-        else:
-            trainer.fit(wrapper, train_dataloader, ckpt_path=config.base.resume)
-    else:
-        if val_dataloader is not None:
-            trainer.fit(wrapper, train_dataloaders=train_dataloader, val_dataloaders=val_dataloader)
-            trainer.validate(wrapper, dataloaders=val_dataloader)
-        else:
-            trainer.fit(wrapper, train_dataloaders=train_dataloader)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--cfg_path", type=str, default="configs/step4.yaml")
+    parser.add_argument("--cfg_path", type=str, default="configs/step3_1.yaml")
     args, unknown = parser.parse_known_args()  
-    config = build_config(cfg_path=args.cfg_path)    
+    config = build_config(cfg_path=args.cfg_path)
     
     main(config)

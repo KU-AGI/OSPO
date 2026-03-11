@@ -6,9 +6,9 @@ import pyrootutils
 pyrootutils.setup_root(__file__, indicator=".project-root", pythonpath=True, cwd=True)
 from ospo.constant import *
 from ospo.utils.common import read_json
-from ospo.dataclass import PreferenceDataset, ValidationDataset, BaseDataset, NegativeDataset 
+from ospo.dataclass import PreferenceDataset, ValidationDataset, BaseDataset
 
-# janus_fa 환경 실행 시 lambda 의 대체재
+# if lambda raise errors, (janus_fa env)
 def identity_collate(batch):
     return batch
 
@@ -23,8 +23,7 @@ class TrainDataModule(pl.LightningDataModule):
 
         self.train_dataset = None
         self.val_datasets = None
-        self.copo_mode = True if config.algo.copo_weight > 0.0 else False
-        print(f"Loading Train datamodule in CoPO mode: {self.copo_mode}")
+
 
     def setup(self):
         self.train_dataset = PreferenceDataset(
@@ -70,7 +69,7 @@ class TrainDataModule(pl.LightningDataModule):
     
     def val_dataloader(self):
         if self.val_datasets is not None:
-            # 데이터로더의 리스트
+            # List of DataLoaders
             return [DataLoader(
                     dataset=val_dataset, 
                     shuffle=self.val_shuffle,
@@ -85,29 +84,19 @@ class TrainDataModule(pl.LightningDataModule):
 
 
 class GenerationDataModule(pl.LightningDataModule):
-    def __init__(self, config, step: float = 1.0): # step in framework
-        if step not in [1.0, 2.0, 3.1, 3.2, 4.0]: 
-            raise ValueError("Step must be one of [1, 2, 3, 4].")
+    def __init__(self, config, step: str = None): # step in framework
+        if step not in ["1", "2", "3", "4", "5"]: 
+            raise ValueError("Step must be one of [1, 2, 3, 4, 5].")
         self.config = config
     
         # Element/Base prompt generation (inital prompt)
-        if step == 1.0:
+        if step == "1":
             if config.max_len is None:
-                if config.category == "2D_spatial" or config.category == "3D_spatial":  # "spatial":
-                    max_len = 4000 # 40
-                elif config.category == "non-spatial" or config.category == "complex":
-                    max_len = 4000
-                elif config.category == "numeracy1" or config.category == "numeracy2":
-                    max_len = 4000
-                else:
-                    max_len = 2000 # 70
+                max_len = 4000 
             else:
                 max_len = config.max_len
             self.dataset = list(range(max_len)) # dummy data
 
-        elif step == 3.2:
-            self.dataset = NegativeDataset(base_path=config.data_path.merge_standard, negative_qs_path=config.data_path.merge_nqs) 
-            # Do not use s_idx and e_idx
 
         else:
             self.dataset = BaseDataset(fpath=config.data_path,
@@ -123,83 +112,4 @@ class GenerationDataModule(pl.LightningDataModule):
                         pin_memory=True,
                         drop_last=False,
                         shuffle=False)
-        
-class NewGenerationDataModule(pl.LightningDataModule):
-    def __init__(self, config, step:int=1): # step in framework
-        if step not in [1, 2, 3, 4]: 
-            raise ValueError("Step must be one of [1, 2, 3, 4].")
-        self.config = config
-    
-        # Element/Base prompt generation
-        if step == 1:
-            '''
-            if config.max_len is None:
-                if config.category == "object":
-                    max_len = 120
-                elif config.category == "spatial":
-                    max_len = 40
-                elif config.category == "non-spatial" or config.category == "complex":
-                    max_len = 4000
-                else:
-                    max_len = 70
-            else:
-                max_len = config.max_len
-            '''
-            if config.max_len is None:
-                max_len = 6000
-            else:
-                max_len = config.max_len
-            
-            self.dataset = list(range(max_len)) # dummy data
-
-
-        # Dense/Negative prompt generation and Image generation
-        elif step == 2 or step == 3 or step == 4:
-            self.dataset = NewBaseDataset(fpath=config.data_path)
-        
-        # Question/Answer generation
-        elif step == 5:
-            self.dataset = read_json(config.data_path) 
-
-
-    def gen_dataloader(self):
-        return DataLoader(self.dataset, # debug point
-                        batch_size=self.config.batch_size, 
-                        collate_fn=identity_collate, # identity_collate
-                        num_workers=self.config.num_workers,
-                        pin_memory=True,
-                        drop_last=False,
-                        shuffle=False)
-                        
-
-class VerifyDataModule(pl.LightningDataModule):
-    def __init__(self, config, chat_processor, image_processor, tokenizer):
-        self.config = config
-        self.tokenizer = tokenizer
-        self.chat_processor = chat_processor
-        self.image_processor = image_processor
-
-        self.dataset = None
-
-    # TODO: verify in config.yaml
-    def setup(self):
-        self.dataset = PreferenceWithPerturbationDataset(
-                                        seed=self.config.experiment.seed,
-                                        data_path=self.config.dataset.verify.data_path,
-                                        chat_processor=self.chat_processor,
-                                        image_processor=self.image_processor,
-                                        tokenizer=self.tokenizer,
-                                        num_samples=self.config.dataset.verify.num_samples,
-                                        # omit sampling_rate
-                                        )
-
-    def dataloader(self):
-        if self.dataset is not None:
-            return DataLoader(
-                    dataset=self.dataset, 
-                    shuffle=False,
-                    collate_fn=self.dataset.collate_fn,            # lambda batch: batch, 
-                    batch_size=self.config.dataset.verify.batch_size,     # Batch size per process
-                    num_workers=self.config.dataset.verify.num_workers,   # Number of data loading workers
-                    )
-
+       

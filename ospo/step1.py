@@ -14,24 +14,15 @@ from ospo.dataclass import GenerationDataModule
 from ospo.utils.generate import get_trainer
 from ospo.utils.model import get_model, get_lora_config
 from ospo.utils.common import build_config, set_seed, read_json, save_json
-from ospo.constant import CATEGORY_LIST
+from ospo.constant import CATEGORY_LIST, NUMBER_WORDS, NON_NUMBER_WORDS
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
-
-_NUMBER_WORDS = ["one", "two", "three", "four"]
-
-_NO_NUMBER_WORDS = [
-    "five","six","seven","eight","nine","ten", "eleven","twelve","thirteen","fourteen",
-    "fifteen","sixteen","seventeen","eighteen","nineteen","twenty","thirty","forty",
-    "fifty","sixty","seventy","eighty","ninety","hundred","thousand","million","billion"
-]
-
-_TOTAL_NUMBER_WORDS = _NUMBER_WORDS + _NO_NUMBER_WORDS
+NUMBER_WORDS = INCLUDED_NUMBER_WORDS + NON_INCLUDED_NUMBER_WORDS
 
 
 def extract_number_words(text):
     tokens = re.findall(r"[a-zA-Z]+", text.lower())
-    return [t for t in tokens if t in _TOTAL_NUMBER_WORDS]
+    return [t for t in tokens if t in NUMBER_WORDS]
 
 
 def create_item_id(element_dir):
@@ -127,6 +118,7 @@ def get_dataloader(config):
     dataloader = datamodule.gen_dataloader()
     return dataloader 
 
+
 def main(config):
     if config.batch_size > 1 or config.world_size > 1:
         raise NotImplementedError("Batch size > 1 and World size > 1 are not supported in this step.")
@@ -193,7 +185,5 @@ if __name__ == "__main__":
         print("# Category:", config.category)
         main(config)
 
-
     # make item_id only
-    # create_item_id("/nas2/data/Janus_dataset/next_v2/iter2/prompt/step1")
     create_item_id(args.create_path)
