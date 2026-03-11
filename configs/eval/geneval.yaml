@@ -1,11 +1,11 @@
 # base.exp_name / model.type / model.ckpt_path 3개만 작성
 
 base:
-  save_path: /nas2/data/Janus_dataset/next/eval/appendix
-  exp_name: 1117_ablation_beta_1/ckpt_800
+  save_path: /nas2/checkpoints/janus_dpo_eval
+  exp_name: 0115_ospo_cvpr_base/ckpt_600
   task_name: geneval
 
-  world_size: 6
+  world_size: 2
   precision: bf16 
 
 model:
@@ -13,15 +13,15 @@ model:
   # model_path: /nas2/data/Janus_dataset/next_v2/appendix/ospo_iter1_nas/hf_ckpt
   model_path: /nas2/checkpoints/Janus-Pro-7B # deepseek-ai/Janus-Pro-1B
   cache_dir: /nas2/checkpoints/hf_cache_yj
-  ckpt_path: /nas2/data/Janus_dataset/next/ckpt/appendix/1117_ablation_beta_1/version_0/step=000800.ckpt
+  ckpt_path: /nas2/checkpoints/janus_dpo_aaai/0115_ospo_cvpr_base/version_0/step=000600.ckpt
   attn_mode: flash_attention_2
-
+  
 task:
   batch_size: 8 # 4
   # 고정
   num_workers: 4
   seed: [42]
-  parallel_size: 1 
+  parallel_size : 1 
   temperature: 1
   cfg_weight: 5
 

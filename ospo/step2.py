@@ -1,4 +1,4 @@
-# Step 2-1. Negative / Dense Prompt Generation
+# Step 2. Negative / Dense Prompt Generation
 
 import os
 import argparse
@@ -15,6 +15,7 @@ from ospo.utils.model import get_model, get_lora_config
 from ospo.utils.common import build_config
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
 
 def get_dataloader(config):
     datamodule = GenerationDataModule(config, step=2)  
@@ -56,18 +57,18 @@ def main(config):
     vl_chat_processor, tokenizer, model = get_model(mode='generate', config=config)
 
 
+    # 1. Prompt perturbation
     if config.prompt_type == "negative":
-        # 1. negative prompt generation
+
         if config.data_path is None:
             config.data_path = os.path.join(os.path.dirname(config.save_path), 'step1', 'base_prompt.json') # default fname
         if not os.path.exists(config.data_path):
             raise ValueError("The data path is not existed or None.")
         dataloader_negative = get_dataloader(config)
-        
+
         model_negative = get_wrapper(config, model, tokenizer, vl_chat_processor, 
                                     wrapper_cls=JanusProNegativeGenWrapper)
         
-
         # Start evaluation
         start_time = datetime.datetime.now()
         trainer.test(model_negative, dataloaders=dataloader_negative)
@@ -81,9 +82,8 @@ def main(config):
         print(f"Elapsed Time: {elapsed_min:.2f} minutes")
         print('------------------------------------------')
 
-
+    # 2. Prompt densification
     elif config.prompt_type == "dense":
-        # 2. densification
         if config.data_path is None:
             config.data_path = os.path.join(config.save_path, 'negative_prompt.json') # default fname
         dataloader_dense = get_dataloader(config)
@@ -120,10 +120,8 @@ if __name__ == "__main__":
     # override
     if args.s_idx is not None:
         config.s_idx = args.s_idx 
-    
     if args.e_idx is not None:
         config.e_idx = args.e_idx 
-    
     if args.save_name is not None:
         config.save_name = args.save_name 
     

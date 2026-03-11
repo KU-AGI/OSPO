@@ -250,22 +250,6 @@ def main(config, train_data, save_attn: bool = False):
             # torch.Size([589, 4096]) torch.Size([589])
 
 
-            # Skip if it does exist.
-            if save_attn:
-                save_part_c = c_path.split('/')[-4:-1] # [base, attribute, 0000000]
-                save_dir_c = os.path.join(config.save_dir, save_part_c[0], save_part_c[1], save_part_c[2]) # chosen / rejected 각각 다른 곳에 저장되는 구조
-                save_name_c = os.path.basename(c_path).split(".png")[0] # 01
-                c_mask_path = os.path.join(save_dir_c, f"{save_name_c}_mask.pt")
-
-                save_part_r = r_path.split('/')[-4:-1] # [negative, attribute, 0000000]
-                save_dir_r = os.path.join(config.save_dir, save_part_r[0], save_part_r[1], save_part_r[2]) # chosen / rejected 각각 다른 곳에 저장되는 구조
-                save_name_r = os.path.basename(r_path).split(".png")[0] # 01
-                r_mask_path = os.path.join(save_dir_r, f"{save_name_r}_mask.pt")
-
-                if os.path.exists(c_mask_path) and os.path.exists(r_mask_path):
-                    print(f"[SKIP] item_id: {item_id} already exists.")
-                    continue
-
             # 2. Forward
             # c_outputs, r_outputs = concatenated_forward(config, batch, model)
             # print(c_outputs.keys())

@@ -9,8 +9,11 @@ import pyrootutils
 pyrootutils.setup_root(__file__, indicator=".project-root", pythonpath=True, cwd=True)
 from ospo.utils.common import read_json, save_json
 
-TRAIN_DATA_PATH = "/nas2/data/Janus_dataset/next_v2/appendix/vqa_expert/train_mode_argmax_chosen_object_17383.json"
-TRAIN_MASK_DIR = "/nas2/data/Janus_dataset/next_v2/appendix/vqa_expert/object_mask"
+# TRAIN_DATA_PATH = "/nas2/data/Janus_dataset/next_v2/appendix/vqa_expert/train_mode_argmax_chosen_object_17383.json"
+# TRAIN_MASK_DIR = "/nas2/data/Janus_dataset/next_v2/appendix/vqa_expert/object_mask"
+
+TRAIN_DATA_PATH = "/nas2/data/Janus_dataset/next_v2/ablation/pair_size/numeracy_add_version/train_pair_size_1_mode_argmax_chosen_object_2301.json"
+TRAIN_MASK_DIR = "/nas2/data/Janus_dataset/next_v2/ablation/pair_size/train_size_1/object_mask_v2"
 dataset = read_json(TRAIN_DATA_PATH)
 
 save_root = os.path.dirname(TRAIN_DATA_PATH)

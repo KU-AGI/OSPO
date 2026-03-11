@@ -1,0 +1,27 @@
+# Step 2. Prompt Perturbation / Densification 
+
+seed_list: [0,1,2]
+world_size: 4
+batch_size: # set according to category and GPU memory
+num_workers: 
+
+data_path: ./prompt/base_prompt.json
+s_idx: 
+e_idx: 
+
+prompt_type: negative # negative or dense 
+save_path: ./prompt/step2
+save_name: negative_prompt # dense_prompt
+
+ckpt_path: # none or iter-N ckpt
+model:
+  model_path: ./checkpoints/Janus-Pro-7B # deepseek-ai/Janus-Pro-7B
+  cache_dir: ./checkpoints/hf_cache
+  attn_mode: flash_attention_2
+
+generation_config: 
+  do_sample: True
+  num_beams: 1
+  temperature: 1.0 
+  top_p: 0.9
+  max_new_tokens: 512

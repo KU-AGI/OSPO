@@ -1,4 +1,4 @@
-# Step 2-2. Image Generation
+# Step 3. Image Generation
 
 import os
 import time

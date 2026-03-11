@@ -388,6 +388,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--base_path", type=str, default="/nas2/checkpoints/Janus-Pro-7B")
     parser.add_argument("--cache_dir", type=str, default="/nas2/checkpoints/hf_cache_yj")
+    # parser.add_argument("--ckpt_path", type=str, default="/nas2/checkpoints/janus_dpo_aaai/1110_expand_numeracy/version_0/step=000800.ckpt")
     parser.add_argument("--ckpt_path", type=str, default="/nas2/checkpoints/janus_dpo_aaai/1110_expand_numeracy/version_0/step=000800.ckpt")
     parser.add_argument("--save_path", type=str, default="/nas2/data/Janus_dataset/next_v2/appendix/ospo_iter1_nas")
     parser.add_argument("--precision", type=str, default="bf16")

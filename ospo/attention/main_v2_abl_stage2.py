@@ -287,7 +287,7 @@ def main(config, train_data, save_attn: bool = False):
                 attns = c_attns if key == 'chosen' else r_attns
 
                 if save_attn:
-                    save_part = img_path.split('/')[-4:-1] # [negative, attribute, 0000002]
+                    save_part = img_path.split('/')[-4:-1] # [base, attribute, 0000002] || [gen_10samples, attribute, 0000000]
                     save_dir = os.path.join(config.save_dir, save_part[0], save_part[1], save_part[2]) # chosen / rejected 각각 다른 곳에 저장되는 구조
                     os.makedirs(save_dir, exist_ok=True) 
 

@@ -1,4 +1,4 @@
-# Step 4. Training
+# Step 5. Training
 # This code is based on the official SimPO implementation with trl (https://github.com/princeton-nlp/SimPO/blob/main/scripts/simpo_trainer.py)
 
 import os
@@ -9,7 +9,7 @@ import pytorch_lightning as pl
 import pyrootutils
 pyrootutils.setup_root(__file__, indicator=".project-root", pythonpath=True, cwd=True)
 from ospo.dataclass import TrainDataModule
-from ospo.wrapper.train_v6 import JanusProTrainWrapper
+from ospo.wrapper import JanusProTrainWrapper
 from ospo.utils.common import build_config
 from ospo.utils.train import get_trainer
 from ospo.utils.model import get_model
@@ -29,10 +29,6 @@ def get_dataloader(config, chat_processor, image_processor, tokenizer):
     return train_dataloader, val_dataloader
     
 
-def set_exp_name(config):
-    # 현재 날짜 (M+D/ 1022)
-    pass
-
 def main(config):
     torch.cuda.empty_cache()
     if config.base.save_path is not None:
@@ -43,7 +39,6 @@ def main(config):
     dtype = torch.bfloat16 if config.experiment.precision == 'bf16' else torch.float32
 
 
-   
     model, chat_processor, image_processor, tokenizer = get_model(mode='train', dtype=dtype, config=config)
     train_dataloader, val_dataloader = get_dataloader(config, chat_processor, image_processor, tokenizer) 
 
@@ -53,6 +48,7 @@ def main(config):
                          image_processor=image_processor,
                          tokenizer=tokenizer) 
     trainer = get_trainer(config, device)
+
 
     # Train the model
     if config.base.resume is not None and os.path.exists(config.base.resume):
@@ -67,6 +63,7 @@ def main(config):
             trainer.validate(wrapper, dataloaders=val_dataloader)
         else:
             trainer.fit(wrapper, train_dataloaders=train_dataloader)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

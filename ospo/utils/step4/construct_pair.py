@@ -1,10 +1,6 @@
-# /home/yjoh/project/ospo/cvpr/dataset/construct.py
-
-# 지정된 모드에 따라 학습 데이터셋 구축 코드
 # hyperparameter
 # - mode: "random" | "argmax_chosen"
 # - threshold: 0.6 (for _filter_chosen)
-
 
 import os, json
 import random
@@ -17,7 +13,7 @@ from ospo.utils.common import read_json, save_json
 
 
 def _filter_chosen(chosen_cand, threshold=0.6):
-    local_score = chosen_cand['local_score'] # local score 의 범위는 [-1, 1]
+    local_score = chosen_cand['local_score'] # range: [-1, 1]
     ans_metadata = chosen_cand['answer_metadata']
     cnt_yes, cnt_no = 0, 0
 
@@ -28,11 +24,11 @@ def _filter_chosen(chosen_cand, threshold=0.6):
         else:
             cnt_no += 1 # tie 포함
     
-    # (조건 1) Chosen 이 All No 인 경우
+    # (Condition 1) Chosen - All No 
     if cnt_yes == 0:
         return True # Filtered
 
-    # (조건 2) 모든 질문을 아우르는 평균 스코어 자체가 threshold 보다 낮은 경우
+    # (Condition 2) Avg. score < threshold
     elif local_score < threshold:
         return True # Filtered
     elif local_score >= threshold:
@@ -49,16 +45,16 @@ def _filter_rejected(rejected_cand):
         if answer == "yes":
             cnt_yes += 1
         else:
-            cnt_no += 1 # tie 포함
+            cnt_no += 1 # including 'tie'
     
-    # (조건 1) Rejected 이 All Yes 인 경우
+    # (Condition 1) Rejected - All Yes
     if cnt_no == 0:
         return True # Filtered
     else: 
         return False
 
 
-# 하나의 샘플 (item_id) 단위에서 필터링
+# Filtering one-by-one (for each instance (item_id)) 
 def _filter_sample(vqa_sample, nothing=False):
 
     keep_chosen = []
@@ -70,7 +66,6 @@ def _filter_sample(vqa_sample, nothing=False):
         if i == 0:
             for vqa_rs in meta_list:
                 if nothing or not _filter_chosen(vqa_rs):
-                    # keep_chosen.append(vqa_rs['path'])
                     keep_chosen.append((vqa_rs['path'], vqa_rs['local_score']))
                 else:
                     pass # Filtered
@@ -82,15 +77,13 @@ def _filter_sample(vqa_sample, nothing=False):
                     keep_rejected.append((vqa_rs['path'], vqa_rs['local_score']))
                 else:
                     pass  # Filtered
-                
 
     return keep_chosen, keep_rejected
 
 
-# 필터링을 거친 샘플들 가운데, C-R 페어 매칭 작업
+# Chosen-Rejected pair matching (after filtering) 
 def _match_pair(chosen_path_list, rejected_path_list): 
     matched_pair = []
-    
     # do not address score
     for c, c_score in chosen_path_list: 
         base_c = os.path.basename(c)
@@ -105,15 +98,15 @@ def _match_pair(chosen_path_list, rejected_path_list):
 
 # input: vqa sample
 def select_pair(sample, mode="random"):
-    # 지정된 모드
     assert mode in ["random", "argmax_chosen"], f"Unsupported mode: {mode}"
 
+    # only for analysis
     if mode == "random":
 
-        # 1. 필터링 X (nothing=True); 당연히 길이 > 0 
+        # 1. No Filtering 
         filtered_chosen, filtered_rejected = _filter_sample(sample, nothing=True)
 
-        # 2. random 선택
+        # 2. Select randomly
         matched_pairs = _match_pair(filtered_chosen, filtered_rejected)
         if not matched_pairs:
             return None # 짝이 없는 경우
@@ -129,20 +122,18 @@ def select_pair(sample, mode="random"):
             "rejected_score": rejected_score,
         }
 
-
+    # ospo
     elif mode == "argmax_chosen":
-        # 1. 필터링
+        # 1. Filtering
         filtered_chosen, filtered_rejected = _filter_sample(sample)
         if len(filtered_chosen) == 0 or len(filtered_rejected) == 0:
             return None 
 
-        # 2. argmax 선택
+        # 2. Select argmax
         matched_pairs = _match_pair(filtered_chosen, filtered_rejected)
         if not matched_pairs:
             return None
-
-        # argmax 선택
-        chosen_path, rejected_path, chosen_score, rejected_score = max(matched_pairs, key=lambda x: x[2]) # chosen score 기준
+        chosen_path, rejected_path, chosen_score, rejected_score = max(matched_pairs, key=lambda x: x[2]) # by chosen score 
 
         selected_dict = {
             "chosen": chosen_path,
@@ -150,11 +141,9 @@ def select_pair(sample, mode="random"):
             "chosen_score": chosen_score,
             "rejected_score": rejected_score,
         }
-
     
     return selected_dict
-
-
+    
 
 if __name__ == "__main__":
 
@@ -192,10 +181,21 @@ if __name__ == "__main__":
     # save_path = "/nas2/data/Janus_dataset/next_v2/numeracy_add/seed_merge"
 
 
-    # Filtering Threshold
-    init_path = "/nas2/data/Janus_dataset/next_v2/appendix/iter2/data/prompt/init_dataset_20005.json"
-    vqa_path = "/nas2/data/Janus_dataset/next_v2/appendix/iter2/data/prompt/step3/vqa_result_merged_20005.json"
-    save_path = "/nas2/data/Janus_dataset/next_v2/appendix/iter2/data/train"
+    # Filtering Threshold (iter2)
+    # init_path = "/nas2/data/Janus_dataset/next_v2/appendix/iter2/data/prompt/init_dataset_20005.json"
+    # vqa_path = "/nas2/data/Janus_dataset/next_v2/appendix/iter2/data/prompt/step3/vqa_result_merged_20005.json"
+    # save_path = "/nas2/data/Janus_dataset/next_v2/appendix/iter2/data/train"
+
+
+    # 260115
+    # init_path = "/nas2/data/Janus_dataset/next_v2/merged_init_data_27807.json"
+    # vqa_path = "/nas2/data/Janus_dataset/next_v2/merged_vqa_result_27807.json"
+    # save_path = "/nas2/data/Janus_dataset/next_v2/train_2026"
+
+    # 260116
+    init_path = "/home/yjoh/project/OSPO/ablation/pair_size/init_pair_size_1_numeracy_add_only_seed_merged.json"
+    vqa_path = "/home/yjoh/project/OSPO/ablation/pair_size/vqa_result_numeracy_add_only_seed_merged_pair_1.json"
+    save_path = "/nas2/data/Janus_dataset/next_v2/ablation/pair_size/numeracy_add_version"
 
 
 

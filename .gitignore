@@ -208,8 +208,12 @@ __marimo__/
 
 
 /lightning_logs
-.png
-.ckpt
 /analysis
 /ablation
 /anlaysis
+/examples
+/bin
+
+.png
+.ckpt
+ospo/rebuttal/hit_rate/iter3_qwen_vqa.json
