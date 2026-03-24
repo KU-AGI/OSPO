@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paper Title</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body { font-family: 'Noto Sans', sans-serif; }
+    .title, .subtitle, h1, h2, h3 { font-family: 'Google Sans', sans-serif; }
+
+    .publication-title { font-family: 'Google Sans', sans-serif; }
+    .publication-authors { font-family: 'Google Sans', sans-serif; }
+
+    .publication-banner {
+      background-color: #fff;
+    }
+
+    .publication-video iframe {
+      width: 100%;
+      height: 360px;
+    }
+
+    .hero-body .container { max-width: 900px; }
+
+    section.section { padding: 3rem 1.5rem; }
+
+    pre {
+      background-color: #f5f5f5;
+      padding: 1.25rem 1.5rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .link-block a { margin: 0 4px; }
+
+    hr { margin: 0; }
+  </style>
+</head>
+<body>
+
+<!-- ── Title ── -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+
+          <h1 class="title is-1 publication-title">
+            Your Awesome Paper Title Goes Here
+          </h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="#">First Author</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="#">Second Author</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="#">Third Author</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="#">Corresponding Author</a><sup>1†</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors" style="margin-top:0.5rem;">
+            <span class="author-block"><sup>1</sup>Korea University,</span>
+            <span class="author-block"><sup>2</sup>Affiliation B</span>
+            <span class="author-block" style="margin-left:0.5rem;"><sup>†</sup>Corresponding author</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links link-block">
+
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/XXXX.XXXXX" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="https://github.com/KU-AGI/OSPO" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-video"></i></span>
+                  <span>Video</span>
+                </a>
+              </span>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Teaser ── -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <figure class="image">
+        <!-- Replace with: <img src="./static/images/teaser.png" alt="Teaser"> -->
+        <div style="background:#e8e8e8; height:320px; display:flex; align-items:center; justify-content:center; color:#888; border-radius:4px;">
+          Teaser image placeholder
+        </div>
+      </figure>
+      <h2 class="subtitle has-text-centered" style="margin-top:1rem;">
+        <strong>Figure 1.</strong> A brief caption describing the teaser figure goes here. Replace with your own description.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ── Abstract ── -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
+            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+          <p>
+            Replace this paragraph with your actual abstract. Our method achieves state-of-the-art
+            results on multiple benchmarks, demonstrating the effectiveness of the proposed framework.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ── Method ── -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered">
+        <h2 class="title is-3">Method</h2>
+
+        <figure class="image" style="margin-bottom:1rem;">
+          <!-- Replace with: <img src="./static/images/method.png" alt="Method Overview"> -->
+          <div style="background:#e8e8e8; height:360px; display:flex; align-items:center; justify-content:center; color:#888; border-radius:4px;">
+            Method / Pipeline diagram placeholder
+          </div>
+        </figure>
+        <p class="has-text-centered" style="color:#888; font-size:0.9rem; margin-bottom:1.5rem;">
+          <strong>Figure 2.</strong> Overview of the proposed framework. Replace with your pipeline figure and caption.
+        </p>
+
+        <div class="content has-text-justified">
+          <p>
+            Describe your method here. You can add subsection headings using <code>&lt;h3&gt;</code> tags.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+            laboris nisi ut aliquip ex ea commodo consequat.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ── Results & Demo ── -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Results &amp; Demo</h2>
+
+    <!-- Video -->
+    <div class="publication-video" style="margin-bottom:2rem;">
+      <div style="background:#222; height:360px; display:flex; align-items:center; justify-content:center; color:#aaa; border-radius:4px;">
+        ▶&nbsp; Demo video placeholder — replace with YouTube iframe
+      </div>
+      <!-- Uncomment when ready:
+      <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      -->
+    </div>
+
+    <!-- Qualitative Results -->
+    <h3 class="title is-4">Qualitative Results</h3>
+    <div class="columns">
+      <div class="column">
+        <figure class="image">
+          <div style="background:#e8e8e8; height:180px; display:flex; align-items:center; justify-content:center; color:#888; border-radius:4px;">
+            Result image 1
+          </div>
+        </figure>
+        <p class="has-text-centered" style="font-size:0.85rem; color:#888; margin-top:0.5rem;">Caption for result 1.</p>
+      </div>
+      <div class="column">
+        <figure class="image">
+          <div style="background:#e8e8e8; height:180px; display:flex; align-items:center; justify-content:center; color:#888; border-radius:4px;">
+            Result image 2
+          </div>
+        </figure>
+        <p class="has-text-centered" style="font-size:0.85rem; color:#888; margin-top:0.5rem;">Caption for result 2.</p>
+      </div>
+      <div class="column">
+        <figure class="image">
+          <div style="background:#e8e8e8; height:180px; display:flex; align-items:center; justify-content:center; color:#888; border-radius:4px;">
+            Result image 3
+          </div>
+        </figure>
+        <p class="has-text-centered" style="font-size:0.85rem; color:#888; margin-top:0.5rem;">Caption for result 3.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr>
+
+<!-- ── BibTeX ── -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">BibTeX</h2>
+        <pre id="bib-text">@inproceedings{yourkey2025,
+  title     = {Your Awesome Paper Title Goes Here},
+  author    = {First Author and Second Author and Third Author and Corresponding Author},
+  booktitle = {Proceedings of the Conference Name (CONF)},
+  year      = {2025},
+  url       = {https://arxiv.org/abs/XXXX.XXXXX}
+}</pre>
+        <button class="button is-small is-light" style="margin-top:0.5rem;" onclick="copyBib()">
+          📋 Copy BibTeX
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>
+        © 2025 <a href="https://github.com/KU-AGI">KU-AGI</a>, Korea University.
+        Website template based on <a href="https://github.com/shunzh/project_website">shunzh/project_website</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function copyBib() {
+    const txt = document.getElementById('bib-text').innerText;
+    navigator.clipboard.writeText(txt).then(() => {
+      const btn = document.querySelector('button');
+      btn.textContent = '✅ Copied!';
+      setTimeout(() => btn.textContent = '📋 Copy BibTeX', 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
