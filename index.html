@@ -13,7 +13,22 @@
     body { font-family: 'Noto Sans', sans-serif; }
     .title, .subtitle, h1, h2, h3 { font-family: 'Google Sans', sans-serif; }
 
-    .publication-title { font-family: 'Google Sans', sans-serif; }
+    .publication-title {
+      font-family: 'Castoro', serif;
+      font-variant: small-caps;
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .publication-title-sub {
+      font-family: 'Google Sans', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #363636;
+      margin-top: 0.3rem;
+      margin-bottom: 1.2rem;
+    }
     .publication-authors { font-family: 'Google Sans', sans-serif; }
 
     .publication-banner {
@@ -53,27 +68,30 @@
         <div class="column has-text-centered">
 
           <h1 class="title is-1 publication-title">
-            Your Awesome Paper Title Goes Here
+            🎯 OSPO
           </h1>
+          <h2 class="publication-title-sub">Object-Centric Self-Improving Preference Optimization for<br/>Text-to-Image Generation</h2>
 
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="#">First Author</a><sup>1</sup>,
+              <a href="#">Yoonjin Oh</a><sup>1</sup>,
             </span>
             <span class="author-block">
-              <a href="#">Second Author</a><sup>1</sup>,
+              <a href="#">Yongjin Kim</a><sup>1</sup>,
             </span>
             <span class="author-block">
-              <a href="#">Third Author</a><sup>2</sup>,
+              <a href="#">Hyomin Kim</a><sup>1</sup>,
             </span>
             <span class="author-block">
-              <a href="#">Corresponding Author</a><sup>1†</sup>
+              <a href="#">Donghwan Chi</a><sup>1</sup>
+            </span>
+            <span class="author-block">
+              <a href="#">Sungwoong Kim</a><sup>1†</sup>
             </span>
           </div>
 
           <div class="is-size-5 publication-authors" style="margin-top:0.5rem;">
             <span class="author-block"><sup>1</sup>Korea University,</span>
-            <span class="author-block"><sup>2</sup>Affiliation B</span>
             <span class="author-block" style="margin-left:0.5rem;"><sup>†</sup>Corresponding author</span>
           </div>
 
@@ -88,7 +106,7 @@
               </span>
 
               <span class="link-block">
-                <a href="https://arxiv.org/abs/XXXX.XXXXX" class="external-link button is-normal is-rounded is-dark">
+                <a href="https://arxiv.org/abs/2506.02015" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="ai ai-arxiv"></i></span>
                   <span>arXiv</span>
                 </a>
@@ -122,13 +140,10 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <figure class="image">
-        <!-- Replace with: <img src="./static/images/teaser.png" alt="Teaser"> -->
-        <div style="background:#e8e8e8; height:320px; display:flex; align-items:center; justify-content:center; color:#888; border-radius:4px;">
-          Teaser image placeholder
-        </div>
+        <img src="assets/framework.png" alt="Framework overview">
       </figure>
       <h2 class="subtitle has-text-centered" style="margin-top:1rem;">
-        <strong>Figure 1.</strong> A brief caption describing the teaser figure goes here. Replace with your own description.
+        <strong>Figure 1.</strong> Overview of the OSPO framework.
       </h2>
     </div>
   </div>
