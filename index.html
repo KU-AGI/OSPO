@@ -8,17 +8,18 @@
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
 
   <style>
     body { font-family: 'Noto Sans', sans-serif; }
     .title, .subtitle, h1, h2, h3 { font-family: 'Google Sans', sans-serif; }
 
     .publication-title {
-      font-family: 'Castoro', serif;
-      font-variant: small-caps;
-      font-size: 3rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
+      font-family: 'Google Sans', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
     }
     .publication-title-sub {
       font-family: 'Google Sans', sans-serif;
@@ -40,9 +41,14 @@
       height: 360px;
     }
 
-    .hero-body .container { max-width: 900px; }
+    .hero-body .container { max-width: 1280px; }
 
-    section.section { padding: 3rem 1.5rem; }
+    .container.is-max-desktop,
+    .container.is-max-widescreen { max-width: 1280px !important; }
+
+    .container { max-width: 1280px !important; padding-left: 2rem; padding-right: 2rem; }
+
+    section.section { padding: 3rem 2rem; }
 
     pre {
       background-color: #f5f5f5;
@@ -68,42 +74,44 @@
         <div class="column has-text-centered">
 
           <h1 class="title is-1 publication-title">
-            🎯 OSPO
+            🎨 OSPO: Object-Centric Self-Improving Preference Optimization for Text-to-Image Generation
           </h1>
-          <h2 class="publication-title-sub">Object-Centric Self-Improving Preference Optimization for<br/>Text-to-Image Generation</h2>
+          <!-- <h2 class="publication-title-sub">Object-Centric Self-Improving Preference Optimization for<br/>Text-to-Image Generation</h2> -->
 
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="#">Yoonjin Oh</a><sup>1</sup>,
+              <a href="https://www.linkedin.com/in/yoonjin-oh-030162273/" target="_blank">Yoonjin Oh</a>,
             </span>
             <span class="author-block">
-              <a href="#">Yongjin Kim</a><sup>1</sup>,
+              <a href="https://pulyong.github.io/" target="_blank">Yongjin Kim</a>,
             </span>
             <span class="author-block">
-              <a href="#">Hyomin Kim</a><sup>1</sup>,
+              Hyomin Kim,
             </span>
             <span class="author-block">
-              <a href="#">Donghwan Chi</a><sup>1</sup>
+              <a href="https://zheedong.github.io/" target="_blank">Donghwan Chi</a>,
             </span>
             <span class="author-block">
-              <a href="#">Sungwoong Kim</a><sup>1†</sup>
+              <a href="https://sites.google.com/view/swkim/home?authuser=0" target="_blank">Sungwoong Kim</a>
             </span>
           </div>
 
           <div class="is-size-5 publication-authors" style="margin-top:0.5rem;">
-            <span class="author-block"><sup>1</sup>Korea University,</span>
-            <span class="author-block" style="margin-left:0.5rem;"><sup>†</sup>Corresponding author</span>
+            <span class="author-block">Korea University</span>
           </div>
 
           <div class="column has-text-centered">
+            <p class="is-size-4" style="margin-bottom: 0.75rem; font-weight: 600;">
+              CVPR 2026
+            </p>
             <div class="publication-links link-block">
 
-              <span class="link-block">
+              <!-- <span class="link-block">
                 <a href="#" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fas fa-file-pdf"></i></span>
                   <span>Paper</span>
                 </a>
-              </span>
+              </span> -->
 
               <span class="link-block">
                 <a href="https://arxiv.org/abs/2506.02015" class="external-link button is-normal is-rounded is-dark">
@@ -120,11 +128,18 @@
               </span>
 
               <span class="link-block">
+                <a href="https://huggingface.co/collections/KU-AGI/ospo" class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">🤗</span>
+                  <span>HuggingFace</span>
+                </a>
+              </span>
+
+              <!-- <span class="link-block">
                 <a href="#" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fas fa-video"></i></span>
                   <span>Video</span>
                 </a>
-              </span>
+              </span> -->
 
             </div>
           </div>
@@ -139,7 +154,7 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <figure class="image">
+      <figure class="image" style="width:85%; margin:0 auto;">
         <img src="assets/framework.png" alt="Framework overview">
       </figure>
       <h2 class="subtitle has-text-centered" style="margin-top:1rem;">
@@ -159,16 +174,18 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
-            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Recent advances in Multimodal Large Language Models (MLLMs) have enabled unified multimodal understanding and generation. 
+            However, they still struggle with fine-grained text-image alignment, often failing to faithfully depict objects with correct attributes such as color, shape, and spatial relationships. 
+            To mitigate this issue, previous studies have explored preference optimization methods such as DPO and GRPO, but these approaches incur substantial computational cost, both in constructing preference data and in performing optimization. 
+            This has motivated self-improving preference optimization approaches, in which the MLLM autonomously generates its own training data, self-estimates preference feedback, and self-optimizes using the resulting self-constructed preference pairs. 
+            However, existing self-improving methods still overlook fine-grained, object-level semantics, allowing object hallucination to persist. 
+            <strong>To tackle this problem, we propose Object-centric Self-improving Preference Optimization (OSPO), a self-improving framework designed to enhance object-level text-image alignment.</strong>
+            OSPO explicitly constructs object-centric preference data without relying on any external data or models. We also introduce a new approach that leverages attention-based object masks together with an object-weighted SimPO loss to enhance object-specific fidelity. Extensive experiments on three compositional image generation benchmarks demonstrate that OSPO significantly improves fine-grained alignment and reduces object hallucination, outperforming prior self-improving methods and even specialized diffusion-based text-to-image models.
           </p>
-          <p>
+          <!-- <p>
             Replace this paragraph with your actual abstract. Our method achieves state-of-the-art
             results on multiple benchmarks, demonstrating the effectiveness of the proposed framework.
-          </p>
+          </p> -->
         </div>
       </div>
     </div>
@@ -178,14 +195,13 @@
 <hr>
 
 <!-- ── Method ── -->
-<section class="section">
+<!-- <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-full has-text-centered">
         <h2 class="title is-3">Method</h2>
 
         <figure class="image" style="margin-bottom:1rem;">
-          <!-- Replace with: <img src="./static/images/method.png" alt="Method Overview"> -->
           <div style="background:#e8e8e8; height:360px; display:flex; align-items:center; justify-content:center; color:#888; border-radius:4px;">
             Method / Pipeline diagram placeholder
           </div>
@@ -205,7 +221,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 <hr>
 
@@ -216,43 +232,46 @@
 
     <!-- Video -->
     <div class="publication-video" style="margin-bottom:2rem;">
-      <div style="background:#222; height:360px; display:flex; align-items:center; justify-content:center; color:#aaa; border-radius:4px;">
-        ▶&nbsp; Demo video placeholder — replace with YouTube iframe
+      <video controls autoplay muted loop style="width:85%; display:block; margin:0 auto; border-radius:6px;">
+        <source src="assets/demo.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- Quantitative Results -->
+    <h3 class="title is-4">Quantitative Results</h3>
+    <div class="columns" style="margin-bottom: 2rem;">
+      <div class="column">
+        <figure>
+          <img src="assets/table1.png" alt="Table 1" style="width:100%;">
+          <figcaption class="has-text-centered" style="margin-top:0.5rem; font-size:0.9rem; color:#555;">
+            <strong>Table 1.</strong> Comparison on T2I-CompBench++.
+          </figcaption>
+        </figure>
       </div>
-      <!-- Uncomment when ready:
-      <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
-        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-      -->
+      <div class="column">
+        <figure>
+          <img src="assets/table2.png" alt="Table 2" style="width:100%;">
+          <figcaption class="has-text-centered" style="margin-top:0.5rem; font-size:0.9rem; color:#555;">
+            <strong>Table 2.</strong> Comparison on DPGBench and GenEval.
+          </figcaption>
+        </figure>
+      </div>
     </div>
 
     <!-- Qualitative Results -->
     <h3 class="title is-4">Qualitative Results</h3>
-    <div class="columns">
-      <div class="column">
-        <figure class="image">
-          <div style="background:#e8e8e8; height:180px; display:flex; align-items:center; justify-content:center; color:#888; border-radius:4px;">
-            Result image 1
-          </div>
-        </figure>
-        <p class="has-text-centered" style="font-size:0.85rem; color:#888; margin-top:0.5rem;">Caption for result 1.</p>
-      </div>
-      <div class="column">
-        <figure class="image">
-          <div style="background:#e8e8e8; height:180px; display:flex; align-items:center; justify-content:center; color:#888; border-radius:4px;">
-            Result image 2
-          </div>
-        </figure>
-        <p class="has-text-centered" style="font-size:0.85rem; color:#888; margin-top:0.5rem;">Caption for result 2.</p>
-      </div>
-      <div class="column">
-        <figure class="image">
-          <div style="background:#e8e8e8; height:180px; display:flex; align-items:center; justify-content:center; color:#888; border-radius:4px;">
-            Result image 3
-          </div>
-        </figure>
-        <p class="has-text-centered" style="font-size:0.85rem; color:#888; margin-top:0.5rem;">Caption for result 3.</p>
-      </div>
-    </div>
+    <figure style="margin-bottom: 1.5rem;">
+      <img src="assets/figure1.png" alt="Figure 1" style="width:85%; display:block; margin:0 auto;">
+      <figcaption class="has-text-centered" style="margin-top:0.5rem; font-size:0.9rem; color:#555;">
+        <strong>Figure 2.</strong> Comparison on T2I-CompBench++ and GenEval.
+      </figcaption>
+    </figure>
+    <figure style="margin-bottom: 1.5rem;">
+      <img src="assets/figure2.png" alt="Figure 2" style="width:85%; display:block; margin:0 auto;">
+      <figcaption class="has-text-centered" style="margin-top:0.5rem; font-size:0.9rem; color:#555;">
+        <strong>Figure 3.</strong> Comparison on DPGBench.
+      </figcaption>
+    </figure>
 
   </div>
 </section>
@@ -265,15 +284,14 @@
     <div class="columns is-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">BibTeX</h2>
-        <pre id="bib-text">@inproceedings{yourkey2025,
-  title     = {Your Awesome Paper Title Goes Here},
-  author    = {First Author and Second Author and Third Author and Corresponding Author},
-  booktitle = {Proceedings of the Conference Name (CONF)},
-  year      = {2025},
-  url       = {https://arxiv.org/abs/XXXX.XXXXX}
+        <pre id="bib-text">@article{oh2025ospo,
+  title     = {OSPO: Object-centric Self-improving Preference Optimization for Text-to-Image Generation},
+  author    = {Oh, Yoonjin and Kim, Yongjin and Kim, Hyomin and Chi, Donghwan and Kim, Sungwoong},
+  journal   = {arXiv preprint arXiv:2506.02015},
+  year      = {2025}
 }</pre>
         <button class="button is-small is-light" style="margin-top:0.5rem;" onclick="copyBib()">
-          📋 Copy BibTeX
+          Copy BibTeX
         </button>
       </div>
     </div>
@@ -297,8 +315,8 @@
     const txt = document.getElementById('bib-text').innerText;
     navigator.clipboard.writeText(txt).then(() => {
       const btn = document.querySelector('button');
-      btn.textContent = '✅ Copied!';
-      setTimeout(() => btn.textContent = '📋 Copy BibTeX', 2000);
+      btn.textContent = '✅ Copied';
+      setTimeout(() => btn.textContent = 'Copy BibTeX', 2000);
     });
   }
 </script>
