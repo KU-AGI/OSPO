@@ -1,13 +1,16 @@
 <h1 align="center">OSPO</h1>
 
 <p align="center">
+  <a href="https://ku-agi.github.io/OSPO/">
+    <img src="https://img.shields.io/badge/Project-Page-blue">
+  </a>
   <a href="https://arxiv.org/abs/2506.02015">
     <img src="https://img.shields.io/badge/arXiv-2506.02015-B31B1B">
   </a>
-  <a href="https://huggingface.co/KU-AGILab/OSPO-Janus-Pro-7B">
+  <a href="https://huggingface.co/KU-AGI/OSPO-Janus-Pro-1B-iter1">
     <img src="https://img.shields.io/badge/HF-Checkpoint-ff9b21?logo=huggingface&logoColor=#FFD21E&labelColor=black">
   </a>
-  <a href="https://huggingface.co/datasets/KU-AGILab/OSPO-Janus-Pro-7B-iter1">
+  <a href="https://huggingface.co/datasets/KU-AGI/OSPO-Janus-Pro-7B-iter1-data">
     <img src="https://img.shields.io/badge/HF-Training%20Data-ff9b21?logo=huggingface&logoColor=#FFD21E&labelColor=black">
   </a>
 </p>
